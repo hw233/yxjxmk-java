@@ -1,0 +1,133 @@
+//***************************************************************************
+//* 作者= 陈晓鹏
+//* 创建时间= 2016-05-18
+//* 用途= 充值处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message PrepaidSDKRequest {
+
+    required string s2c_param = 1;
+}
+
+message PrepaidSDKResponse {
+
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   required string s2c_data = 3;
+}
+
+message PayItem {
+	required int32 itemNumId = 1;
+    required string itemStrId = 2;
+    required string itemName = 3;
+	required string icon = 4;
+	required string desc = 5; // 描述
+	required int32 price = 6;
+	required int32 diamond = 7;
+	required int32 ticket = 8;
+	required int32 flag = 9; //   角标 0：无，1：首充翻倍，2：推荐
+}
+
+message FeeItem{
+	required int32 id = 1;
+	required string packageIcon = 2;
+	required string appProductId = 3;
+	required string packageName = 4;
+	required string packageDesc = 5;
+	required string packageDescFirst = 6;
+	required string payMoneyType = 7;
+	required int32 payMoneyAmount = 8;
+	required int32 payDiamond = 9;
+	required int32 firstDiamond = 10;
+	required int32 nonFirstDiamond = 11;
+	required int32 payCashFirst =12;
+	required int32 payTag = 13;
+	required int32 virgin = 14;//1可以首购,0表示已经购买过了
+}
+
+message PayAward {
+	required string code = 1;
+	required int32 groupCount = 2;
+}
+
+message PrepaidListRequest {
+}
+
+message PrepaidListResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated FeeItem s2c_items = 3;
+}
+
+message PrepaidAwardRequest {
+}
+
+message PrepaidAwardResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated PayAward s2c_items = 3;
+   required int32 s2c_isGet = 4;   // 1:已领取  0: 未领取
+}
+
+message PrepaidAPPRequest {
+
+    required string s2c_param = 1;
+}
+
+message PrepaidAPPResponse {
+
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   required string s2c_data = 3;
+}
+
+message PrepaidOrderIdRequest{
+	required int32 c2s_productId = 1;
+	required int32 c2s_type = 2; //0表示买元宝，1表示买卡
+	required int32 c2s_channelId = 3;//usercenter分配的渠道编号
+	
+	optional string c2s_imei = 4;	//设备号
+	optional int32 	c2s_os = 5;		//系统类型
+}
+
+message PrepaidOrderIdResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+    optional string s2c_orderId = 3;
+	optional string app_notify_url = 4;// 默认为空，如果有值，请使用此回调充值
+}
+
+message PrepaidFirstRequest {
+}
+
+// 首充奖励
+message PrepaidFirstItem {
+	required int32 payMoney = 1;
+	required int32 isFinish = 2;// 是否达成
+	repeated KeyValueStruct items = 3;// 奖励道具
+}
+
+// 首充返回
+message PrepaidFirstResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required int32 totalPay = 3;// 充值总金额
+	repeated PrepaidFirstItem awards = 4;
+}
+
+//充值处理器
+service prepaidHandler {
+
+  rpc prepaidSDKRequest(PrepaidSDKRequest) returns(PrepaidSDKResponse);
+  rpc prepaidListRequest(PrepaidListRequest) returns(PrepaidListResponse);
+  rpc prepaidAwardRequest(PrepaidAwardRequest) returns(PrepaidAwardResponse);
+  rpc prepaidAPPRequest(PrepaidAPPRequest) returns(PrepaidAPPResponse);
+  
+  // android充值获取订单号
+  rpc prepaidOrderIdRequest(PrepaidOrderIdRequest) returns(PrepaidOrderIdResponse);
+  
+  // 获取首充奖励信息
+  rpc prepaidFirstAwardRequest(PrepaidFirstRequest) returns (PrepaidFirstResponse);
+}

@@ -1,0 +1,430 @@
+Excel dir:.\策划脚本\5v5\5v5.xlsx
+	sheetCO : PersonalRank
+	sheetCO : DayReward
+Excel dir:.\策划脚本\achievement\achievement.xlsx
+	sheetCO : achievement_config
+	sheetCO : achievement
+	sheetCO : ArmourAttribute
+	sheetCO : ArmourPlus
+	sheetCO : Remark
+Excel dir:.\策划脚本\achievement\achievementSenior.xlsx
+	sheetCO : achievement_configSenior
+	sheetCO : achievementSenior
+	sheetCO : achievement_award
+Excel dir:.\策划脚本\achievement\achievewords.xlsx
+	sheetCO : achievewords
+Excel dir:.\策划脚本\activity\Activity.xlsx
+	sheetCO : Activity
+	sheetCO : ActivityConfig
+Excel dir:.\策划脚本\activity\ActivityGift.xlsx
+	sheetCO : FestivalGift
+	sheetCO : LimitTimeGift
+	sheetCO : DiceReward
+	sheetCO : DiceCost
+	sheetCO : DiceTurnReward
+	sheetCO : DiceFree
+Excel dir:.\策划脚本\activity\Activityrecharge.xlsx
+	sheetCO : AddRechargeLimit
+Excel dir:.\策划脚本\activity\Adventure.xlsx
+	sheetCO : AdventureItem
+	sheetCO : GroupRandom
+	sheetCO : ForgedRandom
+	sheetCO : AdventureItemAdd
+	sheetCO : GroupRandomAdd
+	sheetCO : ForgedRandomAdd
+Excel dir:.\策划脚本\activity\Bombbox.xlsx
+	sheetCO : Bombbox
+Excel dir:.\策划脚本\activity\choujiang.xlsx
+	sheetCO : ppresent
+	sheetCO : rankpre
+Excel dir:.\策划脚本\activity\DemonTower.xlsx
+	sheetCO : DropList
+	sheetCO : MonsterConfig
+Excel dir:.\策划脚本\activity\LuckyDraw.xlsx
+	sheetCO : Draw
+Excel dir:.\策划脚本\activity\Notice.xlsx
+	sheetCO : Notice
+Excel dir:.\策划脚本\activity\NoticeSend.xlsx
+	sheetCO : NoticeSend
+Excel dir:.\策划脚本\activity\OffLine.xlsx
+	sheetCO : OffLineExp
+Excel dir:.\策划脚本\activity\OnlineGift.xlsx
+	sheetCO : OlGift
+	sheetCO : Remark
+Excel dir:.\策划脚本\activity\Planting.xlsx
+	sheetCO : GetLand
+	sheetCO : Planting
+	sheetCO : PlantLevel
+	sheetCO : PlantShop
+	sheetCO : PlantRecord
+Excel dir:.\策划脚本\activity\Recovery.xlsx
+	sheetCO : Recovery
+Excel dir:.\策划脚本\activity\Revelry.xlsx
+	sheetCO : Revelry
+	sheetCO : RevelryConfig
+	sheetCO : King
+	sheetCO : StartSerRecharge
+Excel dir:.\策划脚本\activity\Schedule.xlsx
+	sheetCO : Schedule
+	sheetCO : VitBonus
+	sheetCO : RecomPlay
+	sheetCO : OutPutType
+	sheetCO : TaskCycleType
+Excel dir:.\策划脚本\activity\SevenGoal.xlsx
+	sheetCO : SevTaskIns
+	sheetCO : SevDayTask
+	sheetCO : SevTaskReward
+Excel dir:.\策划脚本\activity\SevenLogin.xlsx
+	sheetCO : SevenLogin
+Excel dir:.\策划脚本\activity\SingleCharge.xlsx
+	sheetCO : Single_Cz
+Excel dir:.\策划脚本\activity\SuperPackage.xlsx
+	sheetCO : SuperPackage
+Excel dir:.\策划脚本\activity\Treasures.xlsx
+	sheetCO : TreasuresShow
+	sheetCO : TreasuresItem
+	sheetCO : GroupProb
+	sheetCO : PseudoRandom
+Excel dir:.\策划脚本\activity\Welfare.xlsx
+	sheetCO : Welfare
+Excel dir:.\策划脚本\activity\Zillionaire.xlsx
+	sheetCO : Zillionaire_Cage
+	sheetCO : Zillionaire_Free
+	sheetCO : Turn_Reward
+Excel dir:.\策划脚本\battleRoyale\BattleRoyale.xlsx
+	sheetCO : BattleRoyaleRank
+	sheetCO : BattleRoyaleRankSeasonReward
+Excel dir:.\策划脚本\bestronger\BeStronger.xlsx
+	sheetCO : BeStr_List
+	sheetCO : BeStr_Config
+Excel dir:.\策划脚本\blood\bloodList.xlsx
+	sheetCO : BloodList
+	sheetCO : BloodSuitList
+	sheetCO : BloodSuitConfig
+	sheetCO : BloodTips
+	sheetCO : BloodLVUp
+	sheetCO : BloodLV_Limit
+	sheetCO : BloodPro
+	sheetCO : BloodPro_Num
+Excel dir:.\策划脚本\chat\blackWord.xlsx
+	sheetCO : blackWord
+Excel dir:.\策划脚本\chat\chat.xlsx
+	sheetCO : Action
+	sheetCO : Interaction
+	sheetCO : Emote
+	sheetCO : DefMsg
+	sheetCO : ChatSetting
+	sheetCO : showMsg
+	sheetCO : Remark
+Excel dir:.\策划脚本\config\CostConfig.xlsx
+	sheetCO : DungeonMapCost
+	sheetCO : RechargeCost
+	sheetCO : ResReward
+	sheetCO : SoloTimesCost
+	sheetCO : SaleReviewTime
+	sheetCO : Remark
+Excel dir:.\策划脚本\config\EffectsConfig.xlsx
+	sheetCO : EffectsConfig
+Excel dir:.\策划脚本\config\GameConfig.xlsx
+	sheetCO : Parameters
+	sheetCO : Money
+	sheetCO : DebugParameters
+Excel dir:.\策划脚本\config\ServerConfig.xls
+	sheetCO : ServerConfig
+Excel dir:.\策划脚本\config\SystemConfig.xlsx
+	sheetCO : SystemConfig
+Excel dir:.\策划脚本\currencyUI\CurrencyUI.xlsx
+	sheetCO : CurrencyUI
+Excel dir:.\策划脚本\dungeon\ResDungeonEvent.xlsx
+	sheetCO : ResEvent
+Excel dir:.\策划脚本\event\Event.xlsx
+	sheetCO : Event
+Excel dir:.\策划脚本\fate\Fate.xlsx
+	sheetCO : Fate
+Excel dir:.\策划脚本\functions\Functions.xlsx
+	sheetCO : Functions
+	sheetCO : FunGoTo
+Excel dir:.\策划脚本\functions\Guide.xlsx
+	sheetCO : Guide
+Excel dir:.\策划脚本\functions\OpenLv.xlsx
+	sheetCO : OpenLv
+Excel dir:.\策划脚本\gift\gift.xlsx
+	sheetCO : Gift
+	sheetCO : Remark
+Excel dir:.\策划脚本\guild\GBless.xlsx
+	sheetCO : BlessLevel
+	sheetCO : BlessBuff
+	sheetCO : BlessItem
+	sheetCO : Blesslibao
+Excel dir:.\策划脚本\guild\GBoss.xlsx
+	sheetCO : InspireLevel
+	sheetCO : AuctionRecord
+	sheetCO : RankReward
+	sheetCO : RewardList
+Excel dir:.\策划脚本\guild\GDungeon.xlsx
+	sheetCO : GDungeon
+	sheetCO : GDungeonMap
+	sheetCO : GDungeonRank
+Excel dir:.\策划脚本\guild\GGuildFort.xlsx
+	sheetCO : GuildFort
+Excel dir:.\策划脚本\guild\GShop.xlsx
+	sheetCO : GShop
+Excel dir:.\策划脚本\guild\GTechnology.xlsx
+	sheetCO : GTechnologyLevel
+	sheetCO : GTechnology
+	sheetCO : GBuff
+	sheetCO : GTechnologyItem
+Excel dir:.\策划脚本\guild\Guild.xlsx
+	sheetCO : GuildSetting
+	sheetCO : GuildLevel
+	sheetCO : GuildPosition
+	sheetCO : GuildContribute
+	sheetCO : GuildRecord
+	sheetCO : GuildCondition
+	sheetCO : GuildBuilding
+Excel dir:.\策划脚本\guild\GWarehouse.xlsx
+	sheetCO : WareHouseLevel
+	sheetCO : WareHouseCondition
+	sheetCO : WareHouseCondition2
+	sheetCO : WareHouseValue
+Excel dir:.\策划脚本\illusion\illusion.xlsx
+	sheetCO : ResLimit
+	sheetCO : Section
+	sheetCO : ExpReduce
+	sheetCO : GoldReduce
+Excel dir:.\策划脚本\items\EquipCraft.xlsx
+	sheetCO : Enchant
+	sheetCO : EnchantBonus
+	sheetCO : ReBorn
+	sheetCO : Refine
+	sheetCO : ReBuild
+	sheetCO : SeniorReBuild
+	sheetCO : ReBuildStar
+	sheetCO : ReBuildCf
+	sheetCO : KaiGuang
+	sheetCO : Smriti
+	sheetCO : EquipSock
+	sheetCO : Combine
+	sheetCO : CombineType
+	sheetCO : MeltConfig
+	sheetCO : EquipMakeIndex
+	sheetCO : EquipMake
+	sheetCO : SuitList
+	sheetCO : SuitConfig
+Excel dir:.\策划脚本\items\EquipdituConfig.xlsx
+	sheetCO : EquipdituConfig
+Excel dir:.\策划脚本\items\Equipment.xlsx
+	sheetCO : NormalEquip
+	sheetCO : BlueEquip
+	sheetCO : PurpleEquip
+	sheetCO : LegendEquip
+	sheetCO : SuitEquip
+	sheetCO : RideEquip
+	sheetCO : (装备命名)
+Excel dir:.\策划脚本\items\EquipmentUnique.xlsx
+	sheetCO : UniqueEquip
+	sheetCO : Remark
+Excel dir:.\策划脚本\items\Fashion.xlsx
+	sheetCO : Fashion
+	sheetCO : FashSuitConfig
+Excel dir:.\策划脚本\items\Item.xlsx
+	sheetCO : Jewel
+	sheetCO : RideItem
+	sheetCO : PetItem
+	sheetCO : FashionItem
+	sheetCO : Chest
+	sheetCO : Potion
+	sheetCO : Mate
+	sheetCO : Misc
+	sheetCO : Virtual
+	sheetCO : Rank
+	sheetCO : Quest
+	sheetCO : Active
+Excel dir:.\策划脚本\items\ItemTypeConfig.xlsx
+	sheetCO : ItemTypeConfig
+	sheetCO : ItemIdConfig
+Excel dir:.\策划脚本\items\MagicAffix.xlsx
+	sheetCO : Affix
+	sheetCO : (数据源-程序无需读取)
+Excel dir:.\策划脚本\items\MagicRing.xlsx
+	sheetCO : Mastery
+	sheetCO : MasteryProp
+	sheetCO : MagicRing
+Excel dir:.\策划脚本\items\PickItem.xlsx
+	sheetCO : PickItem
+	sheetCO : RandomBox
+Excel dir:.\策划脚本\items\PKLostBagItemType.xlsx
+	sheetCO : PKLostBagItemType
+	sheetCO : Sheet2
+	sheetCO : Sheet3
+Excel dir:.\策划脚本\items\Tc.xlsx
+	sheetCO : TreasureClass
+Excel dir:.\策划脚本\items\TcFilter.xlsx
+	sheetCO : BeforeFilter
+	sheetCO : AfterFilter
+Excel dir:.\策划脚本\itemshop\ConsignmentStore.xlsx
+	sheetCO : StoreMenu
+	sheetCO : StoreFilter
+Excel dir:.\策划脚本\itemshop\IntegralShop.xlsx
+	sheetCO : ShopLab
+	sheetCO : SundryShop
+	sheetCO : MallShop
+	sheetCO : FateShop
+	sheetCO : AthleticShop
+	sheetCO : GuildShop
+Excel dir:.\策划脚本\itemshop\ItemSale.xlsx
+	sheetCO : MenuUISale
+	sheetCO : NpcSale
+Excel dir:.\策划脚本\itemshop\shop.xlsx
+	sheetCO : ShopMall_Config
+	sheetCO : ShopMall_Items
+	sheetCO : ShopMall_Icon
+	sheetCO : ExchangeMall
+Excel dir:.\策划脚本\jjc\jjc.xlsx
+	sheetCO : JJCReward
+	sheetCO : Remark
+Excel dir:.\策划脚本\mail\Mail.xlsx
+	sheetCO : MailOperate
+	sheetCO : MailSystem
+Excel dir:.\策划脚本\map\DungeonMonster.xlsx
+	sheetCO : DungeonMonster
+	sheetCO : Remark
+Excel dir:.\策划脚本\map\MapData.xlsx
+	sheetCO : NormalMap
+	sheetCO : DungeonMap
+	sheetCO : GameMap
+	sheetCO : Remark
+Excel dir:.\策划脚本\map\WorldMap.xlsx
+	sheetCO : WorldZone
+	sheetCO : Resurrection
+	sheetCO : Remark
+Excel dir:.\策划脚本\medal\Medal.xlsx
+	sheetCO : MedalList
+Excel dir:.\策划脚本\monster\Monster.xlsx
+	sheetCO : Normal-World
+	sheetCO : Dungeon
+	sheetCO : DemonTower
+	sheetCO : Dungeon-Normal
+	sheetCO : Dungeon-Elite
+	sheetCO : Dungeon-Hero
+	sheetCO : Remark
+	sheetCO : (Normal-World-Backup)
+Excel dir:.\策划脚本\monster\MonsterDynamicProp.xlsx
+	sheetCO : single_mon
+	sheetCO : multiple_mon
+	sheetCO : orig_data
+	sheetCO : user_define_config
+	sheetCO : dungeon_mon_ratio
+	sheetCO : tower_mon_ratio
+	sheetCO : guild_boss_ratio
+	sheetCO : mon_data_config
+Excel dir:.\策划脚本\monster\RefreshEvent.xlsx
+	sheetCO : MonsterRefresh
+	sheetCO : TypeName
+	sheetCO : Remark
+Excel dir:.\策划脚本\npc\NpcData.xlsx
+	sheetCO : NpcList
+	sheetCO : (NpcList备份)
+Excel dir:.\策划脚本\openfun\OpenFun.xlsx
+	sheetCO : Skill_Slot
+Excel dir:.\策划脚本\pay\pay.xlsx
+	sheetCO : Pay
+	sheetCO : Card
+	sheetCO : PayReward
+Excel dir:.\策划脚本\pay\PayReward.xlsx
+	sheetCO : FirstPay
+	sheetCO : DailyPay
+	sheetCO : TotalPay
+Excel dir:.\策划脚本\pet\PetData.xlsx
+	sheetCO : BaseData
+	sheetCO : MasterProp
+	sheetCO : MasterUpgradeProp
+	sheetCO : PetExpLevel
+	sheetCO : PetUpgrade
+	sheetCO : PetConfig
+	sheetCO : PetAssociate
+Excel dir:.\策划脚本\quest\QuestData.xlsx
+	sheetCO : MainLine
+	sheetCO : BranchLine
+	sheetCO : Daily
+	sheetCO : Treasure
+	sheetCO : DailyReduce
+	sheetCO : DailyReward
+	sheetCO : Circle
+	sheetCO : CircleScene
+	sheetCO : CircleChoice
+	sheetCO : CircleReward
+	sheetCO : Remark
+	sheetCO : TaskChest
+	sheetCO : (MainLine备份)
+	sheetCO : (Daily 备份)
+Excel dir:.\策划脚本\quest\Way.xlsx
+	sheetCO : WayTreasure
+Excel dir:.\策划脚本\red\Red.xlsx
+	sheetCO : RedPackage
+	sheetCO : GetRedMoney
+	sheetCO : Consume
+Excel dir:.\策划脚本\ride\Ride.xlsx
+	sheetCO : RideList
+	sheetCO : SkinList
+Excel dir:.\策划脚本\role\Attribute.xlsx
+	sheetCO : Attribute
+	sheetCO : Remark2
+	sheetCO : BuffSkill
+	sheetCO : Remark
+Excel dir:.\策划脚本\role\Character.xlsx
+	sheetCO : Character
+	sheetCO : Character_Level
+	sheetCO : UpLevelExp
+	sheetCO : UpLevelEvent
+	sheetCO : RankList
+	sheetCO : RankSort
+Excel dir:.\策划脚本\role\RandomName.xlsx
+	sheetCO : Prefix
+	sheetCO : Suffix
+Excel dir:.\策划脚本\seed\Seed.xlsx
+	sheetCO : Seed
+	sheetCO : SeedTime
+	sheetCO : FarmLand
+	sheetCO : FarmRecord
+Excel dir:.\策划脚本\sign\sign.xlsx
+	sheetCO : normal_sign
+	sheetCO : luxury_sign
+	sheetCO : accumulate
+Excel dir:.\策划脚本\skill\SkillData.xlsx
+	sheetCO : SkillData
+	sheetCO : SkillValue
+	sheetCO : PetSkill
+	sheetCO : MonsterSkillValue
+	sheetCO : PassiveSkill
+	sheetCO : MagicList
+	sheetCO : (PetSkill)
+Excel dir:.\策划脚本\skill\Talent.xlsx
+	sheetCO : TalentGroup
+	sheetCO : TalentEffect
+Excel dir:.\策划脚本\social\AllyConfig.xlsx
+	sheetCO : AllyConfig
+	sheetCO : TeamProp
+Excel dir:.\策划脚本\social\AllyName.xlsx
+	sheetCO : AllyName
+Excel dir:.\策划脚本\social\Social.xlsx
+	sheetCO : SocialMessage
+	sheetCO : SocialFriend
+Excel dir:.\策划脚本\social\SShop.xlsx
+	sheetCO : SShop
+Excel dir:.\策划脚本\social\TeamTarget.xlsx
+	sheetCO : TeamTarget
+Excel dir:.\策划脚本\solo\Solo.xlsx
+	sheetCO : SoloRank
+	sheetCO : SoloRankSeasonReward
+	sheetCO : SoloMonster
+	sheetCO : SoloNews
+	sheetCO : Remark
+Excel dir:.\策划脚本\transport\Transport.xlsx
+	sheetCO : Transport
+Excel dir:.\策划脚本\vip\Vip.xlsx
+	sheetCO : Vip
+	sheetCO : Remark
+Excel dir:.\策划脚本\wings\wings.xlsx
+	sheetCO : WingsList
+==========================All OK==================

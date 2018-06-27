@@ -1,0 +1,31 @@
+// 前往指定页面
+gotab(tab, htm, expand)
+
+// 显示提示
+showTip(title, msg, timeout, height, width) 
+
+/对话框提示
+// type -> (error, info, question, warning)
+show(title, msg, type)
+
+//获取父容器的元素
+getServers()
+getSingleServer()
+
+//通过ID获取服务器名
+getName(id)
+
+//转成json对象
+toJson(o)
+
+//通过ID获取服务器名
+send(game)
+
+//获取错误提示
+getError(code) 
+
+//转换request参数
+toUriUTF(vo)
+
+// 登出
+logout()

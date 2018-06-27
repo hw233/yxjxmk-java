@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>公告列表</title>
+</head>
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/icon.css" />
+<script type="text/javascript" src="../../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	function ok() {
+		if (!$('#ff').form('validate')) {
+			return;
+		}
+		var servers = parent.getServers();
+		$("#servers").val(servers);
+		$.messager.confirm('提示', '确定发送滚动公告?', function(r) {
+			if (r) {
+				$("#ff").form("submit",{
+					success : function(data) {
+						if(data=="success"){
+							reloadNotice();
+							$("#noticeDialog").dialog("close");
+						}
+					}
+				});
+			}
+		});
+	}
+	function clearForm() {
+		$('#ff').form('clear');
+	}
+
+	function showNoticeDialog() {
+		$("#noticeDialog").dialog("open");
+	}
+	
+	function removeit() {
+		var row = $('#dg').datagrid('getSelected');
+		if (row == null) {
+			return
+		}
+		$.messager.confirm("提示","确定删除滚动公告?",function(r){
+			if(r){
+				$.post("../../action/deleteNotice",{noticeId:row.id},function(){
+					reloadNotice();
+				},"text");
+			}
+		})
+	}
+	
+	function reloadNotice(){
+		$("#dg").datagrid('reload');
+	}
+</script>
+</head>
+<body>
+	<div style="margin: 20px 0;"></div>
+	<table id="dg" title="滚动公告列表" class="easyui-datagrid"
+		style="width: 100%; height: 500px" rownumbers="true" pagination="true"
+		data-options="singleSelect:true,collapsible:true,url:'../../action/queryNotice',method:'get',toolbar:'#tb'">
+		<thead>
+			<tr>
+				<th data-options="field:'id',align:'center',hidden:true">ID</th>
+				<th data-options="field:'servers',align:'center',width:150">发送服务器</th>
+				<th data-options="field:'name',align:'center',width:100">名称</th>
+				<th data-options="field:'content',align:'center',width:500">内容</th>
+				<th data-options="field:'beginDate',align:'center',width:150">开始时间</th>
+				<th data-options="field:'endDate',align:'center',width:150">结束时间</th>
+				<th data-options="field:'sendedNum',align:'center'">已发次数</th>
+				<th data-options="field:'intervalMinute',align:'center'">间隔(分钟)</th>
+				<th data-options="field:'createDate',align:'center',width:150">创建时间</th>
+			</tr>
+		</thead>
+	</table>
+
+	<div id="tb" style="height: auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-reload',plain:true"
+			onclick="$('#dg').datagrid('reload');editIndex = undefined;">刷新</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="plain:true,iconCls:'icon-add'"
+			onclick="showNoticeDialog()">添加</a>
+	</div>
+
+	<div class="easyui-dialog" title="发布滚动公告" id="noticeDialog"
+		data-options="modal:true,closed:true"
+		style="width: 750px; height: 480px; padding: 10px;">
+		<div style="padding: 10px">
+			<form id="ff" method="post" action="../../action/addNotice">
+				<input name="servers" id="servers" type="hidden">
+				<div style="margin-bottom: 20px; text-align: center;">
+					<input class="easyui-textbox" name="name" style="width: 60%;"
+						data-options="label:'名称:',required:true">
+				</div>
+				<div style="margin-bottom: 20px; text-align: center;">
+					<input class="easyui-textbox" name="content"
+						style="width: 60%; height: 80px;"
+						data-options="label:'公告内容:',multiline:true,required:true">
+				</div>
+				<div style="margin-bottom: 20px; text-align: center;">
+					<input class="easyui-datetimebox" name="beginDate"
+						style="width: 60%;"
+						data-options="label:'开始时间:',required:true,editable:false">
+				</div>
+				<div style="margin-bottom: 20px; text-align: center;">
+					<input class="easyui-datetimebox" name="endDate"
+						style="width: 60%;"
+						data-options="label:'结束时间:',required:true,editable:false">
+				</div>
+				<div style="margin-bottom: 20px; text-align: center;">
+					<input class="easyui-numberbox" name="intervalMinute" style="width: 60%"
+						data-options="label:'间隔(分钟):',required:true" value="5">
+				</div>
+			</form>
+			<div style="text-align: center; padding: 5px 0">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					onclick="ok()" style="width: 80px">应用</a> <a
+					href="javascript:void(0)" class="easyui-linkbutton"
+					onclick="clearForm()" style="width: 80px">重置</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

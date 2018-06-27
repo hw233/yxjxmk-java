@@ -1,0 +1,104 @@
+//***************************************************************************
+//* 作者= liyue
+//* 创建时间= 2017-10-12
+//* 用途= 镇妖塔
+//***************************************************************************/
+package pomelo.area;
+import 'common.proto';
+
+
+message DemontTowerRewardItem{
+  required string code=1;
+  required int32 value=2;
+}
+
+
+
+
+
+
+//获取镇妖塔信息
+message GetDemonTowerInfoRequest {
+  optional int32 floorId = 1;//不传默认请求已通关的最高层
+}
+message GetDemonTowerInfoResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 maxFloor = 3;//已通关的最高层
+  optional DemonTowerFloorInfo DemonTowerFloorInfo = 4;//层信息
+  optional int32 fcValue = 5;
+  optional int32 sweepCountLeft = 6;
+  optional int32 sweepCountMax = 7;
+  
+  
+}
+
+//获取扫荡信息
+message GetDemonTowerSweepInfoRequest {
+  
+}
+message GetDemonTowerSweepInfoResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 sweepTime=3;
+  repeated DemontTowerRewardItem itemView = 4;
+  optional int32 diamondCost = 5;
+  optional int32 floor = 6;//当前层数
+  optional bool isSweeping = 7;//是否正在扫荡
+  
+}
+
+//开始扫荡
+message StartToSweepDemonTowerRequest {
+  
+}
+message StartToSweepDemonTowerResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int64 endTimeStamp=3;
+
+  
+  
+}
+
+//开始挑战
+message StartDemonTowerRequest {
+  optional int32 floorId = 1;//不传默认请求已通关的最高层
+}
+message StartDemonTowerResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//立即完成扫荡
+message FinishSweepDemonTowerRequest {
+  
+}
+message FinishSweepDemonTowerResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//扫荡结束推送
+message SweepDemonTowerEndPush{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+
+service demonTowerHandler {
+   rpc getDemonTowerInfoRequest(GetDemonTowerInfoRequest) returns(GetDemonTowerInfoResponse);
+   rpc getDemonTowerSweepInfoRequest(GetDemonTowerSweepInfoRequest) returns(GetDemonTowerSweepInfoResponse);
+   rpc startToSweepDemonTowerRequest(StartToSweepDemonTowerRequest) returns(StartToSweepDemonTowerResponse);
+   rpc startDemonTowerRequest(StartDemonTowerRequest) returns(StartDemonTowerResponse);
+   rpc finishSweepDemonTowerRequest(FinishSweepDemonTowerRequest) returns(FinishSweepDemonTowerResponse);
+   
+}
+
+//扫荡结束推送
+service demonTowerPush {
+  rpc sweepDemonTowerEndPush(SweepDemonTowerEndPush) returns(Void);
+
+}
+

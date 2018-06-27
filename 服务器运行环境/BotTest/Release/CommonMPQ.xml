@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonMPQ</name>
+    </assembly>
+    <members>
+        <member name="M:MPQ.MPQDirver.GetAvaliableSpace(System.String)">
+            <summary>
+            获取存储空间可用容量
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MPQ.MPQDirver.GetTotalSpace(System.String)">
+            <summary>
+            获取存储空间总容量
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MPQ.MPQDirver.RunGetFileMD5(System.String,System.String@)">
+            <summary>
+            自定义获取文件MD5方法.
+            </summary>
+            <param name="fullname"></param>
+            <param name="md5"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MPQ.MPQDirver.RunUnzipSingle(MPQ.Updater.MPQUpdater,MPQ.Updater.MPQUpdater.RemoteFileInfo,MPQ.Updater.MPQUpdater.RemoteFileInfo,CommonLang.Concurrent.AtomicLong)">
+            <summary>
+            自定义解压缩方法
+            </summary>
+            <param name="updater"></param>
+            <param name="zip">压缩文件</param>
+            <param name="mpq">解压缩文件</param>
+            <param name="process">解压进度，process+=readed</param>
+            <returns></returns>
+        </member>
+        <member name="M:MPQ.MPQDirver.RunDownloadSingle(MPQ.Updater.MPQUpdater,MPQ.Updater.MPQUpdater.RemoteFileInfo,System.Int64,System.Int64,CommonLang.Concurrent.AtomicLong)">
+            <summary>
+            自定义下载方法
+            </summary>
+            <param name="updater"></param>
+            <param name="inf">要下载的文件</param>
+            <param name="exist_size">已下载大小</param>
+            <param name="need_bytes">需要的大小</param>
+            <param name="process">下载进度，process+=readed</param>
+            <returns></returns>
+        </member>
+        <member name="F:MPQ.FileSystem.MPQFileSystem.dir">
+            <summary>
+            用于老文件存在，新目录已没有的文件
+            </summary>
+        </member>
+        <member name="M:MPQ.FileSystem.MPQFileSystem.init(System.IO.DirectoryInfo)">
+            <summary>
+            搜索并加载目录里的所有MPQ文件
+            </summary>
+            <param name="mpq_dir"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MPQ.FileSystem.MPQFileSystem.init(MPQ.Updater.MPQUpdater)">
+            <summary>
+            将自动更新的MPQ加载到文件系统
+            </summary>
+            <param name="updater"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MPQ.FileSystem.MPQFileSystem.load(System.String)">
+            <summary>
+            加载单个MPQ文件到文件系统
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MPQ.FileSystem.MPQFileSystem.EntryStream">
+            <summary>
+            外部读取用流
+            </summary>
+        </member>
+        <member name="M:MPQ.Updater.MPQUpdater.Init(System.String[],System.String,System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.Boolean,MPQ.Updater.MPQUpdaterListener)">
+            <summary>
+            创建自动更新程序
+            </summary>
+            <param name="remote_version_prefix">远程下载地址根目录（多个备选）</param>
+            <param name="version_suffix">下载资源类型后缀</param>
+            <param name="local_save_root">本地存储目录</param>
+            <param name="local_bundle_root">本地包内资源目录</param>
+            <param name="validate_md5">是否验证MD5</param>
+            <param name="listener">监听器</param>
+        </member>
+        <member name="M:MPQ.Updater.MPQUpdater.Init(System.Uri,System.String[],System.String,System.IO.DirectoryInfo,System.IO.DirectoryInfo,System.Boolean,MPQ.Updater.MPQUpdaterListener)">
+            <summary>
+            创建自动更新程序
+            </summary>
+            <param name="remote_version_url">远程列表文件地址(http://localhost/xxxx/version.txt)</param>
+            <param name="remote_version_prefix">远程下载地址根目录（多个备选）</param>
+            <param name="version_suffix">下载资源类型后缀</param>
+            <param name="local_save_root">本地存储目录</param>
+            <param name="local_bundle_root">本地包内资源目录</param>
+            <param name="validate_md5">是否验证MD5</param>
+            <param name="listener">监听器</param>
+        </member>
+        <member name="M:MPQ.Updater.MPQUpdater.CheckNeedUpdate(System.Uri,System.String,System.IO.DirectoryInfo)">
+            <summary>
+            检测有无资源需要下载
+            </summary>
+            <param name="remote_version_url">远程列表文件地址(http://localhost/xxxx/version.txt)</param>
+            <param name="version_suffix">下载资源类型后缀</param>
+            <param name="local_save_root">本地存储目录</param>
+            <returns></returns>
+        </member>
+        <member name="M:MPQ.Updater.MPQUpdater.CheckNeedUpdate(System.Uri,System.String,System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+            <summary>
+            检测需要下载多少资源
+            </summary>
+            <param name="remote_version_url">远程列表文件地址(http://localhost/xxxx/version.txt)</param>
+            <param name="version_suffix">下载资源类型后缀</param>
+            <param name="local_save_root">本地存储目录</param>
+            <param name="local_bundle_root">本地包内资源目录</param>
+            <returns></returns>
+        </member>
+        <member name="M:MPQ.Updater.MPQUpdater.Start">
+            开始自动更新 
+        </member>
+    </members>
+</doc>

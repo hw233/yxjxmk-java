@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" -->
+<!--" http://www.springframework.org/dtd/spring-beans.dtd"> -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+           
+    <bean name="okJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+    	<property name="jobClass" value="com.wanniu.job.AppJob"/>
+    	<!--
+    	<property name="jobDataAsMap">
+    		<map>
+    			<entry key="okJob" value-ref=""></entry>
+    			<entry key="timeout" value="5"/>
+    		</map>
+    	</property>
+    	-->
+    </bean>
+    <bean id="okTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail" ref="okJob" />
+    	<property name="cronExpression" value="0 0/5 9-17 * * ?"></property>
+    </bean>
+    
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    	<property name="triggers">
+    		<list>
+    			<ref bean="okTrigger"/>
+    		</list>
+    	</property>
+    	<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.threadPool.threadCount">3</prop>
+				<prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+			</props>
+		</property>
+    </bean>
+</beans>

@@ -1,0 +1,997 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XmdsCommon</name>
+    </assembly>
+    <members>
+        <member name="T:XmdsCommon.EditorData.SceneSnapData">
+            <summary>
+            场景快照数据
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.EditorData.XmdsConstConfig.UnitSubState">
+            <summary>
+            单位子状态.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.EditorData.XmdsConstConfig.BattleFloatTipsType">
+            <summary>
+            战斗飘字类型.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.EditorData.XmdsConstConfig.SpecialState">
+            <summary>
+            特殊状态标识.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.EditorData.XmdsConstConfig.AUTO_GUARD_MODE_MAP">
+            <summary>
+            自动战斗挂机模式：全图游走.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.EditorData.XmdsConstConfig.AUTO_GUARD_MODE_POINT">
+            <summary>
+            自动战斗挂机模式：定点.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.EditorData.XmdsConstConfig.TIPS_CAN_NOT_RIDE">
+            <summary>
+            当前状态无法骑乘.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerDramaEndAction">
+            <summary>
+            剧情动画结束
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerTestamentChangeEventAction">
+            <summary>
+            单位遗言变更通知服务端.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerPutRefineSoulItemAction">
+            <summary>
+            请求放置炼魂法器
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerAutoGuardEventC2B">
+            <summary>
+            单位自动战斗通知.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.GetMonsterSufferDamageInfoC2B">
+            <summary>
+            玩家获取指定怪物单位伤害统计信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.GetMonsterSufferDamageInfoC2B.PlayerUUID">
+            <summary>
+            玩家ID.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.GetMonsterSufferDamageInfoC2B.MonsterID">
+            <summary>
+            怪物ID.
+            </summary>
+        </member>
+        <member name="M:XmdsCommon.Message.GetMonsterSufferDamageInfoC2B.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            单位ID，玩家UUID，怪物ID.
+            </summary>
+            <param name="unit_id"></param>
+            <param name="monsterID"></param>
+        </member>
+        <member name="T:XmdsCommon.Message.CombatStateChangeEvent">
+            <summary>
+            战斗状态改变事件.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.BattleHintNumberB2C">
+            <summary>
+            跳战斗数字.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayAvatarEventB2C">
+            <summary>
+            玩家外观变更消息
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerVisibleDataB2C">
+            <summary>
+            能够同步给给客户端的数据.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerVisibleDataB2C.BaseInfo">
+            <summary>
+            单位基础信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerVisibleDataB2C.AvatarList">
+             <summary>
+            装备时装信息.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerVisibleDataB2C.UnitPKInfo">
+            <summary>
+            单位PK相关数据.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerVisibleDataB2C.UnitSceneInfo">
+             <summary>
+            动态场景相关信息. 
+             </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.XmdsUnitBaseInfoEventB2C">
+            <summary>
+            基础数据更新主要是等级和VIP消息
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.XmdsUnitPropEventB2C">
+            <summary>
+            属性更新的消息
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.ShowTipsEventB2C">
+            <summary>
+            战斗服提示信息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.MonsterVisibleDataB2C">
+            <summary>
+            怪物扩展数据.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.MonsterVisibleDataB2C.MonsterType">
+            <summary>
+            怪物类型:0：普通怪1：稀有怪2：首脑怪3：精英怪4：BOSS.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.MonsterVisibleDataB2C.MonsterQcolor">
+            <summary>
+            怪物名字颜色:0：白色，默认颜色1：绿色，优秀2: 蓝色，精良3: 紫色，史诗4: 橙色，传说5: 红色，顶级.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.MonsterVisibleDataB2C.MonsterAtype">
+            <summary>
+            单位种族.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.MonsterVisibleDataB2C.MonsterAttackType">
+            <summary>
+            攻击类型.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.MonsterVisibleDataB2C.HeirInfo">
+            <summary>
+            归属者信息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerPKModeChangeEventB2C">
+            <summary>
+            单位PK模式改变通知.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerPKLvChangeEventB2C">
+            <summary>
+            单位PK等级改变通知.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerPKValueChangeEventB2C">
+            <summary>
+            PK值变更通知.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerPKValueChangeEventB2C.CurPKValue">
+            <summary>
+            当前PK值.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.SummonUnitVisibleDataB2C">
+            <summary>
+            召唤物客户端同步信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.SummonUnitVisibleDataB2C.MasterObjID">
+            <summary>
+            宿主ID.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerTeamIntoEventB2C">
+            <summary>
+            同步队友信息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerBattlePropChangeEventB2C">
+            <summary>
+            单位战斗属性同步.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerBattlePropChangeEventB2C.CritDamage">
+            暴击伤害加成百分比 
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerBattlePropChangeEventB2C.CritDamageRes">
+            受到暴击伤害减少百分比 
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerBattlePropChangeEventB2C.IncAllDamage">
+            所有伤害加成百分比 
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerBattlePropChangeEventB2C.AllDamageReduce">
+            受到伤害减免%
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerBattlePropChangeEventB2C.HitLeechHP">
+            技能命中敌人时，回复自身生命点数。每次技能攻击无论命中多少各敌人，都只计算1次回复生命
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerBattlePropChangeEventB2C.CtrlTimeReduce">
+            所有控制效果包括减速、冻结、眩晕、禁锢等的时间，按百分比减少
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerBattlePropChangeEventB2C.SkillCD">
+            所有技能的冷却时间减少百分比
+        </member>
+        <member name="F:XmdsCommon.Message.PlayerBattlePropChangeEventB2C.VelocityAddition">
+             <summary>
+            速度加成（装备+坐骑的百分比加成）.
+             </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.NPCCureEventB2C">
+            <summary>
+            NPC治愈协议.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.BuffActiveSkillEventB2C">
+            <summary>
+            Buff触发技能变更.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.BattleFloatTipsEventB2C">
+            <summary>
+            Buff触发技能变更.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PetVisibleDataB2C">
+            <summary>
+            宠物同步客户端数据.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PetVisibleDataB2C.BaseInfo">
+            <summary>
+            单位基础信息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PetBaseInfoChangeEventB2C">
+            <summary>
+            宠物基础信息变更事件.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.TestamentChangeEventB2C">
+            <summary>
+            单位遗言变更协议.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.BubbleTipsEventB2C">
+            <summary>
+            气泡框.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.BubbleTipsEventB2C.Msg">
+            <summary>
+            消息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlaySoundEventB2CForOne">
+            <summary>
+            向场景内单个单位发送播放音频通知.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PlaySoundEventB2CForOne.SoundName">
+            <summary>
+            音频文件名，不带后缀.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlaySoundEventB2CForAll">
+            <summary>
+            向场景内所有单位发送播放音频通知.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.PlaySoundEventB2CForAll.SoundName">
+            <summary>
+            音频文件名，不带后缀.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.MonsterHeirInfoChangeEventB2C">
+            <summary>
+            怪物归属权更改.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.PlayerPutRefineSoulItemB2c">
+            <summary>
+            发送可否放置法器通知
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.DynamicUnitEffectB2C">
+            <summary>
+            单位动态播放特效（非编辑器中的静态数据）
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.UnderAttackNotifyB2C">
+            <summary>
+            单位遭受攻击提示.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.UnderAttackNotifyB2C.AttackerID">
+            <summary>
+            攻击者实例ID.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.UnderAttackNotifyB2C.AttackerInfo">
+            <summary>
+            攻击者基础信息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.MonsterSufferDamageInfoB2C">
+            <summary>
+            单位遭受伤害信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.MonsterSufferDamageInfoB2C.InfoList">
+            <summary>
+            伤害集合.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.MonsterSufferDamageInfoB2C.PlayerRank">
+            <summary>
+            排名.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.MonsterSufferDamageInfoB2C.PlayerDamage">
+            <summary>
+            玩家伤害.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Message.SetAutoFollowB2C">
+            <summary>
+            跟随状态变换
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Message.SetAutoFollowB2C.stateFollow">
+            <summary>
+            是否跟随状态
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.XmdsMapBlock">
+            <summary>
+            地图块功能定义
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.XmdsUnitProperties.StatusType">
+            <summary>
+            地位类型.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProperties.ServerData">
+            <summary>
+            服务端数据.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProperties.IsStaticUnit">
+            <summary>
+            单位是否受AOI影响.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProperties.IsUseCombatTimeCount">
+            <summary>
+            是否启用脱战计时，关闭时，单位脱战不受时间限制.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProperties.HeadIcon">
+            <summary>
+            头像.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.XmdsServerSceneData">
+            <summary>
+            游戏服场景配置数据.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.WanderConfig">
+            <summary>
+            游荡配置.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.XmdsUnitData">
+            <summary>
+            游戏单位数据.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitData.BaseInfo">
+            <summary>
+            单位基础信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitData.AvatarList">
+             <summary>
+            装备时装信息.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitData.Skills">
+             <summary>
+            技能信息. 
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitData.Prop">
+            <summary>
+            单位能力属性.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitData.Tasks">
+            <summary>
+            任务数据.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitData.UnitPKInfo">
+            <summary>
+            PK信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitData.UnitPetData">
+            <summary>
+            宠物信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitData.UnitSceneInfo">
+            <summary>
+            单位场景相关信息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.XmdsUnitProp">
+            <summary>
+            单位能力值.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseMaxHP">
+             <summary>
+            基础血量.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.HPPer">
+            <summary>
+            生命%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.MaxHP">
+             <summary>
+            最大血量.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.HP">
+            <summary>
+            当前血量.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseMaxPhy">
+             <summary>
+            最大物攻基础值.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MaxPhyPer">
+            <summary>
+            最大物攻%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.MaxPhy">
+             <summary>
+            最大物攻
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseMinPhy">
+             <summary>
+            最小物攻基础值.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MinPhyPer">
+            <summary>
+            最小物攻%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.MinPhy">
+             <summary>
+            最小物攻
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseMaxMag">
+             <summary>
+            最大魔攻基础值.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MaxMagPer">
+            <summary>
+            最大魔攻%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.MaxMag">
+             <summary>
+            最大魔攻
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseMinMag">
+             <summary>
+            最小魔攻基础值.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MinMagPer">
+            <summary>
+            最小魔攻%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.MinMag">
+             <summary>
+            最小魔攻
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseHit">
+            <summary>
+            基础命中
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.HitPer">
+            <summary>
+            命中%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.Hit">
+            <summary>
+            命中.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.HitRate">
+            <summary>
+            命中率.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseDodge">
+            <summary>
+            基础闪避.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.DodgePer">
+            <summary>
+            闪避%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.Dodge">
+            <summary>
+            闪避
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.DodgeRate">
+            <summary>
+            闪避率.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseCrit">
+            <summary>
+            基础暴击.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.CritPer">
+            <summary>
+            暴击%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.Crit">
+             <summary>
+            暴击.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.CritRate">
+            <summary>
+            暴击率.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseResCrit">
+             <summary>
+            基础抗暴.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResCritPer">
+            <summary>
+            抗暴%
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.ResCrit">
+            <summary>
+            抗暴.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResCritRate">
+            <summary>
+            抗暴率
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.CritDamage">
+             <summary>
+            暴击伤害加成百分比 
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.CritDamageRes">
+             <summary>
+            受到暴击伤害减少百分比 
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseAc">
+            <summary>
+            基础物防.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.AcPer">
+            <summary>
+            按百分比增加物防
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.Ac">
+            <summary>
+            物防.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.PhyDamageReduce">
+             <summary>
+            减少受到的物理伤害百分比
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseResist">
+            <summary>
+            基础魔防.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResistPer">
+            <summary>
+            按百分比增加魔防
+            </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.Resist">
+             <summary>
+            魔防.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MagicDamageReduce">
+            <summary>
+            减少受到的魔法伤害百分比
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseIgnoreAc">
+             <summary>
+            无视物防基础值
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.IgnoreAcPer">
+             <summary>
+            无视物防百分比.
+             </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.IgnoreAc">
+             <summary>
+            无视物防.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.BaseIgnoreResist">
+             <summary>
+            无视魔防基础值
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.IgnoreResistPer">
+             <summary>
+            无视魔防百分比.
+             </summary>
+        </member>
+        <member name="P:XmdsCommon.Plugin.XmdsUnitProp.IgnoreResist">
+             <summary>
+            无视魔防.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.IncAllDamage">
+            <summary>
+            所有伤害加成百分比 
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.AllDamageReduce">
+            <summary>
+            受到伤害减免%
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.HitLeechHP">
+            <summary>
+            技能命中敌人时，回复自身生命点数。每次技能攻击无论命中多少各敌人，都只计算1次回复生命
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.CtrlTimeReduce">
+            <summary>
+            所有控制效果包括减速、冻结、眩晕、禁锢等的时间，按百分比减少
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.SkillCD">
+            <summary>
+            所有技能的冷却时间减少百分比
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.HPReborn">
+             <summary>
+            血量恢复值.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.HealEffect">
+             <summary>
+            治疗效果影响百分比.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.HealedEffect">
+             <summary>
+            受治疗效果影响百分比.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MoveSpeed">
+             <summary>
+            移动速度.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.VelocityAddition">
+             <summary>
+            速度加成（装备+坐骑的百分比加成）.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.Stun">
+            <summary>
+            眩晕成功率
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.Freeze">
+            <summary>
+            冻结成功率
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.Silence">
+            <summary>
+            禁魔成功率
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.Durance">
+            <summary>
+            禁锢成功率
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.Taunt">
+            <summary>
+            嘲讽成功率
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.SlowDown">
+            <summary>
+            减速成功率
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResStun">
+            <summary>
+            眩晕抵抗
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResFreeze">
+            <summary>
+            冻结抵抗
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResSilence">
+            <summary>
+            禁魔抵抗
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResDurance">
+            <summary>
+            禁锢抵抗
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResTaunt">
+            <summary>
+            嘲讽抵抗
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.ResSlowDown">
+            <summary>
+            减速抵抗
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.AllCtrl">
+            <summary>
+            控制成功率
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.AllResCtrl">
+            <summary>
+            控制抵抗
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.pickupRange">
+            <summary>
+            拾取范围，只在JJC生效，我也不知道是哪个SB想出来的
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.CurInventorySize">
+            <summary>
+            当前背包可用数量.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.CurTeamInventorySize">
+            <summary>
+            当前队伍背包数量.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MaxMP">
+            <summary>
+            最大魔法.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MP">
+             <summary>
+            当前魔法.
+             </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsUnitProp.MPReborn">
+             <summary>
+            法力恢复值.
+             </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.XmdsUnitSkillInfo">
+            <summary>
+            单位技能信息集合.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.PKInfo">
+            <summary>
+            单位PK信息..
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.PKInfo.PKLevel">
+            <summary>
+            PK值，记录玩家PK行为.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.PKInfo.PKMode">
+            <summary>
+            PK模式.决定玩家攻击判定.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsQuestData.TaskID">
+            <summary>
+            任务ID.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsQuestData.TaskState">
+            <summary>
+            任务状态.
+            </summary>
+        </member>
+        <member name="M:XmdsCommon.Plugin.XmdsQuestData.GetTargetID(CommonAI.Zone.Helper.QuestData)">
+            <summary>
+            获取进度
+            </summary>
+            <param name="qData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.Plugin.XmdsQuestData.IsTargetComplete(CommonAI.Zone.Helper.QuestData)">
+            <summary>
+            返回任务目标是否已达成
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.PetBaseInfo">
+            <summary>
+            基础信息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.XmdsPetConifg">
+            <summary>
+            配置信息.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.XmdsPetConifg.XmdsPetFollowMode">
+            <summary>
+            跟随模式.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.XmdsPetConifg.Mode">
+            <summary>
+            跟随模式.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.SceneInfo.AllowAutoGuard">
+            <summary>
+            是否已通关.
+            </summary>
+        </member>
+        <member name="T:XmdsCommon.Plugin.PlayerDamageInfo">
+            <summary>
+            玩家伤害信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.PlayerDamageInfo.PlayerInfo">
+            <summary>
+            玩家信息.
+            </summary>
+        </member>
+        <member name="F:XmdsCommon.Plugin.PlayerDamageInfo.Damage">
+            <summary>
+            伤害.
+            </summary>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.HZZoneLayer.FindNearestPickableItem(CommonAI.ZoneClient.ZoneActor)">
+            <summary>
+            找到最近的可检取道具
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.HZZoneLayer.GetNearPickableItem(CommonAI.ZoneClient.ZoneActor)">
+            <summary>
+            获取当前可检取道具
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.HZZoneLayer.GetNearTarget``1(CommonAI.ZoneClient.ZoneActor,System.Single,CommonAI.Zone.SkillTemplate.CastTarget)">
+            <summary>
+            获得范围内符合目标条件的单位.
+            </summary>
+            <param name="owner"></param>
+            <param name="range"></param>
+            <param name="expect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.HZZoneLayer.GetWeakestTarget``1(CommonAI.ZoneClient.ZoneActor,System.Single,CommonAI.Zone.SkillTemplate.CastTarget)">
+            <summary>
+            获得范围内血量最少的单位.
+            </summary>
+            <param name="owner"></param>
+            <param name="range"></param>
+            <param name="expect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.XmdsClientVirtual.XmdsClientVirtual_Monster.GetMonsterQcolor">
+            <summary>
+            获得怪物品质.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.XmdsClientVirtual.XmdsClientVirtual_Monster.GetMonsterType">
+            <summary>
+            获得怪物类型小怪、精英、BOSS.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.XmdsClientVirtual.XmdsClientVirtual_Monster.GetMonsterAtkType">
+            <summary>
+            获得攻击类型（主动\被动）.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.XmdsClientVirtual.XmdsClientVirtual_Monster.GetMonsterRaceType">
+            <summary>
+            获得种族类型.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.XmdsClientVirtual.XmdsClientVirtual_Pet.GetMonsterQcolor">
+            <summary>
+            获得怪物品质.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.XmdsClientVirtual.XmdsClientVirtual_Pet.GetStateLv">
+            <summary>
+            进阶等级.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XmdsCommon.ZoneClient.XmdsClientVirtual.XmdsClientVirtual_Player.GetSPState">
+            <summary>
+            获得单位特殊状态.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

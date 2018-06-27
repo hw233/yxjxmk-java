@@ -1,0 +1,431 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-04-26
+//* 用途= 活动处理器
+//***************************************************************************/
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+// 活动列表
+message ActivityLs{
+	required int32 id = 1;    // 活动id
+}
+
+//活动中心
+message ActivityListInfo{
+    required int32 activityId = 1;
+    required int32 hudNum = 2;
+}
+
+message InterestActivityAdRequest {
+}
+
+message InterestActivityAdResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated ActivityListInfo s2c_activityList = 3;
+}
+
+message ActivityInviteCodeRequest {
+  required string c2s_inviteCode = 1;
+}
+
+message ActivityInviteCodeResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+
+
+message PayFirstRequest {
+}
+
+message PayFirstResponse {
+
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated item.MiniItem s2c_awardItems = 3;
+   required int32 s2c_state = 4;  // 0：不可领取，1：可领取，2：已领取
+   required int32 s2c_awardId = 5; //奖励id
+}
+
+message PaySecondRequest {
+}
+
+message PaySecondResponse {
+
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated item.MiniItem s2c_awardItems = 3;
+   required int32 s2c_state = 4;  // 0：不可领取，1：可领取，2：已领取
+   required int32 s2c_awardId = 5; //奖励id
+}
+message awardPreview {
+
+   required int32 currNum = 1;
+   required int32 needNum = 2;
+   repeated item.MiniItem awardItems = 3;
+   required int32 state = 4;  // 0：不可领取，1：可领取，2：已领取
+   required int32 awardId = 5; //奖励id
+}
+message totalInfo{
+
+    required string beginTime = 1;
+    required string endTime = 2;
+    required string describe = 3;
+    repeated awardPreview awards = 4;
+}
+
+message awardState{
+   required int32 state = 1;  // 0：不可领取，1：可领取，2：已领取
+   required int32 awardId = 2; //奖励id
+   required int32 needValue = 3; //需要的等级或者战力
+   repeated item.MiniItem awardItems = 4;
+}
+
+message awardSevenDay{
+   required int32 state = 1;  // 0：不可领取，1：可领取，2：已领取
+   required int32 awardId = 2; //奖励id
+   required int32 currNum = 3;
+   required int32 needNum = 4;
+   required string condition = 5;
+   required int32 conValue = 6;
+   repeated item.MiniItem awardItems = 7;
+}
+
+message openFundsAward{
+   required awardState award = 1;
+   optional int32 type = 2; // 1 : 开发基金 2：全民福利
+   optional int32 value = 3;
+   optional int32 diamond = 4;
+}
+
+message PayTotalRequest {
+}
+
+message PayTotalResponse {
+
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   required totalInfo s2c_data = 3;
+}
+
+message ConsumeTotalRequest {
+}
+
+message ConsumeTotalResponse {
+
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   required totalInfo s2c_data = 3;
+}
+
+message ActivityAwardRequest {
+
+   required int32 s2c_awardId = 1;
+   required int32 s2c_activityId = 2;
+}
+
+message ActivityAwardResponse {
+
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   optional ActivityListInfo s2c_activityHud = 3;
+
+}
+
+message ActivityNoticeReq {
+}
+
+message ActivityNoticeRes{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional string s2c_context = 3;
+}
+
+message ActivityLevelOrSwordRequest {
+	required int32 c2s_activityId = 1;
+}
+
+message ActivityLevelOrSwordResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional string s2c_beginTime = 3;
+  optional string s2c_endTime = 4;
+  optional string s2c_content = 5;
+  repeated awardState s2c_data = 6;
+}
+
+message ActivityBuyFundsReq {
+}
+
+message ActivityBuyFundsRes {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message ActivityOpenFundsReq {
+}
+
+message ActivityOpenFundsRes{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  required int32 s2c_hasBuyNum = 3;
+  required int32 s2c_needDiamond = 4;
+  required int32 s2c_needVipLevel = 5;
+  required int32 s2c_buyState = 6; //购买状态 1：没有购买，2：已购买
+  repeated openFundsAward s2c_data = 7;
+}
+
+
+//抽奖活动界面预览
+message ActivityLuckyAwardViewRequest {
+}
+
+message awardInfo {
+    required int32 pos = 1;
+    required item.MiniItem itemInfo = 2;
+}
+
+message ActivityLuckyAwardViewResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  required int32 s2c_leftRefreshTime = 3;
+  repeated item.MiniItem s2c_awards = 4; //总奖励预览
+  repeated item.MiniItem s2c_recommendAwards = 5; //推荐道具
+  repeated awardInfo s2c_drawedAwards = 6;//已开启奖励道具
+}
+//奖池预览
+message LuckyAwardViewRequest {
+}
+
+message LuckyAwardViewResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated item.MiniItem s2c_data = 3;
+}
+  //重置奖励
+message ReSetluckyAwardRequest {
+}
+
+message ReSetluckyAwardResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated item.MiniItem s2c_awards = 3;
+}
+
+//开服七日
+message OpenSevenDayRequest{
+	required int32 c2s_day = 1;// 取哪一日数据
+}
+
+message OpenSevenDayResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_curDay= 3;
+  optional string s2c_beginTime = 4;
+  optional string s2c_endTime = 5;
+  optional string s2c_content = 6;
+  repeated awardSevenDay s2c_awardInfo = 7;
+  repeated int32 s2c_hudDays = 8;
+}
+
+message changeItem{
+  required string itemCode = 1;
+  required int32 itemNum = 2;   // 策划配的数量
+  optional int32 isBind = 3;
+}
+
+message changeInfo{
+  required int32 changeId = 1;
+  repeated changeItem costItem = 2;
+  repeated changeItem rewardItem = 3;
+  required int32 changeSate = 4;  // 0 条件不足不可兑换 1 可以兑换 2 已达上限不可兑换
+  required int32 changeNum = 5;   // 已经兑换过的次数
+  optional int32 changeMax = 6;   // 0 没有限制 正数表示最大次数
+}
+
+message OpenChangeRequest{
+
+}
+
+message OpenChangeResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional string s2c_beginTime = 3;
+  optional string s2c_endTime = 4;
+  optional string s2c_content = 5;
+  repeated changeInfo s2c_changeInfo = 6;
+}
+
+// 所有活动开启模块列表  (请求)
+message ActivityLsRequest{
+
+}
+
+// 所有活动开启模块列表 (返回)
+message ActivityLsResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated ActivityLs s2c_welfareLs = 3;
+}
+
+// 抽奖活动信息请求
+message ActivityDrawInfoRequest{
+	
+}
+
+// 抽奖积分奖励
+message DrawScoreReward{
+	required int32 score = 1;
+	required int32 status = 2; // 0-不可领取1-可领取2已领取
+	repeated KeyValueStruct items = 3;
+}
+
+// 抽奖活动信息返回
+message ActivityDrawInfoResponse{
+	 required int32 s2c_code = 1;
+	 optional string s2c_msg = 2;
+	 required int32 score = 3;// 积分
+	 required int32 freeCount = 4;// 免费次数
+	 required int32 singlePrice = 5;// 单抽价格
+	 required int32 tenPrice = 6;// 十连价格
+	 optional string beginTime = 7;
+	 optional string endTime = 8;
+	 repeated DrawScoreReward scoreReward = 9;
+	 repeated KeyValueStruct drawItems = 10;// 抽奖物品
+	 repeated KeyValueStruct showItems = 11;// 展示物品
+}
+
+// 抽奖记录信息
+message DrawInfo {
+	required string date = 1; // 日期
+	repeated string message = 2; // 内容
+}
+
+// 获取抽奖记录信息请求
+message DrawInfoRequest {
+}
+// 获取抽奖记录信息返回
+message DrawInfoResponse {
+	required int32    s2c_code = 1;
+	optional string   s2c_msg = 2;
+	repeated DrawInfo allDrawInfo = 3;// 全服抽奖信息
+	repeated DrawInfo myDrawInfo = 4;// 我的抽奖信息
+	optional int32   isLow = 5;// 是否低调行事
+}
+
+// 抽奖积分排行榜请求
+message DrawRankRequest {
+}
+
+// 抽奖排行榜
+message DrawRankInfo{
+	required string playerName = 1;
+	required int32 playerPro = 2;
+	required int32 playerLevel = 3;
+	required int32 score = 4;
+	repeated KeyValueStruct myItems = 5;
+}
+
+// 抽奖积分排行榜返回
+message DrawRankResponse {
+	required int32    s2c_code = 1;
+	optional string   s2c_msg = 2;
+	optional int32   myRank = 3;
+	optional int32   myScore = 4;
+	repeated KeyValueStruct myItems = 5;
+	repeated DrawRankInfo rankInfo = 6;// 排行榜
+}
+
+// 低调设置请求
+message DrawSetLowRequest {
+	required int32 isLow = 1;// 0-取消低调，1勾选低调
+}
+
+//	低调设置返回
+message DrawSetLowResponse {
+	required int32    s2c_code = 1;
+	optional string   s2c_msg = 2;
+}
+
+//抽奖请求
+message DrawAwardRequest {
+	required int32 type = 1;//0-免费抽1-单抽2-十连抽
+	required int32 useItem = 2;// 是否使用仙缘令牌0-不是1-是
+}
+
+// 抽奖返回
+message DrawAwardResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated KeyValueStruct awards = 3;// 抽中物品
+}
+
+
+//活动处理器
+service activityHandler {
+	// 获取所有活动列表
+	rpc activityLsRequest(ActivityLsRequest) returns(ActivityLsResponse);
+
+	rpc interestActivityAdRequest(InterestActivityAdRequest) returns(InterestActivityAdResponse);
+
+	// 首冲活动数据
+  	rpc payFirstRequest(PayFirstRequest) returns(PayFirstResponse);
+
+  	rpc paySecondRequest(PaySecondRequest) returns(PaySecondResponse);
+
+  	// 获取累计充值数据
+  	rpc payTotalRequest(PayTotalRequest) returns(PayTotalResponse);
+
+  	// 获取累计消费数据
+  	rpc consumeTotalRequest(ConsumeTotalRequest) returns(ConsumeTotalResponse);
+
+	// 通用领取奖励
+  	rpc activityAwardRequest(ActivityAwardRequest) returns(ActivityAwardResponse);
+
+  	rpc activityInviteCodeRequest(ActivityInviteCodeRequest) returns(ActivityInviteCodeResponse);
+
+  	rpc activityNoticeRequest(ActivityNoticeReq) returns(ActivityNoticeRes);
+
+	// 等级礼包
+  	rpc activityLevelOrSwordRequest(ActivityLevelOrSwordRequest) returns(ActivityLevelOrSwordResponse);
+
+  	// 购买基金
+  	rpc activityBuyFundsRequest(ActivityBuyFundsReq) returns(ActivityBuyFundsRes);
+
+  	// 获取开服基金数据
+  	rpc activityOpenFundsRequest(ActivityOpenFundsReq) returns(ActivityOpenFundsRes);
+
+  	rpc activityLuckyAwardViewRequest(ActivityLuckyAwardViewRequest) returns(ActivityLuckyAwardViewResponse);
+
+  	rpc luckyAwardViewRequest(LuckyAwardViewRequest) returns(LuckyAwardViewResponse);
+
+  	rpc reSetluckyAwardRequest(ReSetluckyAwardRequest) returns(ReSetluckyAwardResponse);
+
+  	// 获取开服狂欢数据
+  	rpc openSevenDayRequest(OpenSevenDayRequest) returns(OpenSevenDayResponse);
+
+  	// 获取兑换数据
+  	rpc openChangeRequest(OpenChangeRequest) returns(OpenChangeResponse);
+  	
+  	
+  	// 获取抽奖活动数据
+   	rpc activityDrawInfoRequest(ActivityDrawInfoRequest) returns (ActivityDrawInfoResponse);
+   	
+   	// 获取抽奖记录信息
+   	rpc drawInfoRequest(DrawInfoRequest) returns (DrawInfoResponse);
+   	
+   	// 获取抽奖排行榜
+   	rpc drawRankRequest(DrawRankRequest) returns (DrawRankResponse);
+   	
+	// 抽奖设置低调
+   	rpc drawSetLowRequest(DrawSetLowRequest) returns (DrawSetLowResponse);
+   	
+   	// 抽奖
+   	rpc drawAwardRequest(DrawAwardRequest) returns (DrawAwardResponse);
+   	
+}
+

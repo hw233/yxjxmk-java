@@ -1,0 +1,70 @@
+//***************************************************************************
+//* 作者=
+//* 创建时间= 2016-09-14
+//* 用途= 充值奖励处理器
+//***************************************************************************
+package pomelo.area;
+
+message FirstPayGiftInfoRequest {
+
+}
+
+message FirstPayGiftData {
+    required int32 isGet = 1;    // 1 已经领取 0 可以领取没有领取 -1 不能领取
+}
+
+message FirstPayGiftInfoResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional FirstPayGiftData s2c_data = 3;
+}
+
+message GetFirstPayGiftRequest {
+
+}
+
+message GetFirstPayGiftResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message DailyPayGiftInfoRequest {
+
+}
+
+message DailyPayGiftData {
+    required int32 giftId = 1;              // 奖励Id
+    required int32 isGet = 2;               // 1 已经领取 0 可以领取没有领取 -1 不能领取
+}
+
+message DailyPayGiftInfoResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_dayIndex = 3;              // 第几天 1表示第一天......
+    optional int32 s2c_dailyDiamondCount = 4;     // 当日充值钻石数量
+    optional int32 s2c_dailyMoneyCount = 5;       // 当日充值money数量
+    repeated DailyPayGiftData s2c_data = 6;
+}
+
+message GetDailyPayGiftRequest {
+    required int32 c2s_giftId = 1;
+}
+
+message GetDailyPayGiftResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+service payGiftHandler {
+  // 获取玩家首充信息
+  rpc firstPayGiftInfoRequest(FirstPayGiftInfoRequest) returns(FirstPayGiftInfoResponse);
+
+  // 领取首充奖励
+  rpc getFirstPayGiftRequest(GetFirstPayGiftRequest) returns(GetFirstPayGiftResponse);
+
+  // 获取玩家每日充值信息
+  rpc dailyPayGiftInfoRequest(DailyPayGiftInfoRequest) returns(DailyPayGiftInfoResponse);
+
+  // 领取每日充值奖励
+  rpc getDailyPayGiftRequest(GetDailyPayGiftRequest) returns(GetDailyPayGiftResponse);
+}

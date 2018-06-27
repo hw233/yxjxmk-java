@@ -1,0 +1,50 @@
+﻿Key,Value,
+rewardStatus0,领取,
+rewardStatus1,领取,
+rewardStatus2,已领取,
+oneRank,第{0}名,
+rangeRank,第{0}-{1}名,
+winTimes,{0}次,
+winTips1,（再连胜{0}场可获得额外1星）,
+winTips2,（再连胜{0}场可获得双倍奖励）,
+cancel,取消,
+ok,确定,
+buyTimesTips,"<f>确定花费<h img='#static/static_pic/static001.xml,static001,88'>H</h><f color='ff00ffde'>{0}</f> 购买一次副本进入次数吗？</f>",
+resetCDTips,"<f>确定花费<h img='#static/static_pic/static001.xml,static001,88'>H</h><f color='ff00ffde'>{0}</f> 重置冷却时间吗？</f>",
+cd0Text,--：--,
+rankNum0,--,
+rankNum1,1,
+rankNum2,2,
+rankNum3,3,
+cding,正在冷却中,
+noTimes,剩余次数不足,
+noRank,尚未上榜,
+battlerule,<font size='18' color='ffddf2ff'><font size='20' color='ffddf2ff'>开放时间：</font><br/>每天，12:30~13:00 ; 20:30~21:00<br/><font size='20' color='ffddf2ff'>比赛规则：</font><br/>1.战斗采取<font size='18' color='ffef880e'>三局两胜</font>制<br/>2.先<font size='18' color='ffef880e'>击杀对方</font>的一方获得单局胜利<br/>3.单局战斗限时<font size='18' color='ffef880e'>90秒</font>，时间到后获得胜点多的一方胜利<br/>4.进入场景中间胜点区域后，每<font size='18' color='ffef880e'>3秒</font>获得<font size='18' color='ffef880e'>1</font>胜点<br/>5.单局比赛结束后，双方玩家会<font size='18' color='ffef880e'>重置所有状态</font><br/>6.每<font size='18' color='ffef880e'>30秒</font>会<font size='18' color='ffef880e'>随机</font>在特定地点刷新一个血球，拾取后持续恢复生命<br/>7.血球提供的持续治疗效果会在<font size='18' color='ffef880e'>受到伤害</font>时消失<br/>8.比赛中<font size='18' color='ffef880e'>无法使用</font>任何恢复药剂<br/><font size='20' color='ffddf2ff'>段位规则：</font><br/>1.胜利后获得的资历决定你所在的段位，获得资历越多段位越高<br/>2.失败将减少资历，当前资历未达到段位标准时，会降低段位<br/>3.每个赛季每个段位奖励只能领取一次<br/>4.赛季结束时，按当前所在段位发放赛季奖励</font>,
+solorule,<font size='18' color='ffe7e5d1'>1.胜利一场即获得一个星级，当<font size='18' color='ffef880e'>星级满后</font>即提升段位等级。<br/>2.失败一场即失去一个星级，当<font size='18' color='ffef880e'>星级为零</font>后再失败则会掉级。<br/>3.赛季开始<font size='18' color='ffef880e'>1</font>周后，超凡大师前<font size='18' color='ffef880e'>20</font>名的玩家能够成为<font size='18' color='ffef880e'>最强王者</font>。<br/></font>,
+arenaTitleTips,<f><f color='fff403db'>单场排名</f>前10将获得称号，<f color='ff21b2ef' link='title_list'>点击查看</f></f>,
+arenaRule,<f>1.开放时间：<f color='ff00d600'>每天，21:30-22:00</f><br/>2.参与资格：<f color='ff00d600'>20</f><f color='ffddf2ff'>级以上玩家可参与</f><br/>3.参与方式：<f color='ffddf2ff'>活动开放时间内在本界面进入</f><br/>4.活动规则：<br/><f color='ffddf2ff'>玩家在比武场景中各自为战<br/>通过击败其他玩家获得魂魄<br/>玩家被击败后会掉落60%当前所收集的魂魄<br/>比武场景中可以无限复活<br/>每天参与次数不限</f><br/>5.排名规则：<f color='ffddf2ff'>比武结束后按收集的魂魄数量从高到低决定名次<br/>赛季奖励按赛季中所有场次收集魂魄数量累加计算</f><br/>6.奖励方式：<f color='ffddf2ff'>每赛季会有一次排名奖励，该奖励将在赛季结束后开放领取</f><br/>7.<f color='ffddf2ff'>每20人组成一场比武，排名会将所有不同场次成绩合并在一起计算</f></f>,
+5v5Rule,<font size='18' color='ffddf2ff'><font size='20' color='ffddf2ff'>开放时间：</font><br/>每天，13:00~13:30 ; 21:00~21:30<br/><font size='20' color='ffddf2ff'>比赛规则：</font><br/>1.由<font size='18' color='ffef880e'>五人</font>组成一个队伍参与对战，不足5人系统会自动匹配其他队员<br/>2.五人协作，通过<font size='18' color='ffef880e'>击杀对方队员</font>获得单场积分<br/>3.单场积分先达到<font size='18' color='ffef880e'>11分</font>的一方获胜<br/>4.战斗时长限制<font size='18' color='ffef880e'>3分钟</font>，时间到后按当前积分高低分胜负<br/>5.被击杀的玩家一定时间后会<font size='18' color='ffef880e'>自动复活</font>，可继续参加战斗<br/>6.比赛中<font size='18' color='ffef880e'>无法使用</font>任何恢复药剂<br/><font size='20' color='ffddf2ff'>排名奖励：</font><br/>1.胜利后获得比赛积分，失败将失去积分<br/>2.每个赛季按照场次积分从高到低排名<br/>3.如果积分相同则先达成本积分的排在前面<br/>4.赛季结束时，按当前排名发放赛季奖励</font>,
+noneRankIndex,暂无排名,
+arenaEndDesc,退出(%s),
+sunReward,参与奖励,
+arenaTitleTips2,<f><f color='fff403db'>单场排名</f>前10将获得称号，<f color='ff00d600' link='title_list'>点击查看</f></f>,
+needScore,需要资历:
+endSeason,<f>本赛季将于<f color='ff00d600'>{0}后</f>结算排名奖励</f>
+match,匹配
+cancelMatch,取消匹配
+win,胜利
+lose,失败
+tie,平局
+sendmessage,战报已分享成功
+sharestr,我分享了试炼大赛战报，
+clickstr,点击查看,
+cancelEnter,你已退出试炼大赛匹配队列。
+out5v5,你的队伍发生变更，是否以新的队伍重新开始匹配对手？选择否后会继续上次匹配队列。
+continueMatch,继续队列
+reMatch,重新匹配
+title,试炼大赛匹配
+readyTime,准备就绪({0}),
+duanweireward,段位奖励
+dailyboxreward,每日宝箱奖励
+di,第
+ceng,层

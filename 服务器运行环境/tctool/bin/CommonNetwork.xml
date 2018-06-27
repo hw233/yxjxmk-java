@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonNetwork</name>
+    </assembly>
+    <members>
+        <member name="T:CommonNetwork.Client.NetClient">
+            <summary>
+            用于监听请求回馈的客户端程序
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpWebSocket.TimeOut">
+            <summary>
+            获取或设置请求与回应的超时时间,默认3秒.
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpWebSocket.Cookies">
+            <summary>
+            获取或设置请求cookie
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpWebSocket.HttpHeaders">
+            <summary>
+            获取请求返回的 HTTP 头部内容
+            </summary>
+        </member>
+        <member name="F:CommonNetwork.Http.HttpWebSocket.ErrorMessageSeparate">
+            <summary>
+            获取或设置错误信息分隔符
+            </summary>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetImageUseSocket(System.String,System.String,System.String)">
+            <summary>
+            get或post方式请求一个 http 或 https 地址.使用 Socket 方式
+            </summary>
+            <param name="url">请求绝对地址</param>
+            <param name="referer">请求来源地址,可为空</param>
+            <param name="postData">post请求参数. 设置空值为get方式请求</param>
+            <returns>返回图像</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetHtmlUseSocket(System.String,System.String)">
+            <summary>
+            get或post方式请求一个 http 或 https 地址.使用 Socket 方式
+            </summary>
+            <param name="url">请求绝对地址</param>
+            <param name="postData">post请求参数. 设置空值为get方式请求</param>
+            <returns>返回 html 内容,如果发生异常将返回上次http状态码及异常信息</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetHtmlUseSocket(System.String,System.String,System.String)">
+            <summary>
+            get或post方式请求一个 http 或 https 地址.使用 Socket 方式
+            </summary>
+            <param name="url">请求绝对地址</param>
+            <param name="referer">请求来源地址,可为空</param>
+            <param name="postData">post请求参数. 设置空值为get方式请求</param>
+            <returns>返回 html 内容,如果发生异常将返回上次http状态码及异常信息</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetSocketResult(System.String,System.String,System.String)">
+            <summary>
+            get或post方式请求一个 http 或 https 地址.
+            </summary>
+            <param name="url">请求绝对地址</param>
+            <param name="referer">请求来源地址,可为空</param>
+            <param name="postData">post请求参数. 设置空值为get方式请求</param>
+            <returns>返回的已解压的数据内容</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetHttpResult(System.Uri,System.String,System.String)">
+            <summary>
+            get或post方式请求一个 http 地址.
+            </summary>
+            <param name="uri">请求绝对地址</param>
+            <param name="referer">请求来源地址,可为空</param>
+            <param name="postData">post请求参数. 设置空值为get方式请求</param>
+            <param name="headText">输出包含头部内容的StringBuilder</param>
+            <returns>返回未解压的数据流</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetSslResult(System.Uri,System.String,System.String)">
+            <summary>
+            get或post方式请求一个 https 地址.
+            </summary>
+            <param name="uri">请求绝对地址</param>
+            <param name="referer">请求来源地址,可为空</param>
+            <param name="postData">post请求参数. 设置空值为get方式请求</param>
+            <param name="headText">输出包含头部内容的StringBuilder</param>
+            <returns>返回未解压的数据流</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetSendHeaders(System.Uri,System.String,System.String)">
+            <summary>
+            返回请求的头部内容
+            </summary>
+            <param name="uri">请求绝对地址</param>
+            <param name="referer">请求来源地址,可为空</param>
+            <param name="postData">post请求参数. 设置空值为get方式请求</param>
+            <returns>请求头部数据</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.SetThisHeaders(System.String)">
+            <summary>
+            设置此类的字段
+            </summary>
+            <param name="headText">头部文本</param>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.unGzip(System.IO.MemoryStream)">
+            <summary>
+            解压数据流
+            </summary>
+            <param name="data">数据流, 压缩或未压缩的.</param>
+            <returns>返回解压缩的数据流</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.ProcessData``1(``0,System.IO.MemoryStream@)">
+            <summary>
+            处理请求返回的数据.
+            </summary>
+            <typeparam name="T">数据源类型</typeparam>
+            <param name="reader">数据源实例</param>
+            <param name="body">保存数据的流</param>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetHeaders``1(``0,System.Byte[]@,System.Int32@)">
+            <summary>
+            取得返回的http头部内容,并设置相关属性.
+            </summary>
+            <typeparam name="T">数据源类型</typeparam>
+            <param name="reader">数据源实例</param>
+            <param name="data">待处理的数据</param>
+            <param name="readLength">读取的长度</param>
+            <returns>数据内容的起始位置,返回-1表示未读完头部内容</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetBodyData``1(``0,System.Byte[]@,System.Int32,System.Int32,System.IO.MemoryStream@)">
+            <summary>
+            取得未分块数据的内容
+            </summary>
+            <typeparam name="T">数据源类型</typeparam>
+            <param name="reader">数据源实例</param>
+            <param name="data">已读取未处理的字节数据</param>
+            <param name="startIndex">起始位置</param>
+            <param name="readLength">读取的长度</param>
+            <param name="body">保存块数据的流</param>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetChunkData``1(``0,System.Byte[]@,System.Int32@,System.Int32@,System.IO.MemoryStream@)">
+            <summary>
+            取得分块数据
+            </summary>
+            <typeparam name="T">数据源类型</typeparam>
+            <param name="reader">Socket实例</param>
+            <param name="data">已读取未处理的字节数据</param>
+            <param name="startIndex">起始位置</param>
+            <param name="readLength">读取的长度</param>
+            <param name="body">保存块数据的流</param>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetChunkHead``1(``0,System.Byte[]@,System.Int32@,System.Int32@)">
+            <summary>
+            取得分块数据的数据长度
+            </summary>
+            <typeparam name="T">数据源类型</typeparam>
+            <param name="reader">Socket实例</param>
+            <param name="data">已读取未处理的字节数据</param>
+            <param name="startIndex">起始位置</param>
+            <param name="readLength">读取的长度</param>
+            <returns>块长度,返回0表示已到末尾.</returns>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.GetChunkBody``1(``0,System.Byte[]@,System.Int32@,System.Int32@,System.IO.MemoryStream@,System.Int32)">
+            <summary>
+            取得分块传回的数据内容
+            </summary>
+            <typeparam name="T">数据源类型</typeparam>
+            <param name="reader">Socket实例</param>
+            <param name="data">已读取未处理的字节数据</param>
+            <param name="startIndex">起始位置</param>
+            <param name="readLength">读取的长度</param>
+            <param name="body">保存块数据的流</param>
+            <param name="chunkSize">块长度</param>
+        </member>
+        <member name="M:CommonNetwork.Http.HttpWebSocket.ReadData``1(``0,System.Byte[]@)">
+            <summary>
+            从数据源读取数据
+            </summary>
+            <typeparam name="T">数据源类型</typeparam>
+            <param name="reader">数据源</param>
+            <param name="data">用于存储读取的数据</param>
+            <returns>读取的数据长度,无数据为-1</returns>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpHeader.ResponseStatusCode">
+            <summary>
+            获取请求回应状态码
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpHeader.Location">
+            <summary>
+            获取跳转url
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpHeader.IsGzip">
+            <summary>
+            获取是否由Gzip压缩
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpHeader.ContentType">
+            <summary>
+            获取返回的文档类型
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpHeader.Charset">
+            <summary>
+            获取内容使用的字符集
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpHeader.ContentLength">
+            <summary>
+            获取内容长度
+            </summary>
+        </member>
+        <member name="P:CommonNetwork.Http.HttpHeader.IsChunk">
+            <summary>
+            获取是否分块传输
+            </summary>
+        </member>
+        <member name="M:CommonNetwork.Http.WebClient._connect_remote(System.Boolean,System.Uri,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="forceIPv6">强制IPv6</param>
+            <param name="location"></param>
+            <param name="timeoutMS"></param>
+        </member>
+        <member name="M:CommonNetwork.Net.INetSession.Send(System.Object)">
+            <summary>
+            发送一个消息，该方法将立即返回。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:CommonNetwork.Sockets.BaseNetSession.IsConnected">
+            <summary>
+            判断当前网络是否已经连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonNetwork.Sockets.BaseNetSession.Send(System.Object)">
+            <summary>
+            发送一个消息，该方法将立即返回。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:CommonNetwork.Sockets.NetSessionAsync.IsConnected">
+            <summary>
+            判断当前网络是否已经连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonNetwork.Sockets.NetSessionAsync.Send(System.Object)">
+            <summary>
+            发送一个消息，该方法将立即返回。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:CommonNetwork.Sockets.NetSession.IsConnected">
+            <summary>
+            判断当前网络是否已经连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonNetwork.Sockets.NetSession.Send(System.Object)">
+            <summary>
+            发送一个消息，该方法将立即返回。
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:CommonNetwork.Utils.ReceiveBuffer.Put(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            向缓冲区写入数据
+            </summary>
+            <param name="data"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:CommonNetwork.Utils.ReceiveBuffer.Over">
+            <summary>
+            将读取的数据制空
+            </summary>
+        </member>
+    </members>
+</doc>

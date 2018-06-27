@@ -1,0 +1,20 @@
+option java_package = "com.morefun.proto";
+option optimize_for = LITE_RUNTIME;
+
+// 榜单结构
+message Ranking {
+	required int32 rid = 1; // 玩家的ID
+	required int32 rank = 2; // 名次
+	required int32 cardId = 3;// 卡牌Id
+	required string name = 4;	// 角色名
+	required int32 lv = 5;	// 角色等级
+	required int32 value = 6;	// 排行榜单数值
+	required bool laud = 7;	// 是否已赞
+	required int32 star = 8;	// 头像的植物星数
+	optional int32 xtId = 9;// 卡牌形态Id
+}
+
+//返回一页榜单结果
+message ResponseRank {
+	repeated Ranking ranking = 1; // 榜单
+}

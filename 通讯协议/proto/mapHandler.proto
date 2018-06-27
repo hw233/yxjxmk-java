@@ -1,0 +1,109 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 地图处理器
+//***************************************************************************
+package pomelo.area;
+
+
+message MapUnit {
+	required int32 templateId = 1;
+	required int32 x = 2;
+	required int32 y = 3;
+	optional string name = 4;
+	optional int32 type = 5;
+	optional int32 lv = 6;
+	optional int32 force = 7;
+}
+
+//isOpen:1.开放 0.未开放
+message WorldMap {
+	required int32 id = 1;
+	required int32 isOpen = 2;
+}
+
+message GetWorldMapListRequest {
+}
+
+message GetWorldMapListResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated WorldMap data = 3;
+}
+
+message GetPlayerListRequest {
+}
+
+message GetPlayerListResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated MapUnit data = 3;
+}
+
+message GetMonsterListRequest {
+}
+
+message GetMonsterListResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated MapUnit data = 3;
+}
+
+message GnterSceneByAreaIdRequest {
+	required int32 c2s_areaId = 1;
+}
+
+message GnterSceneByAreaIdResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+message GetNpcListRequest {
+}
+
+message GetNpcListResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated MapUnit data = 3;
+}
+
+message GetMapListRequest {
+	required int32 c2s_mapId = 1;
+}
+
+message GetMapListResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated int32 s2c_mapIds = 3;
+}
+
+message GetAliveMonsterLineInfoRequest {
+}
+
+message GetAliveMonsterLineInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated int32 s2c_monsterInfos = 3;
+}
+  
+//地图处理器
+service mapHandler {
+
+    rpc enterSceneByAreaIdRequest(GnterSceneByAreaIdRequest) returns(GnterSceneByAreaIdResponse);
+
+    rpc getWorldMapListRequest(GetWorldMapListRequest) returns(GetWorldMapListResponse);
+  
+    rpc getPlayerListRequest(GetPlayerListRequest) returns(GetPlayerListResponse);
+
+    rpc getMonsterListRequest(GetMonsterListRequest) returns(GetMonsterListResponse);
+
+    rpc getNpcListRequest(GetNpcListRequest) returns(GetNpcListResponse);
+
+    rpc getMapListRequest(GetMapListRequest) returns(GetMapListResponse);
+
+    rpc getAliveMonsterLineInfoRequest(GetAliveMonsterLineInfoRequest) returns(GetAliveMonsterLineInfoResponse);
+
+
+}
+
+

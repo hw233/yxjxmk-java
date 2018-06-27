@@ -1,0 +1,10 @@
+[
+	[ "排序", "累计连续充值天数", "每日指定充值额度", "每日充值奖励" ],
+	[ "ID", "AddTime", "RechargeLimit", "RechargeFReward" ],
+	[ "NUMBER", "NUMBER", "NUMBER", "STRING" ],
+	[ 1, 1, 100, "mstar:50,mup:20,chsjbsd6:5" ],
+	[ 2, 2, 100, "pet1001-p:100,pet1002-p:50,pet2002-p:50,pet3002-p:25" ],
+	[ 3, 3, 100, "en2:50,asst2:100,chsjbsd6:5" ],
+	[ 4, 4, 100, "xmjh:3000,feather1:100,chsjbsd6:5" ],
+	[ 5, 5, 100, "sqzzlb2:1,lcexp-fd:5,zqyclb2:1,lcjpd2:20" ]
+]

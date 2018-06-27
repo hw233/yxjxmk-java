@@ -1,0 +1,310 @@
+/***************************************************************************
+* 作者= jjr
+* 创建时间 = 2017-03-23
+* 用途= 仙盟管理
+***************************************************************************/
+package pomelo.guild;
+import 'item.proto';
+import 'player.proto';
+
+message UseCond {//使用权限
+    optional int32 level = 1;
+    optional int32 upLevel = 2;
+    required int32 job = 3;
+}
+
+message QualityCond{//装备品质条件
+    optional int32 level = 1;
+    optional int32 upLevel = 2;
+    optional int32 qColor = 3;
+}
+
+message DepotCondition{
+    optional UseCond useCond = 1;//使用权限
+    optional QualityCond minCond = 2;//装备最低条件
+    optional QualityCond maxCond = 3;//装备最高条件
+}
+
+message RoleInfo{
+    optional int32 pro = 1;
+    optional string name = 2;
+}
+
+message ItemRecordInfo{
+    optional int32 qColor = 1;
+    optional string name = 2;
+}
+
+message RecordInfo{
+    optional RoleInfo role1 = 1;//主动角色1
+    optional RoleInfo role2 = 2;//被动角色2
+    optional int32 resultNum = 3;//结果值
+    optional string resultStr = 4;//结果字符串
+    optional string time = 5; //时间
+    optional int32 recordType = 6; //动态类型
+    optional ItemRecordInfo item = 7; //道具
+}
+
+message GetDepotAllGridsRequest{//包裹所有格子数据
+}
+
+message GetDepotAllDetailsRequest{//包裹所有详情
+}
+
+message GetDepotOneGridInfoRequest{//包裹单个格子数据和详情
+    optional int32 bagIndex = 1;
+}
+
+message GetDepotInfoRequest{ //获取仓库全部信息
+}
+
+message GetDepotRecordRequest{//动态
+    optional int32 page = 1; //页数
+}
+//祈福请求开始
+message GetBlessInfoRequest{//祈福信息
+}
+
+message GetBlessRecordRequest{//动态
+    optional int32 page = 1; //页数
+}
+
+message GetBuildingLevelRequest{
+
+}
+
+//--------------------返回开始-----------------------------
+message BagInfo{
+    optional int32 bagGridCount = 1;
+    optional int32 bagTotalCount = 2;
+    repeated item.Grid bagGrids = 3;
+    repeated item.ItemDetail bagDetails = 4;
+}
+
+message BagGridsInfo{
+    optional int32 bagGridCount = 1;
+    optional int32 bagTotalCount = 2;
+    repeated item.Grid bagGrids = 3;
+}
+
+message DepotInfo{
+    required int32 level = 1;//仓库等级
+    optional DepotCondition depotCond = 2;//仓库使用条件
+    optional int32 deleteCount = 3;
+    optional int32 deleteCountMax = 4;
+}
+
+message GetDepotAllGridsResponse{//仓库包裹格子数据
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional BagGridsInfo s2c_bagInfo = 3;
+}
+
+message GetDepotAllDetailsResponse{//仓库所有详情
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated item.ItemDetail s2c_bagDetails = 3;
+}
+
+message GetDepotOneGridInfoResponse{//仓库单个格子数据和详情
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional item.Grid s2c_bagGrid = 3;
+    optional item.ItemDetail s2c_bagDetail = 4;
+}
+
+message GetDepotInfoResponse {//仓库数据，不包括详情
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional DepotInfo s2c_depotInfo = 3;
+    optional BagInfo s2c_depotBag = 4;
+}
+
+
+message GetDepotRecordResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated RecordInfo s2c_recordList = 3;
+    optional int32 s2c_page = 4;
+}
+
+
+//祈福返回开始
+message BlessItem{
+    optional int32 id = 1; //配置id
+    optional item.MiniItem item = 2;//需要的道具
+    optional int32 finishNum = 3; //已祈福数量
+}
+
+message GuildBlessInfo{
+    optional int32 level = 1; //等级
+    optional int32 blessValue = 2; //当前祈福值
+    optional int32 blessValueMax = 3;//最大祈福值
+    repeated int32 finishState = 4; //今日祈福分段奖励状态数组(0:未完成 1:可领取 2:已领取)
+    repeated BlessItem itemList = 5; //使用道具祈福列表
+    optional int32 blessCountMax = 6; //最大祈福次数
+}
+
+message GetBlessInfoResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional GuildBlessInfo s2c_blessInfo = 4; //祈福信息
+}
+
+message GetBlessRecordResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated RecordInfo s2c_recordList = 3;
+    optional int32 s2c_page = 4;
+}
+
+message BuildingLevel{
+    optional int32 depotLevel = 1; //仓库等级
+    optional int32 blessLevel = 2; //祈福等级
+    optional int32 techLevel = 3;  //科技等级
+}
+
+message GetBuildingLevelResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional BuildingLevel s2c_levelInfo = 3; //建筑等级
+}
+
+message OpenGuildDungeonRequest {
+}
+
+message OpenGuildDungeonResponse {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_waitTime = 3;
+}
+
+message GuildDungeonListRequest {
+}
+
+message DungeonInfo {
+    required int32 dungeonId = 1;
+    optional player.PlayerBasic killedPlayerInfo = 2;
+    optional int32 currPlayerNum = 3;
+    optional int32 totalPlayerNum = 4;
+}
+
+message DungeonList {
+
+    required int32 currDungeonCount = 1; //当前层数
+    required int32 maxDungeonCount = 2; //最大层数
+    required int32 state = 3; // 1：未开启，2：正在开启，3：挑战中，4：已结束
+    required int32 time = 4; //开启时间或结束时间
+    required int32 openTime = 5; //开启副本准备时间
+    repeated DungeonInfo dungeonList = 6;
+}
+
+message GuildDungeonListResponse {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    required DungeonList s2c_list = 3;
+}
+
+message DungeonRankRequest {
+
+    required int32 s2c_type = 1; //1：伤害，2：治疗
+}
+
+message RankInfo {
+
+    required string playerId = 1;
+    required string playerName = 2;
+    required int32 playerPro = 3;
+    required int32 level = 4;
+    required int32 upGradeLevel = 5;
+    required int32 value = 6;
+}
+
+message DungeonRankResponse {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated RankInfo s2c_data = 3;
+}
+
+message DungeonAwardInfoRequest {
+}
+
+message DiceInfo {
+
+    required string playerName = 1;
+    required int32 playerPro = 2;
+    required int32 dicePoint = 3;
+}
+
+message AwardInfo {
+
+    required int32 pos = 1;
+    required item.ItemDetail dropItem = 2;
+    required int32 dungeonCount = 3;
+    optional string playerName = 4; // 掷点最高玩家名
+    optional int32 playerPro = 5; // 掷点最高玩家职业
+    optional int32 playerDicePoint = 6; // 掷点最高点数
+    required int32 state = 7; // 1：已掷，2：可掷，3：不可掷
+    repeated DiceInfo diceInfo = 8; //掷点详情
+}
+
+message GetDungeonScoreInfo {
+
+    required int32 type = 1; //类型
+    required int32 value = 2; //名次
+    required int32 score = 3; //获得积分
+}
+
+message DungeonAwardInfoResponse {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    required int32 diceLeftTime = 3; //掷点剩余时间
+    repeated GetDungeonScoreInfo getDungeonScoreInfo = 4;//获得副本积分详情
+    repeated AwardInfo itemInfos = 5;
+    required int32 isFightOver = 6; // 1：战斗结束，0：未结束
+}
+
+message DiceAwardRequest {
+
+    required int32 s2c_pos = 1;
+}
+
+message DiceAwardResponse {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional AwardInfo s2c_itemInfo = 3;
+}
+
+service guildManagerHandler{
+    //所有格子数据
+    rpc getDepotAllGridsRequest(GetDepotAllGridsRequest) returns(GetDepotAllGridsResponse);
+    //所有详情
+    rpc getDepotAllDetailsRequest(GetDepotAllDetailsRequest) returns(GetDepotAllDetailsResponse);
+    //单个格子数据和详情
+    rpc getDepotOneGridInfoRequest(GetDepotOneGridInfoRequest) returns(GetDepotOneGridInfoResponse);
+    //获取仓库信息
+    rpc getDepotInfoRequest(GetDepotInfoRequest) returns(GetDepotInfoResponse);
+    //获取仓库动态
+    rpc getDepotRecordRequest(GetDepotRecordRequest) returns(GetDepotRecordResponse);
+    //获取祈福信息
+    rpc getBlessInfoRequest(GetBlessInfoRequest) returns(GetBlessInfoResponse);
+    //获取祈福动态
+    rpc getBlessRecordRequest(GetBlessRecordRequest) returns(GetBlessRecordResponse);
+    //获取建筑等级
+    rpc getBuildingLevelRequest(GetBuildingLevelRequest) returns(GetBuildingLevelResponse);
+    //仙盟开启副本
+    rpc openGuildDungeonRequest(OpenGuildDungeonRequest) returns(OpenGuildDungeonResponse);
+    //仙盟副本列表
+    rpc guildDungeonListRequest(GuildDungeonListRequest) returns(GuildDungeonListResponse);
+    //仙盟副本排行榜
+    rpc dungeonRankRequest(DungeonRankRequest) returns(DungeonRankResponse);
+    //副本奖励分配
+    rpc dungeonAwardInfoRequest(DungeonAwardInfoRequest) returns(DungeonAwardInfoResponse);
+    //掷点
+    rpc diceAwardRequest(DiceAwardRequest) returns(DiceAwardResponse);
+}

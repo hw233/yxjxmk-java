@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>GM权限系统</title>
+	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+	<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="../js/ext/help.js"> </script>
+	<script type="text/javascript" src="../js/ext/resource.js"> </script>
+	</head>
+	<body>
+		<table id="resource"></table> 
+		<div id="toolbar" style="padding:5px;height:auto;display: none;">
+			<div style="margin-bottom:8px">
+				<a href="javascript:append()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
+				<a href="javascript:remove()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+				<a href="javascript:save()" class="easyui-linkbutton" iconCls="icon-save" plain="true">保存</a>
+				<a href="javascript:help()" class="easyui-linkbutton" iconCls="icon-help" plain="true">帮助</a>
+			</div>
+		</div>
+	</body>
+</html>

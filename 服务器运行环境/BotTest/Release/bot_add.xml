@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AddBotConfig type="XmdsBotTest.AddBotConfig">
+  <arean type="XmdsBotTest.Runner.AreanFunc+Config" />
+  <autionProto type="XmdsBotTest.Runner.AutionProto+Config" />
+  <buyIntergalProto type="XmdsBotTest.Runner.BuyIntergalItemProto+Config" />
+  <buyMallProto type="XmdsBotTest.Runner.BuyMallProto+Config" />
+  <count>50</count>
+  <digit_format>D5</digit_format>
+  <equip type="XmdsBotTest.Runner.ModuleEquip+Config" />
+  <five2five type="XmdsBotTest.Runner.Five2FiveFunc+Config" />
+  <guild type="XmdsBotTest.Runner.ModuleGuild+Config" />
+  <index>0</index>
+  <Inventory type="XmdsBotTest.Runner.ModuleInventory+Config" />
+  <mount type="XmdsBotTest.Runner.ModuleMount+Config" />
+  <name_format>b{0}</name_format>
+  <password>123456</password>
+  <prepaidOrderId type="XmdsBotTest.Runner.PrepaidOrderIdWarn+Config" />
+  <RandomRoleName>True</RandomRoleName>
+  <rank type="XmdsBotTest.Runner.RankWarn+Config" />
+  <Reconnect type="XmdsBotTest.Runner.ModuleReconnect+Config" />
+  <RoleNameFormat type="System.String[]" element_type="System.String" rank="1" ranges="1">
+    <element>角色{0}</element>
+  </RoleNameFormat>
+  <skill type="XmdsBotTest.Runner.ModuleSkill+Config" />
+  <solo type="XmdsBotTest.Runner.SoloFunc+Config" />
+  <Task type="XmdsBotTest.Runner.ModuleTask+Config" />
+  <teamDungeon type="XmdsBotTest.Runner.TeamDungeonFunc+Config" />
+</AddBotConfig>

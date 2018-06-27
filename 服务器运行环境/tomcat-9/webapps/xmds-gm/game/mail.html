@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>发送邮件</title>
+</head>
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/icon.css">
+<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	$(function() {
+		reset();
+	})
+	function execute() {
+		if (!$('#mail').form('validate')) {
+			return;
+		}
+		var type = parseInt($("input[type='radio'][name='type']:checked").val());
+		if (type == 0 && !$("#rids").val()) {
+			parent.show("错误提示", "请正确填写角色ID或角色名！");
+			return;
+		}
+		var single = false;
+		if (type == 0) {
+			single = true;
+		}
+		$.messager.confirm('提示', '确定发送邮件?', function(r) {
+			if (!r) {
+				return;
+			}
+			//提交表单前先拼凑附件数据
+			var items = "";
+			var rows = $("#itemDg").datagrid('getRows');
+			var reConfirm = "";
+			for (var i = 0; i < rows.length; i++) {
+				items = items + rows[i].id + ":" + rows[i].num + ";";
+				if (rows[i].id == "diamond" && rows[i].num >= 500) {
+					reConfirm += "元宝<font color='red'>" + rows[i].num
+							+ "</font>,";
+				} else if (rows[i].id == "cash" && rows[i].num >= 500) {
+					reConfirm += "绑元<font color='red'>" + rows[i].num
+					+ "</font>,";
+				} else if (rows[i].id == "gold" && rows[i].num >= 50000) {
+					reConfirm += "银两<font color='red'>" + rows[i].num
+					+ "</font>,";
+				}
+			}
+			if (items != "") {
+				items = items.substring(0, items.length - 1);
+			}
+			if(reConfirm){
+				reConfirm = reConfirm.substring(0, reConfirm.length - 1)
+				$.messager.confirm('提示', '邮件中包含道具'+reConfirm+"确定发送吗？", function(r) {
+					if(!r){
+						return;
+					}
+					parent.send({
+						single : single,
+						action : "execute",
+						type : "11e1",
+						value : [ type, $("#rids").val(), $("#title").val(),
+								$("#content").val(), $("#sender").val(),
+								$("#createDate").datetimebox('getText'),
+								$("#minLevel").val(), items ],
+						call : function(json) {
+							$.each(json, function(key, value) {
+								switch (value) {
+								case -2: {
+									parent.show("错误提示", "发送的玩家ID错误，邮件未发送！");
+									return;
+								}
+								case -1: {
+									parent.show("错误提示", "服务器内部错误！");
+									return;
+								}
+								}
+								parent.showTip("信息提示", "邮件已发送");
+								return;
+							});
+						}
+					});
+				});
+			} else {
+				parent.send({
+					single : single,
+					action : "execute",
+					type : "11e1",
+					value : [ type, $("#rids").val(), $("#title").val(),
+							$("#content").val(), $("#sender").val(),
+							$("#createDate").datetimebox('getText'),
+							$("#minLevel").val(), items ],
+					call : function(json) {
+						$.each(json, function(key, value) {
+							switch (value) {
+							case -2: {
+								parent.show("错误提示", "发送的玩家ID错误，邮件未发送！");
+								return;
+							}
+							case -1: {
+								parent.show("错误提示", "服务器内部错误！");
+								return;
+							}
+							}
+							parent.showTip("信息提示", "邮件已发送");
+							return;
+						});
+					}
+				});
+			}
+		});
+	}
+
+	function reset() {
+		$('#mail').form('clear');
+		$("input[type='radio'][name='type']").attr('checked', 'checked');
+		$("#roleId").show();
+		$("#sender").textbox('setText', '系统');
+	}
+
+	function onRadioChange(t) {
+		if (t == 0) {// 指定玩家
+			$("#roleId").show();
+			$("#datetr").hide();
+			$("#levelTd").hide();
+			$("#createDate").datetimebox({
+				required : false
+			});
+			$("#minLevel").numberbox({
+				required : false
+			});
+		} else {// 全服
+			$("#roleId").hide();
+			$("#datetr").show();
+			$("#levelTd").show();
+			$("#createDate").datetimebox({
+				required : true
+			});
+			$("#minLevel").numberbox({
+				required : true
+			});
+		}
+	}
+	// 添加附件
+	function selectItem() {
+		var num = $("#itemNum").val();
+		var name = $("#item").combobox('getText');
+		var id = $("#item").combobox('getValue');
+		if (!id || id == name) {
+			return;
+		}
+		if (num <= 0) {
+			return;
+		}
+		// $("#item").combobox('reset');
+		//验证是否有相同的物品，有的话就累加数量
+		var rows = $("#itemDg").datagrid('getRows');
+		for (var i = 0; i < rows.length; i++) {
+			if (rows[i].id == id) {//有相同的物品
+				rows[i].num = parseInt(rows[i].num) + parseInt(num);
+				$("#itemDg").datagrid('refreshRow', i);
+				return;
+			}
+		}
+		$("#itemDg").datagrid('appendRow', {
+			id : id,
+			name : name,
+			num : num
+		});
+	}
+
+	function deleteItem() {
+		if ($("#itemDg").datagrid('getSelected') == null) {
+			return;
+		}
+		var index = $("#itemDg").datagrid('getRowIndex',
+				$("#itemDg").datagrid('getSelected'));
+		$("#itemDg").datagrid('deleteRow', index);
+	}
+
+	function deleteMail() {
+		var row = $("#mailDg").datagrid('getSelected');
+		if (row == null) {
+			return;
+		}
+		$.messager.confirm('提示', '删除邮件会导致后续玩家无法领取邮件，确定删除吗？', function(r) {
+			if (r) {
+				$.ajax({
+					url : "../action/deleteGlobalMail",
+					type : "POST",
+					data : {
+						mailId : row.id
+					},
+					success : function(data) {
+						$("#mailDg").datagrid('reload');
+					}
+				});
+			}
+		});
+	}
+</script>
+<body>
+	<div class="easyui-tabs" style="width: 100%;">
+		<div title="发送邮件">
+			<form id="mail">
+				<table style="width: 800px;" align="center" cellspacing="5"
+					cellpadding="5">
+					<tr>
+						<td></td>
+						<td><input type="radio" name="type" value="1"
+							onchange="onRadioChange(this.value)" />系统(全服) <input
+							type="radio" name="type" value="0" checked="checked"
+							onchange="onRadioChange(this.value)" />指定玩家</td>
+					</tr>
+					<tr id="roleId">
+						<td>角色ID或角色名<br>(多个角色用<font color="red" size="3">;</font>分隔)
+						</td>
+						<td><input class="easyui-textbox"
+							data-options="multiline:true" style="width: 90%; height: 50px"
+							id="rids"></input></td>
+					</tr>
+					<tr>
+						<td>标题</td>
+						<td><input class="easyui-textbox" style="width: 90%;"
+							data-options="required:true,validType:{length:[2,20]}" id="title"></input></td>
+					</tr>
+					<tr>
+						<td>发件人</td>
+						<td><input class="easyui-textbox" style="width: 90%;"
+							value="系统" data-options="required:true,validType:{length:[2,10]}"
+							id="sender"></input></td>
+					</tr>
+					<tr>
+						<td>内容</td>
+						<td><input class="easyui-textbox"
+							data-options="multiline:true,required:true,validType:{length:[2,130]}"
+							style="width: 90%; height: 150px" id="content"></input></td>
+					</tr>
+					<tr id="datetr" style="display: none;">
+						<td>创角时间</td>
+						<td><input class="easyui-datetimebox" style="width: 300px;"
+							data-options="editable:false" id="createDate"></input></td>
+					</tr>
+					<tr id="levelTd" style="display: none;">
+						<td>最低等级</td>
+						<td><input class="easyui-numberbox" style="width: 300px;"
+							id="minLevel"></input></td>
+					</tr>
+					<tr>
+						<td>附件</td>
+						<td><select class="easyui-combobox" id="item"
+							style="width: 300px;"
+							data-options="valueField:'id',textField:'text',url:'../action/loadItemData'"></select>
+							<input class="easyui-numberbox" value="1" style="width: 100px"
+							id="itemNum"></input> <a href="javascript:void(0)"
+							class="easyui-linkbutton" onclick="selectItem()"
+							style="width: 50px">添加</a></td>
+					</tr>
+					<tr>
+						<td>已经选择的附件</td>
+						<td>
+							<table id="itemDg" class="easyui-datagrid"
+								style="height: 250px; width: 90%"
+								data-options="singleSelect:true,toolbar:'#groupTb'">
+								<thead>
+									<tr>
+										<th data-options="field:'id',hidden:true">id</th>
+										<th data-options="field:'name',width:300,align:'center'">道具名</th>
+										<th data-options="field:'num',width:100,align:'center'">数量</th>
+									</tr>
+								</thead>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><a href="javascript:void(0)"
+							class="easyui-linkbutton" onclick="execute()" style="width: 80px">发送</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton"
+							onclick="reset()" style="width: 80px">清空</a></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div title="全局邮件管理" style="padding: 10px;">
+			<table id="mailDg" class="easyui-datagrid" style="height: 600px;"
+				data-options="singleSelect:true,toolbar:'#mailTb',url:'../action/queryGlobalMail'">
+				<thead>
+					<tr>
+						<th data-options="field:'id',hidden:true">id</th>
+						<th data-options="field:'servers',width:400,align:'center'">发送服务器</th>
+						<th data-options="field:'createDate',width:200,align:'center'">发送时间</th>
+						<th data-options="field:'content',width:700,align:'center'">邮件内容</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+	<div id="groupTb" style="height: auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-remove',plain:true"
+			onclick="deleteItem()">移除</a>
+	</div>
+
+	<div id="mailTb" style="height: auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-reload',plain:true"
+			onclick="$('#mailDg').datagrid('reload');">刷新</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-remove',plain:true"
+			onclick="deleteMail()">删除</a>
+	</div>
+</body>
+
+</html>

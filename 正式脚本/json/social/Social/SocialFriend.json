@@ -1,0 +1,13 @@
+[
+	[ "ID", "好友行为", "好友度增加", "友情点数增加", "追杀值", "消息反馈" ],
+	[ "ID", "MSocialAction", "FavorNum", "FriendshipNum", "KillNum", "MessageText" ],
+	[ "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "STRING" ],
+	[ 1, 1, 5, 0, 0, "<font>你关注了<font size='22' color='ff73b857'>{playerName}</font>，你对他的好友度数增加5点</font>" ],
+	[ 2, 2, 5, 5, 0, "<font><font size='22' color='ff73b857'>{playerName}</font> 关注了你，你对他的好友度增加5点，友情点数增加5点</font>" ],
+	[ 3, 3, -10, 0, 5, "<font>你击杀了<font size='22' color='ff73b857'>{playerName}</font> ，你对他的追杀值增加5点</font>" ],
+	[ 4, 4, -10, 0, -5, "<font>你被<font size='22' color='ff73b857'>{playerName}</font> 击杀了，你对他的追杀值减少5点</font>" ],
+	[ 5, 5, 0, 0, 0, "" ],
+	[ 6, 6, 0, 0, 0, "" ],
+	[ 7, 7, 5, 10, 0, "<font>您已成功赠送<font size='22' color='ff73b857'>{playerName}</font>{itemName}，好友度数增加5点</font>" ],
+	[ 8, 8, 5, 0, 0, "" ]
+]

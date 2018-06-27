@@ -1,0 +1,135 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 寄卖行
+//***************************************************************************
+package pomelo.area;
+
+import 'common.proto';
+import 'item.proto';
+
+
+// 寄卖物品
+message AddConsignmentRequest{
+    required int32 c2s_index  = 1;        // 背包中的格子序号
+    required int32 c2s_number = 2;        // 数量
+    required int32 c2s_price  = 3;        // 寄卖总价格(钻石)
+    required int32 c2s_global = 4;        // 是否全区寄卖行 1 是 0 不是
+    required int32 c2s_isAnonymous = 5;        // 是否匿名寄卖 1 是 0 不是
+    optional string c2s_id = 6;             // 寄卖的物品ID(重新上架使用)
+}
+
+message AddConsignmentResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 下架寄卖物品
+message RemoveConsignmentRequest {
+    required string c2s_id = 1;         // 物品id
+    required int32 c2s_global = 2;        // 是否全区寄卖行 1 是 0 不是
+}
+
+message RemoveConsignmentResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 购买寄卖物品
+message BuyConsignmentRequest {
+    required string c2s_id = 1;         // 物品id
+    required int32 c2s_global = 2;        // 是否全区寄卖行 1 是 0 不是
+}
+
+message BuyConsignmentResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 寄卖列表
+message ConsignmentListRequest {
+    required int32 c2s_pro = 1;             // 职业枚举
+    required int32 c2s_qcolor = 2;          // 品质枚举
+    required int32 c2s_order = 3;           // 排序枚举
+    required int32 c2s_itemSecondType = 4;  // 物品2级类型
+    required int32 c2s_page = 5;            // 当前页数 1  开始
+    required int32 c2s_global = 6;          // 是否全区寄卖行 1 是 0 不是
+    required string c2s_itemType = 7;        // 物品1级类型
+    required int32 c2s_level = 8;        // 物品等级
+}
+
+message ConsignmentListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_totalPage = 3; // 总页数
+    repeated item.ConsignmentItem s2c_data = 4;
+}
+
+// 我的寄卖
+message MyConsignmentRequest {
+    required int32 c2s_global = 4;  // 是否全区寄卖行 1 是 0 不是
+}
+
+message MyConsignmentResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated item.ConsignmentItem s2c_data = 3;
+    optional int32 s2c_can_sell_num = 4;// 可以寄卖的数量
+}
+
+// 搜索
+message SearchConsignmentRequest{
+    required string c2s_condition = 1;      // 搜索条件
+    required int32 c2s_global = 2;          // 是否全区寄卖行 1 是 0 不是
+}
+
+message SearchConsignmentResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated item.ConsignmentItem s2c_data = 3;  //　最大100条数据
+}
+
+// 宣传
+message PublicItemRequest{
+    required string id = 1; // 宣传的物品寄卖ID
+}
+
+message PublicItemResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+
+// 寄卖行处理器
+service consignmentLineHandler {
+    // 寄卖物品
+    rpc addConsignmentRequest(AddConsignmentRequest) returns(AddConsignmentResponse);
+
+    // 下架寄卖物品
+    rpc removeConsignmentRequest(RemoveConsignmentRequest) returns(RemoveConsignmentResponse);
+
+    // 购买寄卖物品
+    rpc buyConsignmentRequest(BuyConsignmentRequest) returns(BuyConsignmentResponse);
+
+    // 寄卖列表
+    rpc consignmentListRequest(ConsignmentListRequest) returns(ConsignmentListResponse);
+
+    // 我的寄卖
+    rpc myConsignmentRequest(MyConsignmentRequest) returns(MyConsignmentResponse);
+
+    // 搜索
+    rpc searchConsignmentRequest(SearchConsignmentRequest) returns(SearchConsignmentResponse);
+
+    // 宣传缓存物品
+    rpc publicItemRequest(PublicItemRequest) returns(PublicItemResponse);
+}
+
+message ConsignmentRemovePush {
+    required int32 s2c_code = 1;
+    required string s2c_id = 2;  // 道具唯一id
+}
+
+service consignmentLinePush {
+    // 我的寄卖被买通知
+    rpc consignmentRemovePush(ConsignmentRemovePush) returns(Void);
+}

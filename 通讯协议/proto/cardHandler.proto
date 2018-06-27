@@ -1,0 +1,171 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 卡片处理器
+//***************************************************************************
+package pomelo.area;
+
+message CardRegisterRequest {
+  required int32 c2s_cardId = 1;
+}
+
+ message CardLevelUpRequest {
+  required int32 c2s_cardTemplateId = 1;
+}
+
+message CardPreLevelUpRequest {
+  required int32 c2s_cardTemplateId = 1;
+}
+
+message CardGetAwardRequest {
+  required int32 c2s_awardId = 1;
+}
+
+message CardEquipRequest {
+  required int32 c2s_cardId = 1;
+  required int32 c2s_holePos = 2;
+}
+
+
+message CardQueryAllDataRequest {
+}
+
+message cardRelationAttStruct{
+  required string name= 1;
+  required string des= 2;
+  required string attName= 3;
+  required int32 attValue= 4;
+  required int32 condition= 5;
+}
+
+message CardPropertyStruct{
+  required string describ= 1;
+  optional int32 value= 2;
+  optional int32 maxValue= 3;
+  optional string name= 4;
+}
+
+message Card {
+  required int32 id = 1;
+  required string name = 2;
+  required int32 isActive = 3;
+  required int32 inUsePos = 4;
+  required int32 pic = 5;
+  required int32 level = 6;
+  required int32 maxLevel = 7;
+  required int32 quality = 8;
+  required string qualityName = 9;
+  required int32 cardType = 10;
+  required string typeName = 11;
+  required int32 suitType = 12;
+  required string suitDes = 13;
+  required CardPropertyStruct baseAtt = 14;
+  required CardPropertyStruct baseAttNextLevel = 15;
+  required cardRelationAttStruct relationAtt1 = 16;
+  required cardRelationAttStruct relationAtt2 = 17;
+  required int32 levelUpItemId = 18;
+  required string from = 19;
+}
+
+message CardHole {
+  required int32 pos = 1;
+  required int32 quality = 2;
+  required int32 cardId = 3;
+  required int32 status = 4;
+  required int32 unLockLevel = 5;
+  required int32 taskId = 6;
+}
+
+message CardAward {
+  required int32 targetId = 1;
+  required int32 status = 2;
+  required string des = 3;
+  required int32 cardType = 4;
+  required int32 collectNum = 5;
+  required int32 awardId = 6;
+}
+
+message CardSuit {
+  required int32 suitId = 1;
+  required string name = 2;
+  required int32 num = 3;
+  required int32 itemid1 = 4;
+  required int32 itemid2 = 5;
+  required int32 itemid3 = 6;
+  required int32 itemid4 = 7;
+  required int32 itemid5 = 8;
+  required int32 itemid6 = 9;
+  required string story = 10;
+  required string suitSkillName = 11;
+  required string suitskillDes = 12;
+  required int32 buffId = 13;
+}
+
+
+message CardRegisterResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated Card s2c_card = 3;
+  repeated CardHole s2c_cardHole = 4;
+  repeated CardAward s2c_cardAward = 5;
+  repeated CardSuit s2c_cardSuit = 6;
+}
+
+message CardLevelUpResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  required Card s2c_card = 3;
+}
+
+message CardPreLevelUpResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  required Card s2c_card = 3;
+}
+
+message CardGetAwardResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message CardEquipResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated Card s2c_card = 3;
+  repeated CardHole s2c_cardHole = 4;
+  repeated CardAward s2c_cardAward = 5;
+  repeated CardSuit s2c_cardSuit = 6;
+}
+
+message CardQueryAllDataResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated Card s2c_card = 3;
+  repeated CardHole s2c_cardHole = 4;
+  repeated CardAward s2c_cardAward = 5;
+  repeated CardSuit s2c_cardSuit = 6;
+}
+  
+  
+//卡片处理器
+service cardHandler {
+
+   rpc cardRegisterRequest(CardRegisterRequest) returns(CardRegisterResponse);
+
+   rpc cardLevelUpRequest(CardLevelUpRequest) returns(CardLevelUpResponse);
+
+	  
+   rpc cardPreLevelUpRequest(CardPreLevelUpRequest) returns(CardPreLevelUpResponse);
+
+   rpc cardGetAwardRequest(CardGetAwardRequest) returns(CardGetAwardResponse);
+
+
+   rpc cardEquipRequest(CardEquipRequest) returns(CardEquipResponse);
+
+
+   rpc cardQueryAllDataRequest(CardQueryAllDataRequest) returns(CardQueryAllDataResponse);
+
+
+}
+
+

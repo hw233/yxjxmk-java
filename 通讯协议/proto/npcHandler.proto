@@ -1,0 +1,27 @@
+//***************************************************************************
+//* 作者= 刘羿君
+//* 创建时间= 2016-03-20
+//* 用途= npc处理器
+//***************************************************************************
+package pomelo.area;
+
+message RecoverByNpcRequest {
+    required string npcObjId = 1;
+}
+
+message RecoverByNpcResponse  {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+
+
+  
+//地图处理器
+service npcHandler {
+
+    rpc recoverByNpcRequest(RecoverByNpcRequest) returns(RecoverByNpcResponse);
+
+}
+
+

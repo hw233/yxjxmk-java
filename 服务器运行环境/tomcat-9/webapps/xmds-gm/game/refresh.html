@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>刷新配置数据</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css" />
+	<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript">
+		function refreshData() {
+			 parent.send({
+			        action: "execute",
+			        type: "5000",
+			        value: [  ],
+			        call: function(json) {
+			        	var tip = "";
+				    	var count = 0;
+				    	$.each(json, function(key, value) { 
+				    		tip += parent.getName(key) +" -> ";
+				    		switch(value) {
+				    		case 0: {
+				    			tip += "<font color='red'>刷新失败</font>";
+				    			break;
+				    		}
+				    		case 1: {
+				    			tip += "<font color='blue'>资源已刷新</font>";
+				    			break;
+				    		}
+				    		default : tip += parent.getError(value);
+				    		}
+				    		tip += "<br/>";
+				    		count++;
+				   		});
+				    	parent.showTip("信息提示",  tip, 3000, Math.min(Math.max(1, count) * 20 + 50, 500));
+			        }
+			    });
+		}
+	</script>
+</head>
+<body style="width:500px;" class="container">
+		<div style="margin-left: 100px; padding-top: 100px;">
+			<input class="btn btn-info" type="button" value="刷新配置数据" style="width:200px;height:50px;"onclick="javascript:refreshData()"></input>
+		</div>
+		<div style="margin-left:15px;padding-top: 60px;">
+				<font size=5 color="blue">
+					如果有数据变点击按钮即可加载新数据
+					<br /><br />
+					确保数据的准确，推荐先退出游戏再进入查看
+				</font>
+		</div>
+</body>
+</html>

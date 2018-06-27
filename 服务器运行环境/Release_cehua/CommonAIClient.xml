@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonAIClient</name>
+    </assembly>
+    <members>
+        <member name="P:CommonAIClient.Client.AbstractBattle.ActiveZoneLayerCount">
+            <summary>
+            未释放实例数量
+            </summary>
+        </member>
+        <member name="P:CommonAIClient.Client.AbstractBattle.AllocZoneLayerCount">
+            <summary>
+            分配实例数量
+            </summary>
+        </member>
+        <member name="T:CommonAIClient.Client.BattleClientProxy.ProxyNetSession">
+            <summary>
+            将游戏服和战斗服合并成一个连接，需要连接代理服务器
+            </summary>
+        </member>
+        <member name="M:CommonAIClient.Client.BattleClient.SendAction(CommonAI.Zone.Action)">
+            <summary>
+            发送单位控制命令
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="M:CommonAIClient.Client.BattleClient.SendLeaveRoom">
+            <summary>
+            请求离开房间
+            </summary>
+        </member>
+        <member name="M:CommonAIClient.Client.BattleClient.SendChatMessage(System.String,CommonAI.Zone.ChatMessageType)">
+            <summary>
+            发送聊天
+            </summary>
+        </member>
+        <member name="M:CommonAIClient.Client.BattleLocal.SetRecoder(CommonAI.Zone.Replay.BattleRecorder)">
+            <summary>
+            设置战报录像记录器
+            </summary>
+            <param name="recorder"></param>
+        </member>
+    </members>
+</doc>

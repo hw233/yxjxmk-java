@@ -1,0 +1,380 @@
+//***************************************************************************
+//* 作者= 阿贵
+//* 创建时间= 2017-04-16
+//* 用途= 关卡处理器
+//***************************************************************************
+package pomelo.area;
+
+import 'common.proto';
+import 'item.proto';
+import 'player.proto';
+
+message FubenAwardRecord {
+	required player.PlayerBasic player = 1;
+	required item.MiniItem item = 2;
+	required int64 time = 3;
+}
+
+message MonsterInfo {
+	required int32 monsterId = 1;
+	required int64 time = 2;
+}
+
+message FubenInfo {
+	required int32 mapId = 1;
+	required int32 remainTimes = 2; // 剩余收益次数
+	repeated item.MiniItem awardItems = 3; // 奖励物品
+}
+
+message InviteFriendInfo {
+    required string id = 1;
+	required string name = 2;
+	required int32 level = 3;
+	required int32 pro = 4; 
+	required string areaName = 5;
+	required int32 state = 6; //1：可邀请，2:：已邀请，3：已拒绝
+	required int32 invalidTime = 7;//失效时间
+}
+
+message FubenListRequest {
+	required int32 mapId = 1; // 副本ID
+	required int32 type = 2;// 副本类型
+}
+
+message FubenListResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated FubenInfo s2c_list = 3; // 单人或者组队副本列表信息
+	optional int32 s2c_hard = 4; // 当前难度（客户端已不用了）
+	optional int32 s2c_across = 5; // 1：支持跨服组队（显示跨服组队按钮）
+}
+
+
+message EnterDungeonRequest {
+	required int32 c2s_dungeonId = 1;
+}
+
+message EnterDungeonResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+message ReplyEnterDungeonRequest {
+	required int32 c2s_type = 1; //1：接受，2：拒绝
+	required int32 c2s_dungeonId = 2;
+}
+
+message ReplyEnterDungeonResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+message LeaveDungeonRequest {
+}
+
+message LeaveDungeonResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+message MJItemMax {
+	required int32 s2c_today_ml = 1; // 今日获得的最大数量
+	required int32 s2c_max_ml = 2;   // 最大获得数
+	required string itemCode = 3; 
+}
+
+message MapInfo {
+	required int32 mapId = 1;
+	required int64 bornBeginTime = 2;
+	required int64 bornEndTime = 3;
+	repeated MonsterInfo monsterInfo = 4; // boss刷新信息
+}
+
+message MemberData {
+	required string id = 1;
+	required string name = 2;
+	required int32 pro = 3;
+	required int32 level = 4;
+}
+
+message WorldBossListRequest {
+}
+
+message WorldBossListResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated MapInfo mapInfos = 3;
+}
+
+message PalaceListRequest {
+	required int32 s2c_type = 1; // 1：地宫，2：连服
+}
+
+message PalaceInfo {
+	required int32 mapId = 1;
+	required int32 monsterId = 2;
+	required int64 time = 3;
+}
+
+message PalaceListResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated PalaceInfo s2c_palaceInfos = 3;
+}
+
+message EnterWorldBossRequest {
+	required int32 s2c_areaId = 1;
+}
+
+message EnterWorldBossResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+message GetMonsterLeaderRequest {
+	required int32 s2c_monsterId = 1;
+	required int32 s2c_areaId = 2;
+}
+
+message GetMonsterLeaderResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated item.MiniItem s2c_dropItems = 3; // 掉落物品
+	required int32 s2c_reqLevel = 4; // 需要等级
+	required int32 s2c_reqUpLevel = 5; // 需要进阶等级
+	required string s2c_refreshPoint = 6; // 路点
+}
+
+message BossInfo {
+	required int32 mapId = 1;
+	required int32 monsterId = 2;
+	required int64 time = 3;
+	required string refreshPoint = 4;
+}
+
+message GetBossInfoRequest {
+}
+
+message GetBossInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated BossInfo s2c_bossInfos = 3;
+}
+
+message RankInfo {
+	required player.PlayerBasic player = 1;
+	required int32 damage = 2;
+}
+
+message GetBossDamageRankRequest {
+}
+
+message GetBossDamageRankResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated RankInfo s2c_rankInfos = 3;
+	required int32 s2c_ownDamage = 4;
+	required int32 s2c_ownRank = 5;
+}
+
+// 获取幻境界面数据请求
+message GetLllsionInfoRequest {
+}
+
+// 获取幻境界面数据响应
+message GetLllsionInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required int32 s2c_today_exp = 3; // 今日获得的经验
+	required int32 s2c_today_classexp = 4; // 今日获得的修为
+	required int32 s2c_today_gold = 5; // 今日获得的银两
+	optional int32 s2c_max_exp = 6;
+	optional int32 s2c_max_classexp = 7;
+	optional int32 s2c_max_gold = 8;
+}
+
+// 进入幻境场景请求
+message EnterLllsionRequest {
+	required int32 c2s_id = 1; // 幻境ID
+}
+
+// 进入幻境场景响应
+message EnterLllsionResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+// 获取幻境 领主 界面数据请求
+message GetLllsionBossInfoRequest {
+}
+
+message IllsionBossInfo {
+	required int32 id = 1;
+	optional int64 nextRefreshTime = 2;
+}
+
+// 获取幻境 领主 界面数据响应
+message GetLllsionBossInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated IllsionBossInfo bossInfos = 3;
+}
+
+// 进入幻境 领主 场景请求
+message EnterLllsionBossRequest {
+	required int32 c2s_id = 1; // 场景ID
+}
+
+// 进入幻境 领主 场景响应
+message EnterLllsionBossResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//获取是否有收益
+message GetBenifitableRequest{
+}
+message GetBenifitableResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional bool benifitable = 3;
+}
+
+// 获取幻境2界面数据请求
+message GetLllsion2InfoRequest {
+}
+
+// 获取幻境界2面数据响应
+message GetLllsion2InfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;	
+	required int32 s2c_max_num = 3;   // 今日最大获得数
+	required int32 s2c_today_lv1 = 4; // 今日获得的初级宝箱
+	required int32 s2c_today_lv2 = 5; // 今日获得的高级宝箱
+	required int32 s2c_today_lv3 = 6; // 今日获得的稀有宝箱
+	repeated MJItemMax item_info = 7;
+}
+
+// 进入幻境2场景请求
+message EnterLllsion2Request {}
+
+// 进入幻境2场景响应
+message EnterLllsion2Response {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+// 增加收益次数请求
+message AddProfitRequest {
+	required int32 mapId = 1; // 副本ID
+}
+// 增加收益次数响应
+message AddProfitResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+// 副本处理器
+service fightLevelHandler {
+  // 获取副本列表
+  rpc fubenListRequest(FubenListRequest) returns(FubenListResponse);
+  // 进入副本
+  rpc enterDungeonRequest(EnterDungeonRequest) returns(EnterDungeonResponse);
+  // 设置是否确认进入副本
+  rpc replyEnterDungeonRequest(ReplyEnterDungeonRequest) returns(ReplyEnterDungeonResponse);
+  // 离开副本
+  rpc leaveDungeonRequest(LeaveDungeonRequest) returns(LeaveDungeonResponse);
+  //世界首领列表
+  rpc worldBossListRequest(WorldBossListRequest) returns(WorldBossListResponse);
+  //进入世界首领
+  rpc enterWorldBossRequest(EnterWorldBossRequest) returns(EnterWorldBossResponse);
+  //首领详情
+  rpc getMonsterLeaderRequest(GetMonsterLeaderRequest) returns(GetMonsterLeaderResponse);
+  //地宫列表
+  rpc palaceListRequest(PalaceListRequest) returns(PalaceListResponse);
+  //Boss信息
+  rpc getBossInfoRequest(GetBossInfoRequest) returns(GetBossInfoResponse);
+  //Boss伤害排名
+  rpc getBossDamageRankRequest(GetBossDamageRankRequest) returns(GetBossDamageRankResponse);
+
+  // 获取幻境界面打开数据
+  rpc getLllsionInfoRequest(GetLllsionInfoRequest) returns(GetLllsionInfoResponse);
+
+  // 进入幻境场景
+  rpc enterLllsionRequest(EnterLllsionRequest) returns(EnterLllsionResponse);
+
+  // 获取幻境 领主 界面打开数据
+  rpc getLllsionBossInfoRequest(GetLllsionBossInfoRequest) returns(GetLllsionBossInfoResponse);
+
+  // 进入幻境 领主 场景
+  rpc enterLllsionBossRequest(EnterLllsionBossRequest) returns(EnterLllsionBossResponse);
+  
+  //获取是否有收益
+  rpc getBenifitableRequest(GetBenifitableRequest) returns(GetBenifitableResponse);
+  
+  // 获取幻境2界面打开数据
+  rpc getLllsion2InfoRequest(GetLllsion2InfoRequest) returns(GetLllsion2InfoResponse);
+  // 进入幻境2场景
+  rpc enterLllsion2Request(EnterLllsion2Request) returns(EnterLllsion2Response);
+  
+  // 增加副本收益次数
+  rpc addProfitRequest(AddProfitRequest) returns(AddProfitResponse);
+}
+
+message OnConfirmEnterFubenPush {
+	optional string s2c_msg = 2;
+	required int32 s2c_fubenId = 3;
+	required int32 s2c_over_time = 4; //倒计时时间
+	required string s2c_leaderId = 5;
+	repeated MemberData s2c_memberData = 6;
+}
+
+message OnMemberEnterFubenStateChangePush {
+	optional string s2c_msg = 2;
+	required string s2c_playerId = 3;
+	required int32 s2c_isReady = 4; // 是否确认， 0false 1true
+}
+
+message OnFubenClosePush {
+	optional string s2c_msg = 2;
+	required int32 s2c_over_time = 3;
+}
+
+message CloseHandUpPush {
+	optional string msg = 2; // 原因
+}
+
+// 幻境挂机银两金币变化
+message IllusionPush {
+	required int32 s2c_today_exp = 3; // 今日获得的经验
+	required int32 s2c_today_classexp = 4; // 今日获得的修为
+	required int32 s2c_today_gold = 5; // 今日获得的银两
+	optional int32 s2c_max_exp = 6;
+	optional int32 s2c_max_classexp = 7;
+	optional int32 s2c_max_gold = 8;
+}
+
+// 幻境2打Boss获得宝箱变化
+message Illusion2Push {
+	required int32 s2c_today_lv1 = 1; // 今日获得的初级宝箱
+	required int32 s2c_today_lv2 = 2; // 今日获得的高级宝箱
+	required int32 s2c_today_lv3 = 3; // 今日获得的稀有宝箱
+	required int32 s2c_max_num = 4;   // 最大获得的宝箱数
+	repeated MJItemMax item_info = 5;
+}
+
+// 副本消息推送
+service fightLevelPush {
+  // 开始确认进入副本
+  rpc onConfirmEnterFubenPush(OnConfirmEnterFubenPush) returns(Void);
+  // 队员验证进入副本状态变化
+  rpc onMemberEnterFubenStateChangePush(OnMemberEnterFubenStateChangePush) returns(Void);
+  //副本结束
+  rpc onFubenClosePush(OnFubenClosePush) returns(Void);
+  //关闭组队确认，并提示原因
+  rpc closeHandUpPush(CloseHandUpPush) returns(Void);
+  // 幻境挂机银两经验变化推送
+  rpc illusionPush(IllusionPush) returns(Void);
+  // 幻境2打Boss获得宝箱变化推送
+  rpc illusion2Push(Illusion2Push) returns(Void);
+}

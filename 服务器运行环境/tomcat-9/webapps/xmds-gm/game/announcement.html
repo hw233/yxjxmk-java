@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>登录公告</title>
+</head>
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/icon.css" />
+<link rel="stylesheet"
+	href="../js/kindeditor/themes/default/default.css" />
+	
+<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script charset="utf-8" src="../js/kindeditor/kindeditor-all.js"></script>
+<script charset="utf-8" src="../js/kindeditor/lang/zh-CN.js"></script>
+<script type="text/javascript"
+	src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+<script type="text/javascript">
+	var editor;
+	$(function() {
+		initKind();
+	});
+	
+	function initKind(){
+		KindEditor.ready(function(K) {
+			editor = K.create('textarea[id="content"]', {
+				// items : [ 'source', 'fontsize', 'forecolor' ]
+				items : [ 'fontsize', 'forecolor' ]
+			});
+		});
+	}
+	
+	function initData(){
+		$('#dataTable').datagrid('reload');
+	}
+	
+	function onLoadSuccess() {
+		var rows = $('#dataTable').datagrid('getRows');
+		for (var i = 0; i < rows.length; i++) {
+			var checked = "";
+			if (rows[i].isUse == true) {
+				checked = "checked";
+			}
+			$('#dataTable').datagrid(
+					'updateRow',
+					{
+						index : i,
+						row : {
+							isUse : "<input type='checkbox' id='" + rows[i].id
+									+ "' " + checked
+									+ " onchange='onBoxchange(this)'></input>"
+						}
+					});
+		}
+	}
+	function onBoxchange(t) {
+		var id = $(t).attr("id");
+		var use = $(t).attr("checked")=="checked";
+		$.ajax({
+			url : "../action/useAnnouncement",
+			type : "POST",
+			data : {
+				id : id,
+				use : use
+			},
+			success : function(data) {
+				initData();
+			}
+		});
+	}
+
+	function ok() {
+		if (!$('#ff').form('validate')) {
+			return;
+		}
+		var content = editor.html().replace(/&nbsp;/g,"");
+		$.messager.confirm('提示', '确定保存公告?', function(r) {
+			if (r) {
+				$.ajax({
+					url : "../action/saveAnnouncement",
+					type : "POST",
+					data : {
+						id : $("#cid").val(),
+						name : $("#name").textbox('getText'),
+						content : content
+					},
+					success : function(data) {
+						initData();
+					}
+				});
+			}
+		});
+	}
+	function clearForm() {
+		$('#ff').form('clear');
+		editor.html("");
+	}
+
+	function onDblClickRow(index, row) {
+		$("#showName").text(row.name);
+		$("#showContent").html(row.orgContent);
+		$("#contentDialog").dialog("open");
+	}
+	
+	function onClickRow(index, row){
+		$("#cid").val(row.id);
+		$("#name").textbox('setText',row.name);
+		editor.html(row.orgContent);
+	}
+	
+	// 删除登录公告
+	function deleteAnnounce(){
+		var row = $("#dataTable").datagrid('getSelected');
+		if (row == null) {
+			return;
+		}
+		$.messager.confirm('提示', '确定删除登录公告吗？', function(r) {
+			if (r) {
+				$.ajax({
+					url : "../action/deleteAnnouncement",
+					type : "POST",
+					data : {
+						id : row.id
+					},
+					success : function(data) {
+						initData();
+					}
+				});
+			}
+		});
+	}
+</script>
+<body>
+	<div class="easyui-panel" title="登录公告"
+		style="width: 100%; max-width: 800px; padding: 30px 60px;">
+		<table class="easyui-datagrid" title="公告列表"
+			style="width: 700px; height: 300px;" id="dataTable"
+			data-options="singleSelect:true,collapsible:true,onDblClickRow:onDblClickRow,onLoadSuccess:onLoadSuccess,onClickRow:onClickRow,toolbar:'#tb',url:'../action/queryAnnouncement'">
+			<thead>
+				<tr>
+					<th data-options="field:'id',hidden:true"></th>
+					<th data-options="field:'name',width:200,align:'center'">名称</th>
+					<th data-options="field:'orgContent',width:440,align:'center'">内容</th>
+					<th data-options="field:'isUse',width:50,align:'center'">启用</th>
+				</tr>
+			</thead>
+		</table>
+		<br /> <br />
+		<form id="ff" method="post">
+			<div style="margin-bottom: 20px">
+				<input type="hidden" id="cid">
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" id="name" style="width: 100%"
+					data-options="label:'名称:',required:true">
+			</div>
+			<div style="margin-bottom: 20px">
+				<div style="float: left;margin-right: 60px;">内容:</div>
+				<textarea id="content"
+					style="width: 86%; height: 360px"></textarea>
+			</div>
+		</form>
+		<div style="text-align: center; padding: 5px 0">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="ok()"
+				style="width: 80px">保存</a> <a href="javascript:void(0)"
+				class="easyui-linkbutton" onclick="clearForm()" style="width: 80px">清空</a>
+		</div>
+	</div>
+	
+	<div id="tb">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-reload',plain:true"
+			onclick="initData();">刷新</a>
+			
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-remove',plain:true"
+			onclick="deleteAnnounce();">删除</a>
+	</div>
+
+	<!-- 预览界面 -->
+	<div id="contentDialog" class="easyui-dialog" title="公告预览"
+		data-options="modal:true,closed:true"
+		style="width: 800px; height: 400px; padding: 10px;">
+		<table cellpadding="10" align="center">
+			<tr>
+				<td width="100">名称:</td>
+				<td><label id="showName"></label></td>
+			</tr>
+			<tr>
+				<td width="60">内容:</td>
+				<td><div id="showContent"></div></td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

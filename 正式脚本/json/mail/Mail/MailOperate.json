@@ -1,0 +1,7 @@
+[
+	[ "邮件ID", "邮件类型", "服务器ID", "渠道ID", "接收对象", "等级需求", "VIP等级", "发件人", "发署日期", "邮件标题", "邮件内容", "附件", "开始时间", "结束时间", "删除时间", "阅读处理" ],
+	[ "mailId", "mailType", "server", "channel", "accept", "level", "vipLevel", "mailSender", "sendDay", "mailTitle", "mailText", "mailAttach", "startTime", "endTime", "deleteTime", "mailRead" ],
+	[ "NUMBER", "NUMBER", "NUMBER", "NUMBER", "STRING", "NUMBER", "NUMBER", "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "NUMBER" ],
+	[ 10102, 2, 0, 0, "", 0, 0, "管理员", "2015-11-18", "维护补偿", "由于版本维护，特此补偿<font size='30' color='ff5bc61a'>$e</font>块钱。", "Tem001", "2015-11-18 00:00:00", "9999-12-31 23:59:59", "", 1 ],
+	[ 10201, 2, 0, 0, "", 0, 0, "系统管理员", "2015-11-18", "登录补偿", "欢迎您登录TT，送您<font size='30' color='ff5bc61a'>$e</font>块钱，希望您玩的愉快。", "Tem002", "2015-11-18 00:00:00", "2015-12-20 00:00:00", "", 1 ]
+]

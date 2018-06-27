@@ -1,0 +1,33 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-03-15
+//* 用途= 挂机设置处理器
+//***************************************************************************/
+package pomelo.area;
+
+message HookSetData {
+  required int32  hpPercent = 1;  // 生命低于%
+  required int32  mpPercent = 2;  // 法力低于%
+  required string hpItemCode = 3; // 生命药剂
+  required string mpItemCode = 4; // 法力药剂
+  required int32  pkSet = 5;      // 防PK设置 0-自动反击 1-自动逃走
+  repeated int32  meltQcolor = 6; // 熔炼装备颜色
+  optional int32  autoBuyHpItem = 7;
+  optional int32  autoBuyMpItem = 8;
+  required int32  fieldMaphook = 9;   // 野外全图挂机 0 不挂 1 挂
+  required int32  areaMaphook = 10;    // 其他场景全图挂机 0 不挂 1 挂
+}
+
+message ChangeHookSetRequest {
+  required HookSetData c2s_hookSetData = 1;
+}
+
+message ChangeHookSetResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 挂机设置处理器
+service hookSetHandler {
+   rpc changeHookSetRequest(ChangeHookSetRequest) returns(ChangeHookSetResponse);
+}

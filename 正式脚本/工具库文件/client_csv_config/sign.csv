@@ -1,0 +1,34 @@
+﻿Key,Value,
+sign_sign,签 到,
+sign_luxury,豪华签到,
+sign_vipcomp,VIP补领,
+sign_allsignday,<b size='22'>已经签到<f color='ff5bc61a'>%s</f>天</b>,
+sign_pay,充值,
+sign_get,领取,
+sign_isget,已领取,
+sign_issign,已签到,
+sign_alldays,累签%d天,
+sign_daysaward,%d日礼包,
+sign_Alreadydays,<b size='22'>已经连续签到<f color='ff5bc61a'>%s</f>天</b>,
+getthegiftbag,恭喜获得,
+sign_rule,1.每天登陆可进行签到，签到奖励会顺延上一次的签到，<br/>即只要累计登陆可领取全部奖<br/>2.签到奖励全部领取后，次日会刷新<br/>3.豪华签到可每天完成，领取奖励,
+sing_rule_ui,<f color='ff21b2ef' style = '4'>签到规则</f> ,
+sign_day,第%d天,
+isover,已结束
+xuweiyidai,虚位以待
+rankreward,"排行榜第{0}-{1}名奖励"
+notrank,未上榜
+wu,无
+xuyao,需要
+isbuy,您已经购买了该商品
+gotorecharge,"元宝不足,是否前往充值？"
+btnOK,确定
+btnCancel,取消
+buyproduct,"是否花费{0}元宝购买此商品？"
+isbuyed,已购买
+notonlinelong,在线时长未满足
+onlinereward,在线礼包
+yuan,元
+yuanbao,元宝
+noserverdata,"服务器没有返回任何有效数据，没有看到公告找服务器"
+notsuccess,未达成

@@ -1,0 +1,50 @@
+//***************************************************************************
+//* 作者= 刘羿君
+//* 创建时间= 2015-12-18
+//* 用途= 消息处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message Message {
+    required string id = 1;
+    optional string relationId = 2;
+    required int32 messageType = 3;
+    //剩余时间，单位秒，永远都有效则为-1
+    required int32 remainTime = 4;
+    required string strMsg = 5;
+}
+
+message HandleMessageRequest {
+    required string c2s_id = 1;
+    required int32 c2s_type = 2;
+    //操作符 1.同意 2.拒绝
+    required int32 c2s_operate = 3;
+}
+
+message HandleMessageResponse {
+    required int32 s2c_code = 1;
+    //是否清除同类型信息 1.清除 0.不清除
+    optional int32 s2c_isClear = 2;
+    optional string s2c_msg = 3;
+}
+
+message OnMessageAddPush {
+    required int32 s2c_code = 1;
+    required Message s2c_data = 2;
+}
+
+
+//消息处理器
+service messageHandler {
+
+  rpc handleMessageRequest(HandleMessageRequest) returns(HandleMessageResponse);
+
+}
+
+service messagePush{
+
+  rpc onMessageAddPush(OnMessageAddPush) returns(Void);
+
+}
+

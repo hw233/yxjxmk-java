@@ -1,0 +1,29 @@
+//***************************************************************************
+//* 作者: 卢松洁
+//* 创建时间: 2015-08-27
+//* 用途: 资源处理器
+//***************************************************************************
+package pomelo.area;
+
+message Npc  {
+    required int32 templateId = 1;
+    required uint32 id = 2;
+}  
+
+message QueryAreaDataRequest{
+}
+
+message QueryAreaDataResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated Npc s2c_npcs = 3;
+}
+  
+  
+//资源处理器
+service resourceHandler {
+  //查询场景数据
+  rpc queryAreaDataRequest(QueryAreaDataRequest) returns (QueryAreaDataResponse);
+}
+
+

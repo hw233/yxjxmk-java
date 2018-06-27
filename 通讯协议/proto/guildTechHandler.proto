@@ -1,0 +1,128 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间 = 2017-04-27
+//* 用途= 公会科技处理器
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+import 'common.proto';
+
+
+message GetGuildTechInfoRequest{//获取科技详细信息
+
+}
+
+message UpgradeGuildTechRequest{//升级科技建筑等级
+
+}
+
+message UpgradeGuildBuffRequest{//升级科技增益Buff等级
+
+}
+
+message UpgradeGuildSkillRequest{//升级科技个人技能等级
+    optional int32 skillId = 1; //技能id
+}
+
+message BuyGuildProductRequest{//购买科技产品
+    optional int32 productId = 1; //物品产出id
+}
+//请求结束
+
+message GuildBuff{
+    optional int32 level = 1; //增益等级
+    repeated AttributeBase currentAttrs = 2; //加成属性
+    repeated AttributeBase nextAttrs = 3; //下一级加成属性
+    optional int32 needFund = 4; //升级需要公会基金
+}
+
+message GuildSkill{
+    optional int32 id = 1; //技能id
+    optional int32 level = 2; //技能等级
+    optional string techName = 3; //技能名字
+    optional string techDes = 4; //技能描述
+    repeated AttributeBase currentAttrs = 5; //当前属性
+    repeated AttributeBase nextAttrs = 6; //下级属性
+    optional int32 needContribution = 7; //升级需要公会贡献
+    optional int32 needGold = 8; //升级需要金币
+    optional int32 recommend = 9; //1：推荐 0：不推荐
+    optional string icon = 10; //图标
+}
+
+message GuildProduct{
+    optional int32 id = 1; //配置id
+    optional item.MiniItem item = 2; //产出道具
+    optional string itemShowName = 3; //显示名字
+    optional int32 level = 4; //需要等级
+    optional int32 upLevel = 5; //需要进阶等级
+    optional int32 needJob = 6; //需要职位
+    optional int32 needContribution = 7; //价格(需要贡献)
+    optional int32 state = 8; //0:未激活(暂时不用) 1:未购买 2:已购买
+}
+
+message GuildTechInfo{
+    optional int32 level = 1; //科技等级
+    optional GuildBuff buffInfo = 2; //增益buff
+    repeated GuildSkill skillList = 3; //技能
+    repeated GuildProduct productList = 4; //产出
+}
+
+message GetGuildTechInfoResponse{//获取科技详细信息
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional GuildTechInfo s2c_techInfo = 3; //科技信息
+    optional int32 s2c_contribution = 4; //公会贡献
+}
+
+message UpgradeGuildTechResponse{//升级科技建筑等级
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_level = 3; //科技等级
+    optional int32 s2c_fund = 4; //公会剩余资金
+}
+
+message UpgradeGuildBuffResponse{//升级科技增益Buff等级
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional GuildBuff s2c_buffInfo = 3;  //增益buff信息
+    optional int32 s2c_fund = 4; //公会剩余资金
+}
+
+message UpgradeGuildSkillResponse{//升级科技个人技能等级
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional GuildSkill s2c_skillInfo = 3; //技能信息
+    optional int32 s2c_contribution = 4; //公会贡献
+}
+
+message BuyGuildProductResponse{//购买科技产品
+     required int32 s2c_code = 1;
+     optional string s2c_msg = 2;
+     optional int32 s2c_id = 3; //产出id
+     optional int32 s2c_state = 4; //产出购买状态
+     optional int32 s2c_contribution = 5; //公会贡献
+}
+
+service guildTechHandler{
+    //获取科技详细信息
+    rpc getGuildTechInfoRequest(GetGuildTechInfoRequest) returns(GetGuildTechInfoResponse);
+    //升级科技建筑等级
+    rpc upgradeGuildTechRequest(UpgradeGuildTechRequest) returns(UpgradeGuildTechResponse);
+    //升级科技增益Buff等级
+    rpc upgradeGuildBuffRequest(UpgradeGuildBuffRequest) returns(UpgradeGuildBuffResponse);
+    //升级科技个人技能等级
+    rpc upgradeGuildSkillRequest(UpgradeGuildSkillRequest) returns(UpgradeGuildSkillResponse);
+    //购买科技产品
+    rpc buyGuildProductRequest(BuyGuildProductRequest) returns(BuyGuildProductResponse);
+}
+
+message GuildTechRefreshPush{
+    optional int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 type = 3; //1:科技刷新 2:升级
+    optional int32 level = 4; //科技等级
+}
+
+service guildTechPush{
+    rpc guildTechRefreshPush(GuildTechRefreshPush) returns(Void);
+}

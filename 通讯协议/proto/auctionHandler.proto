@@ -1,0 +1,121 @@
+//***************************************************************************
+//* 作者= 周明凯
+//* 创建时间= 2017-12-20
+//* 用途= 竞拍处理器
+//***************************************************************************/
+package pomelo.auction;
+
+import 'common.proto';
+import 'item.proto';
+
+// 同步竞拍信息（用于变更时同步推送）
+message SyncAuctionInfoRequest {}
+// 同步竞拍信息响应
+message SyncAuctionInfoResponse {
+	required int32 			s2c_code	= 1;
+    optional string 		s2c_msg		= 2;
+}
+// 取消同步竞拍信息
+message CancelSyncAuctionInfoRequest {}
+// 取消同步竞拍信息响应
+message CancelSyncAuctionInfoResponse {
+	required int32 			s2c_code	= 1;
+    optional string 		s2c_msg		= 2;
+}
+
+//竞拍物品项
+message AuctionItem {
+  required string 			id			= 1;
+  required item.ItemDetail 	detail 		= 2;
+  required int32			state		= 3;//竞拍状态（1=展示，2=竞拍中）
+  optional int32			timeleft	= 4;//剩余时间(单位：秒)
+  optional int32			curPrice	= 5;//竞价
+  optional int32			maxPrice	= 6;//一口价
+  optional bool 			self		= 7;//当前是否为自己竟拍
+  optional int32			num			= 8;//当前数量
+  optional string			source		= 9;//奖励来源
+}
+
+// 竞拍列表
+message AuctionListRequest {
+    required int32 c2s_type 			= 1;   // 竞拍大类(1=仙盟竞拍，2=世界竞拍, 3=我的竞拍)
+}
+message AuctionListResponse {
+    required int32 			s2c_code	= 1;
+    optional string 		s2c_msg		= 2;
+    repeated AuctionItem 	s2c_data	= 3;
+	optional int32			s2c_bonus   = 4;//分红元宝值（仙盟竞拍才有的参数）
+}
+
+// 竞拍请求
+message AuctionRequest {
+    required string itemId  = 1;//物品的GUID
+	required int32	price   = 2;//客户端确认时的价格
+}
+message AuctionResponse {
+    required int32 			s2c_code	= 1;
+    optional string 		s2c_msg		= 2;
+}
+
+// 竞拍日志
+message AuctionLog {
+	required int32		id			= 1; //编号
+	optional string 	time 		= 2; //时间
+	optional string 	role1		= 3; //角色名称
+	optional string     item		= 4; //物品名称
+	optional int32		num			= 5; //多少绑定元宝
+}
+
+// 竞拍日志列表
+message AuctionLogRequest {}
+message AuctionLogResponse {
+    required int32 			s2c_code	= 1;
+    optional string 		s2c_msg		= 2;
+	repeated AuctionLog 	s2c_log		= 3;
+}
+
+
+//竞拍处理器
+service auctionHandler {
+	// 同步竞拍信息
+   	rpc syncAuctionInfoRequest(SyncAuctionInfoRequest) returns (SyncAuctionInfoResponse);
+	// 取消同步竞拍信息
+   	rpc cancelSyncAuctionInfoRequest(CancelSyncAuctionInfoRequest) returns (CancelSyncAuctionInfoResponse);
+	
+   	// 拉取竞拍列表
+   	rpc auctionListRequest(AuctionListRequest) returns (AuctionListResponse);
+	// 竞拍
+   	rpc auctionRequest(AuctionRequest) returns (AuctionResponse);
+	// 拉取竞拍日志列表
+   	rpc auctionLogRequest(AuctionLogRequest) returns (AuctionLogResponse);
+}
+
+
+// 竞拍物品变化
+message AuctionItemPush {
+	required AuctionItem 	s2c_item	= 1;//变化的竞拍选项
+}
+
+// 添加竞拍物品
+message AddAuctionItemPush {
+	repeated AuctionItem 	s2c_item	= 1;
+	optional int32 			s2c_type 	= 2;   // 竞拍大类(1=仙盟竞拍，2=世界竞拍)
+}
+
+// 移除竞拍物品
+message RemoveAuctionItemPush {
+	required string id = 1;
+}
+
+// 竞拍消息推送
+service auctionPush {
+  // 推送竞拍物品变化
+  rpc auctionItemPush(AuctionItemPush) returns(Void);
+  
+  // 添加竞拍物品
+  rpc addAuctionItemPush(AddAuctionItemPush) returns(Void);
+  
+  // 移除竞拍物品
+  rpc removeAuctionItemPush(RemoveAuctionItemPush) returns(Void);
+}
+

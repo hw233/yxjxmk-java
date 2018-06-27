@@ -1,0 +1,290 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 女武神处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message EnterGoddessSceneRequest {
+}
+
+message OutGoddessSceneRequest {
+}
+
+message ActiveGoddessRequest {
+  required int32 c2s_goddessTemplateId = 1;
+}
+
+message OnBattleGoddessRequest {
+  required int32 c2s_goddessId = 1;
+}
+
+message OffBattleGoddessRequest {
+  required int32 c2s_goddessId = 1;
+}
+
+message GetGiftsRequest {
+  required int32 c2s_goddessId = 1;
+}
+
+message BuyGiftRequest {
+  required int32 c2s_goddessId = 1;
+  required int32 c2s_giftId = 2;
+}
+
+message UnEquipGiftRequest {
+  required int32 c2s_goddessId = 1;
+  required int32 c2s_giftId = 2;
+}
+
+message EquipGiftRequest {
+  required int32 c2s_goddessId = 1;
+  required int32 c2s_giftId = 2;
+}
+
+message UpIntimacyRequest {
+  required int32 c2s_goddessId = 1;
+  required int32 c2s_type = 2;
+}
+
+message UpStarRequest {
+  required int32 c2s_goddessId = 1;
+}
+
+message GetCommInfoRequest {
+  required int32 c2s_goddessId = 1;
+}
+
+message GetGoddessDetailRequest {
+  required int32 c2s_goddessId = 1;
+}
+
+message GetAllGoddessRequest {
+}
+
+
+message GetGiftsResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated GoddessGift s2c_gifts = 3;
+}
+
+message BuyGiftResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message UnEquipGiftResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message EquipGiftResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message GoddessAddProp {
+  required string name = 1;
+  required int32 addValue = 2;
+}
+
+message GoddessUpgradeStruct {
+  required int32 actionCount = 1;
+  repeated GoddessAddProp addProps = 2;
+  optional GoddessSkill skill = 3;
+}
+
+message GoddessIntimacyStruct {
+  required int32 intimacy = 1;
+  required int32 intimacyLevel = 2;
+  required int32 intimacyStage = 3;
+  required int32 needIntimacy = 4;
+}
+
+message CommInfo {
+  required int32 type = 1;
+  required int32 exp = 2;
+  required int32 cost = 3;
+  required string name = 4;
+}
+
+message GoddessCommStruct {
+  required int32 curCommCount = 1;
+  required int32 maxCommCount = 2;
+  repeated CommInfo commInfo = 3;
+}
+
+message GetCommInfoResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional GoddessCommStruct s2c_commData = 3;
+}
+
+message UpIntimacyResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_star = 3;
+  optional GoddessIntimacyStruct s2c_intimacyData = 4;
+  optional GoddessUpgradeStruct s2c_upGradeInfo = 5;
+}
+
+message UpStarResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_star = 3;
+  optional GoddessIntimacyStruct s2c_intimacyData = 4;
+  optional GoddessUpgradeStruct s2c_upGradeInfo = 5;
+}
+
+message GetGoddessDetailResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional GoddessDetail s2c_goddess = 3;
+}
+
+message GetAllGoddessResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  required int32 s2c_on_battle_max_num = 3;
+  repeated GoddessBasic s2c_goddesses = 4;
+}
+
+message GoddessGift{
+  required int32 id = 1;
+  required int32 price = 2;
+  required string name = 3;
+  required string pic = 4;
+  required string des = 5;
+  required GoddessGiftBasic basic = 6;
+}
+
+message GoddessGiftBasic{
+  required int32 pos = 1;
+  required string show = 2;
+  required int32 state = 3;
+}
+
+message GoddessSkill{
+  required string name = 1;
+  required string pic = 2;
+  required string des = 3;
+  required int32 level = 4;
+}
+
+message GoddessBasic{
+  required int32 id = 1;
+  required int32 templateId = 2;
+  required string name = 3;
+  required int32 state = 4;
+  required int32 star = 5;
+  required int32 intimacy = 6;
+  required int32 intimacyLevel=7;
+  required int32 intimacyStage = 8;
+  required int32 actionCount = 9;
+  required int32 upStarItemCur = 10;
+  required int32 upStarItemMax = 11;
+  required int32 needIntimacy= 12;
+  repeated GoddessGiftBasic equips = 13;
+}
+
+message GoddessEffectStruct{
+  required string name= 1;
+  required int32 value= 2;
+}
+
+message GoddessDetail{
+  required GoddessBasic basic = 1;
+  repeated GoddessEffectStruct atts = 2;
+  optional GoddessSkill mainSkill = 3;
+  optional GoddessSkill assistSkill = 4;
+}
+
+  message EnterGoddessSceneResponse  {
+  required int32 s2c_code= 1;
+  optional string s2c_msg= 2;
+}
+
+message OutGoddessSceneResponse  {
+  required int32 s2c_code= 1;
+  optional string s2c_msg= 2;
+}
+
+message ActiveGoddessResponse{
+  required int32 s2c_code= 1;
+  optional string s2c_msg= 2;
+}
+
+message OnBattleGoddessResponse{
+  required int32 s2c_code= 1;
+  optional string s2c_msg= 2;
+}
+
+message OffBattleGoddessResponse{
+  required int32 s2c_code= 1;
+  optional string s2c_msg= 2;
+}
+  
+  
+//女武神处理器
+service goddessHandler {
+ 
+  rpc enterGoddessSceneRequest(EnterGoddessSceneRequest) returns(EnterGoddessSceneResponse);
+
+  rpc outGoddessSceneRequest(OutGoddessSceneRequest) returns(OutGoddessSceneResponse);
+
+  rpc activeGoddessRequest(ActiveGoddessRequest) returns(ActiveGoddessResponse);
+
+
+  rpc onBattleGoddessRequest(OnBattleGoddessRequest) returns(OnBattleGoddessResponse);
+
+  rpc offBattleGoddessRequest(OffBattleGoddessRequest) returns(OffBattleGoddessResponse);
+
+  rpc getGiftsRequest(GetGiftsRequest) returns(GetGiftsResponse);
+
+  rpc buyGiftRequest(BuyGiftRequest) returns(BuyGiftResponse);
+
+
+  rpc unEquipGiftRequest(UnEquipGiftRequest) returns(UnEquipGiftResponse);
+
+
+  rpc equipGiftRequest(EquipGiftRequest) returns(EquipGiftResponse);
+
+
+  rpc upIntimacyRequest(UpIntimacyRequest) returns(UpIntimacyResponse);
+
+
+  rpc upStarRequest(UpStarRequest) returns(UpStarResponse);
+
+
+  rpc getCommInfoRequest(GetCommInfoRequest) returns(GetCommInfoResponse);
+
+
+  rpc getGoddessDetailRequest(GetGoddessDetailRequest) returns(GetGoddessDetailResponse);
+
+
+  rpc getAllGoddessRequest(GetAllGoddessRequest) returns(GetAllGoddessResponse);
+
+}
+
+message GoddessEquipDynamicPush {
+  required int32 s2c_code = 1;
+  required int32 s2c_goddessId = 2;
+  repeated GoddessGiftBasic s2c_data = 3;
+}
+
+ message GoddessGiftDynamicPush {
+  required int32 s2c_code = 1;
+  required int32 s2c_goddessId = 2;
+  repeated GoddessGift s2c_data = 3;
+}
+
+//女武神消息推送
+service goddessPush {
+
+  rpc goddessEquipDynamicPush(GoddessEquipDynamicPush) returns(Void);
+ 
+  rpc goddessGiftDynamicPush(GoddessGiftDynamicPush) returns(Void); 
+
+}

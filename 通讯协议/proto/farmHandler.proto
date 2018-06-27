@@ -1,0 +1,166 @@
+//***************************************************************************
+//* 作者: jjr
+//* 创建时间: 2017-08-24
+//* 用途: 果园
+//***************************************************************************/
+package pomelo.farm;
+import "farm.proto";
+
+// 我的果园信息
+message MyFarmInfoRequest {
+}
+message MyFarmInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional PlayerInfo playerInfo = 3;
+	repeated Seed seedLs = 4; // 种子列表
+	repeated Product productLs = 5; // 果实列表
+	optional int32 exp = 6;//农场经验
+	repeated RecordInfo recordInfoLs = 7; // 果园记录
+	
+}
+
+// 好友果园信息
+message FriendFarmInfoRequest {
+	required string playerId = 1;
+}
+
+message FriendFarmInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional PlayerInfo playerInfo = 3; 
+}
+
+
+// 好友列表
+message FriendLsRequest {
+}
+
+message FriendLsResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated PlayerSummary playerSummary = 3; // 好友摘要列表
+}
+
+
+
+
+
+
+// 开垦请求
+message OpenRequest {
+	required int32 blockId = 1; // 田块id
+}
+// 开垦返回
+message OpenResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+// 播种请求
+message SowRequest {
+	required int32 blockId = 1; // 地块id
+	required string seedCode = 2; // 作物代码
+}
+// 播种返回
+message SowResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+// 培育好友请求
+message CultivateFriendRequest {
+	required int32 blockId = 1; // 地块id
+	required int32 cultivateType = 2;//操作种类
+	optional string friendId = 3; // 好友id
+	
+}
+// 培育好友返回
+message CultivateFriendResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional int32 fate=3;//获取的仙缘值
+}
+
+// 培育自己请求
+message CultivateSelfRequest {
+	required int32 blockId = 1; // 地块id
+	required int32 cultivateType = 2;//操作种类
+	
+}
+// 培育自己返回
+message CultivateSelfResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+// 收获请求
+message HarvestRequest {
+	required int32 blockId = 1; // 地块id
+}
+
+// 收获返回
+message HarvestResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional int32 exp=3;//收获后的果园经验
+	optional int32 lv=4;//收获后的果园等级
+	optional Block block=5;//收获后的地块状态
+}
+
+// 好友偷取请求
+message StealRequest {
+	required int32 blockId = 1; // 地块id
+	required string friendId = 2; // 好友id
+}
+// 好友偷取返回
+message StealResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional string productCode = 3;//作物代码
+	optional int32 num = 4 ;//偷取到的数量
+}
+
+//获取商店信息
+message GetShopInfoRequest {
+}
+message GetShopInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional ShopItemInfo shopItemInfo = 3;
+}
+
+//兑换商店商品
+message ChangeShopItemRequest {
+	required int32 itemId=1;
+}
+message ChangeShopItemResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+service farmHandler {
+	// 获取我的果园信息
+	rpc myFarmInfoRequest (MyFarmInfoRequest) returns (MyFarmInfoResponse);
+	// 获取好友的果园信息
+	rpc friendFarmInfoRequest (FriendFarmInfoRequest) returns (FriendFarmInfoResponse);
+	// 好友果园列表信息
+	rpc friendLsRequest (FriendLsRequest) returns (FriendLsResponse);
+	// 开垦
+	rpc openRequest (OpenRequest) returns (OpenResponse);
+	// 种植
+	rpc sowRequest (SowRequest) returns (SowResponse);
+	// 培育好友
+	rpc cultivateFriendRequest (CultivateFriendRequest) returns (CultivateFriendResponse);
+	// 培育自己
+	rpc cultivateSelfRequest (CultivateSelfRequest) returns (CultivateSelfResponse);
+	// 偷取
+	rpc stealRequest (StealRequest) returns (StealResponse);
+	// 收获
+	rpc harvestRequest (HarvestRequest) returns (HarvestResponse);
+	// 获取商店信息
+	rpc getShopInfoRequest(GetShopInfoRequest) returns (GetShopInfoResponse);
+	// 兑换商店商品
+	rpc changeShopItemRequest(ChangeShopItemRequest) returns (ChangeShopItemResponse);
+}
+

@@ -1,0 +1,15 @@
+﻿Key,Value,
+suit_effect,套装效果：,
+suit_acount,%d件套：%s,
+romdomAttr,保留原有随机属性,
+magicAttr,保留原有附魔属性,
+gemAttr,保留原有宝石镶嵌属性,
+xiexia,卸下
+chuandai,穿戴
+shichuan,试穿
+jihuotwo,激活两件：
+jihuothree,激活三件：
+jianproperty,件加成：
+targettips,完成本章后激活
+canjihuo,可激活
+havejihuo,已激活

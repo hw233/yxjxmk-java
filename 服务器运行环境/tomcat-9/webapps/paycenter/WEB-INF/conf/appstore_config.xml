@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GB2312"?>
+<apples>
+   <game id="65" disc="xAPP" bid="com.jimei.xsanguo">
+            <product_id id="com.jimei.xsanguo_IOS_CN_6" money="6"/>
+            <product_id id="com.jimei.xsanguo_IOS_CN_25" money="25"/>
+            <product_id id="com.jimei.xsanguo_IOS_CN_30" money="30"/>
+            <product_id id="com.jimei.xsanguo_IOS_CN_98" money="98"/>
+            <product_id id="com.jimei.xsanguo_IOS_CN_198" money="198"/>
+            <product_id id="com.jimei.xsanguo_IOS_CN_328" money="328"/>
+            <product_id id="com.jimei.xsanguo_IOS_CN_648a" money="648"/>
+    </game>
+    <!-- 
+	<game id="51" disc="君王3App" bid="com.jimei.junw3.ip">
+		<product_id id="com.jimei.junw3.ip_1685_6" money="6"/>
+		<product_id id="com.jimei.junw3.ip_1685_25" money="25"/>
+		<product_id id="com.jimei.junw3.ip_1685_24" money="25"/>
+		<product_id id="com.jimei.junw3.ip_1685_30" money="30"/>
+		<product_id id="com.jimei.junw3.ip_1685_78" money="78"/>
+		<product_id id="com.jimei.junw3.ip_1685_198" money="198"/>
+		<product_id id="com.jimei.junw3.ip_1685_328" money="328"/>
+		<product_id id="com.jimei.junw3.ip_1685_648" money="648"/>
+	</game>
+	<game id="7" disc="君王II" bid="com.jimei.jw2">
+		<product_id id="kingii6_819" money="6"/>
+		<product_id id="kingii30_819" money="30"/>
+		<product_id id="kingii78_819" money="78"/>
+		<product_id id="kingii198_819" money="198"/>
+		<product_id id="kingii328_819" money="328"/>
+		<product_id id="kingii648_819" money="648"/>
+		<product_id id="kingii006_1706" money="6"/>
+		<product_id id="kingii030_1706" money="30"/>
+		<product_id id="kingii078_1706" money="78"/>
+		<product_id id="kingii198_1706" money="198"/>
+		<product_id id="kingii328_1706" money="328"/>
+		<product_id id="kingii648_1706" money="648"/>
+		<product_id id="kingiia30_1706" money="30"/>
+		<product_id id="kingiia60_1706" money="60"/>
+		<product_id id="kingiib98_1706" money="98"/>
+                <product_id id="kingiia25_1706" money="25"/>
+                <product_id id="kingiia50_1706" money="50"/>
+                <product_id id="kingiic98_1706" money="98"/>
+	</game>
+  -->
+</apples>

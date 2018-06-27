@@ -1,0 +1,93 @@
+//***************************************************************************
+//* 作者= 马章勇
+//* 创建时间 = 2016-5-13
+//* 用途= 公会商店处理器
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+import 'common.proto';
+
+
+message GetGuildShopInfoRequest{
+}
+
+message ExchangeShopItemRequest{
+    optional int32 id = 1;
+}
+
+
+//enum GuildShopMoneyType{
+//    MT_GOLD = 1; //金币
+//    MT_DIAMOND = 2; //钻石
+//    MT_TICKET = 3; //金票
+//    MT_FEE_POINT = 4; //消费积分
+//    MT_ARENA_POINT = 5; //竞技场积分
+//    MT_COPY_POINT = 6; //副本积分
+//}
+
+//货币类型
+message ShopMoneyInfo{
+    required int32 type = 1; //货币类型 GuildShopMoneyType
+    required int32 value = 2;   //货币数量
+}
+
+//enum GuildShopConditionType{
+//    CONDITION_LEVEL = 1;//需要等级
+//    CONDITION_UP_REQ = 2;//需要阶级
+//    CONDITION_VIP_LEVEL = 3;//需要vip等级
+//    CONDITION_RACE = 4;//需要阵营
+//    CONDITION_RACE_CLASS = 5;//需要阵营声望等级
+//}
+
+message ShopCondition {
+    optional int32 type = 1;//类型 GuildShopConditionType
+    optional int32 number = 2;//级别，点数等
+}
+
+message ExchangeItem{
+    optional int32 id = 1;
+    optional string itemShowName = 2;
+    optional item.MiniItem item = 3;//兑换的物品
+    optional int32 isBind = 4;//获得后是否绑定
+    optional string itemDes = 5; //物品描述
+    repeated ShopMoneyInfo needMoney = 6; //需要的货币
+    optional int32 state = 7; //0:未刷新 1：刷新可购买 2:售罄
+    repeated ShopCondition condition = 8; //需要的货币
+    optional int32 meetCondition = 9;//是否满足兑换条件 0：不满足 1：满足
+}
+
+message ShopInfo{
+    repeated ExchangeItem todayItems = 1; //今日刷新商品
+    repeated ExchangeItem nextItems = 2;  //下次可能刷新
+    repeated int32 refreshTime = 3;   //下次刷新剩余时间
+}
+
+message GetGuildShopInfoResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional ShopInfo s2c_shopInfo = 3;
+}
+
+message ExchangeShopItemResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_id = 3;
+    optional int32 s2c_state = 4; //兑换成功返回新状态
+}
+
+service guildShopHandler{
+    //请求公会商店信息
+    rpc getGuildShopInfoRequest(GetGuildShopInfoRequest) returns(GetGuildShopInfoResponse);
+    //请求兑换
+    rpc exchangeShopItemRequest(ExchangeShopItemRequest) returns(ExchangeShopItemResponse);
+}
+
+message ShopRefreshPush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional int32 type = 3; //1:商店刷新
+}
+
+service guildShopPush{
+    rpc shopRefreshPush(ShopRefreshPush) returns(Void);
+}

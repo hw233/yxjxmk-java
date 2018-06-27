@@ -1,0 +1,9 @@
+[
+	[ "编号", "交互名称", "交互类型", "魅力值", "金币", "钻石", "展示效果", "消息" ],
+	[ "id", "name", "type", "charm", "gold", "diamond", "show", "message" ],
+	[ "NUMBER", "STRING", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "STRING", "STRING" ],
+	[ 1, "一朵玫瑰", 1, 10, 100, 0, "/res/effect/60000_ui/vfx_ui_huaban.assetbundles", "<font size='20'><h img='static/static_chat_loud.png'>H</h>|1|爱慕|2|很久了，送给|2|一朵鲜花</font>" ],
+	[ 2, "一把玫瑰", 1, 100, 0, 10, "/res/effect/60000_ui/vfx_ui_huaban.assetbundles", "<font size='20'><h img='static/static_chat_loud.png'>H</h>|1|对|2|的爱如此热烈奔放，如漫天花雨一般下个不停</font>" ],
+	[ 3, "一坨屎", 2, -10, 100, 0, "/res/effect/60000_ui/vfx_ui_huaban.assetbundles", "<font size='20'><h img='static/static_chat_loud.png'>H</h>|1|丢了坨翔给|2|</font>" ],
+	[ 4, "一堆屎", 2, -100, 0, 10, "/res/effect/60000_ui/vfx_ui_huaban.assetbundles", "<font size='20'><h img='static/static_chat_loud.png'>H</h>|1|丢了一大坨翔给|2|，简直无情！</font>" ]
+]

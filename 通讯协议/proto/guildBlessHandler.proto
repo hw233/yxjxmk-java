@@ -1,0 +1,93 @@
+/***************************************************************************
+* 作者= jjr
+* 创建时间 = 2017-04-27
+* 用途= 公会祈福处理器
+***************************************************************************/
+package pomelo.area;
+import 'item.proto';
+import 'common.proto';
+
+message BlessItem{//祈福道具
+    repeated item.MiniItem item = 1; // 祈福获得道具
+}
+
+//个人祈福信息   (请求)
+message GetMyBlessInfoRequest{
+}
+
+message BlessActionRequest{//请求祈福
+    optional int32 id = 1; //祈福道具配置id
+}
+
+message ReceiveBlessGiftRequest{//请求领取礼包
+	required int32 index = 1;    // 0 : 30%  1:60% 2:100%
+}
+
+message UpgradeBlessRequest{//升级
+}
+
+//返回开始
+message MyBlessInfo{
+    optional int32 blessCount = 1; //今日已祈福次数
+    repeated AttributeBase blessAttrs = 2; //加成属性
+    optional int32 buffTime = 3; // 祈福有效时间
+    repeated int32 receiveState = 4; //领取状态 0:未领取 2:已领取
+    repeated BlessItem itemList = 5; // 祈福获得道具
+}
+
+message GetMyBlessInfoResponse{//个人祈福信息
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional MyBlessInfo s2c_blessInfo = 3;
+}
+
+message BlessResult{
+    optional int32 blessCount = 1; //今日祈福次数
+    optional int32 blessValue = 2; //当前祈福值(总进度)
+    optional int32 id = 3; //祈福道具id
+    optional int32 finishNum = 4; //道具进度
+    repeated int32 finishState = 5; //总完成状态 0:未完成 1:已完成
+}
+
+message BlessActionResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional BlessResult s2c_result = 3;
+}
+
+message ReceiveResult{
+    optional int32 receiveState = 1; //状态0:未领取 2:已领取
+}
+
+message ReceiveBlessGiftResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional ReceiveResult s2c_result = 3;
+}
+
+message UpgradeBlessResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_level = 3;
+    optional int32 s2c_fund = 4;
+}
+
+service guildBlessHandler{
+	//个人祈福信息
+    rpc getMyBlessInfoRequest(GetMyBlessInfoRequest) returns(GetMyBlessInfoResponse);
+    rpc blessActionRequest(BlessActionRequest) returns(BlessActionResponse);
+    rpc receiveBlessGiftRequest(ReceiveBlessGiftRequest) returns(ReceiveBlessGiftResponse);
+    rpc upgradeBlessRequest(UpgradeBlessRequest) returns(UpgradeBlessResponse);
+}
+
+message BlessRefreshPush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional int32 type = 3;//1:状态(附带进度） 2：0点道具刷新(需重新请求)
+    optional int32 blessValue = 4;//总进度值
+    repeated int32 finishState = 5; //0:未完成 1:已完成
+}
+
+service guildBlessPush{
+    rpc blessRefreshPush(BlessRefreshPush) returns(Void);
+}

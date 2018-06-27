@@ -1,0 +1,70 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 时装处理器
+//***************************************************************************/
+package pomelo.area;
+import 'common.proto';
+
+
+//获取已获得的时装列表
+message GetFashionsRequest {
+}
+message GetFashionsResponse {
+	required int32 s2c_code = 1;
+  	optional string s2c_msg = 2;
+	repeated string code1 = 3;//武器
+	repeated string code2 = 4;//衣服
+	repeated string code3 = 5;//背饰
+	repeated string flagcode1 = 6;//缓存的红点武器
+	repeated string flagcode2 = 7;//缓存的红点衣服
+	repeated string flagcode3 = 8;//缓存的红点背饰
+	optional string equiped_code1 = 9;//装备中的武器code
+	optional string equiped_code2 = 10;//装备中的衣服code
+	optional string equiped_code3 = 11;//装备中的背饰code
+}
+
+
+message DeleteFashionFlagRequest {
+required string code = 1;
+}
+
+message DeleteFashionFlagResponse {
+	required int32 s2c_code = 1;
+  	optional string s2c_msg = 2;
+}
+
+//穿戴或更换或卸载时装
+message EquipFashionRequest {
+  required string code = 1; // 要穿戴或更换的时装code
+  required bool ison = 2;//是否穿上
+}
+message EquipFashionResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional Avatar equiped_code1 = 3;//装备中的武器
+  optional Avatar equiped_code2 = 4;//装备中的衣服
+  optional Avatar equiped_code3 = 5;//装备中的背饰
+}
+
+//时装获得推送
+message FashionGetPush {
+	required int32  s2c_code = 1;
+	required string code = 2;//时装代码
+}
+  
+//时装处理器
+service fashionHandler {
+  
+	rpc equipFashionRequest(EquipFashionRequest) returns(EquipFashionResponse);
+
+	rpc getFashionsRequest(GetFashionsRequest) returns(GetFashionsResponse);
+
+	rpc deleteFashionFlagRequest(DeleteFashionFlagRequest) returns(DeleteFashionFlagResponse);
+}
+
+//时装推送
+service fashionPush {
+	rpc onFashionGetPush(FashionGetPush) returns(Void);
+}
+

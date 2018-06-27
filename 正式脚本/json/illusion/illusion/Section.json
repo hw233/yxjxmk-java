@@ -1,0 +1,9 @@
+[
+	[ "序号", "最低进入等级", "最高进入等级", "副本ID", "背景贴图", "BOSS编号", "幻境名称" ],
+	[ "ID", "MinLv", "MaxLv", "DungeonID", "MapPicture", "BossID", "Name" ],
+	[ "NUMBER", "NUMBER", "NUMBER", "NUMBER", "STRING", "STRING", "STRING" ],
+	[ 1, 32, 79, 51096, "dynamic_n/dungeonsbanner/glz.png", "56016;56017;56018", "无恨镇-幻境" ],
+	[ 2, 50, 79, 51097, "dynamic_n/dungeonsbanner/cmhj.png", "56036;56037;56038", "苍茫古城-幻境" ],
+	[ 3, 60, 79, 51098, "dynamic_n/dungeonsbanner/llhj.png", "56056;56057;56058", "楼兰古城-幻境" ],
+	[ 4, 70, 79, 51099, "dynamic_n/dungeonsbanner/ylhj.png", "56076;56077;56078", "幽冥鬼狱-幻境" ]
+]

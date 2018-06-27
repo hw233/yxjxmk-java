@@ -1,0 +1,49 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-05-02
+//* 用途= 称号
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message AwardRank {
+   required int32 id = 1;          // 称号ID
+   required int32 invalidTime = 2; // 失效时间戳（秒）
+}
+
+// 获取称号信息（主界面）
+message GetRankInfoRequest {
+}
+
+message GetRankInfoResponse {
+   required int32                  s2c_code = 1;
+   optional string                 s2c_msg = 2;
+   repeated AwardRank              s2c_awardRanks = 3;        // 获得的称号
+   optional int32                  s2c_selectedRankId = 4;    // 选中称号ID
+   optional int32                  s2c_fightPower = 5;        // 战力
+}
+
+// 保存称号
+message SaveRankNotify {
+   required int32 c2s_selectedRankId = 1; // 选中称号ID
+}
+
+// 获得称号
+message OnAwardRankPush {
+   required int32 s2c_code = 1;
+   required int32 s2c_awardRankId = 2;     // 获得称号ID
+}
+
+// 称号处理器
+service rankHandler {
+  // 请求获取称号信息（主界面）
+  rpc getRankInfoRequest(GetRankInfoRequest) returns(GetRankInfoResponse);
+  // 通知保存称号
+  rpc saveRankNotify(SaveRankNotify) returns(Void);
+}
+
+// 称号消息推送
+service rankPush {
+  // 推送获得称号
+  rpc onAwardRankPush(OnAwardRankPush) returns(Void);
+}

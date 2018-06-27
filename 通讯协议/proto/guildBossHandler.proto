@@ -1,0 +1,98 @@
+//***************************************************************************
+//* 作者= feil
+//* 创建时间= 2017-12-15
+//* 用途= 公会BOSS战
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+message EnterGuildBossAreaRequest {
+    
+}
+
+message EnterGuildBossAreaResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message GuildBossRankInfo {
+   required int32 rank = 1; 		// 排名
+   required string id = 2; 			// 玩家id
+   required int32 pro = 3;			// 职业
+   required string name = 4;			// 名字
+   required int64 damage = 5;		// 伤害值
+   required int32 level = 6;		// 玩家等级
+}
+
+
+message GetGuildBossInfoRequest {
+    
+}
+
+message GetGuildBossInfoResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional bool killed = 3;	              //仙盟BOSS已被击杀
+    repeated GuildBossRankInfo rankList = 4;	//个人伤害排行
+}
+
+
+message GuildBossInspireRequest {
+    required int32 c2s_index = 1;      //鼓舞类型，1个人，2仙盟
+}
+
+message GuildBossInspireResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+
+message HurtRankInfo {
+    required int32 rank = 1;
+    required string id = 2;
+    required string name = 3;
+    required int64 hurt = 4;
+}
+
+
+message OnHurtRankChangePush{
+    required int32 s2c_code = 1;
+    repeated HurtRankInfo otherInfo = 2;
+    optional HurtRankInfo myInfo = 3;
+    repeated HurtRankInfo otherGuildInfo = 4;
+    optional HurtRankInfo myGuildInfo = 5;
+    required int32 join_count = 6;
+}
+
+
+message OnQuitGuildBossPush{
+    required int32 endSeconds = 1;
+ }
+
+
+message OnInspireChangePush{
+    required int32 s2c_code = 1;   
+    optional int32 totalTimes = 2;   
+    optional int32 totalValue = 3;     
+    optional int32 index = 4;      //类型
+}
+
+
+message OnEndGuildBossPush{
+    required string info = 1;
+    required int32 sec = 2;
+ }
+
+service guildBossHandler{
+    rpc enterGuildBossAreaRequest(EnterGuildBossAreaRequest) returns(EnterGuildBossAreaResponse);
+    rpc getGuildBossInfoRequest(GetGuildBossInfoRequest) returns(GetGuildBossInfoResponse);
+    rpc guildBossInspireRequest(GuildBossInspireRequest) returns(GuildBossInspireResponse);
+}
+
+
+service guildBossPush{
+ rpc onHurtRankChangePush(OnHurtRankChangePush) returns(Void);
+ rpc onInspireChangePush(OnInspireChangePush) returns(Void);
+ rpc onQuitGuildBossPush(OnQuitGuildBossPush) returns(Void);
+ rpc onEndGuildBossPush(OnEndGuildBossPush) returns(Void);
+}
+

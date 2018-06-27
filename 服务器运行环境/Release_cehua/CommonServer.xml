@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonServer</name>
+    </assembly>
+    <members>
+        <member name="T:CommonServer.Server.IServerListener">
+            <summary>
+            服务器监听器
+            </summary>
+        </member>
+        <member name="M:CommonServer.Server.IServerListener.OnInit(CommonServer.Server.IServer)">
+            <summary>
+            服务器初始化回调
+            </summary>
+            <param name="server"></param>
+        </member>
+        <member name="M:CommonServer.Server.IServerListener.OnDestory">
+            <summary>
+            服务器关闭回调
+            </summary>
+        </member>
+        <member name="M:CommonServer.Server.IServerListener.OnSessionConnected(CommonServer.Server.ISession)">
+            <summary>
+            一个链接建立成功
+            </summary>
+            <param name="session"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonServer.Server.IServerFactory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CommonServer.Server.IServer.Open(System.Collections.Generic.IDictionary{System.String,System.String},CommonServer.Server.IServerListener)">
+            <summary>
+            启动服务器
+            </summary>
+            <param name="port"></param>
+            <param name="listener"></param>
+        </member>
+        <member name="M:CommonServer.Server.IServer.Dispose">
+            <summary>
+            关闭服务器
+            </summary>
+        </member>
+        <member name="M:CommonServer.Server.IServer.Broadcast(CommonLang.Protocol.IMessage)">
+            <summary>
+            广播消息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:CommonServer.Server.IServer.HasSession(CommonServer.Server.ISession)">
+            <summary>
+            服务器是否有此链接
+            </summary>
+            <param name="session"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonServer.Server.IServer.GetSessionByID(System.String)">
+            <summary>
+            根据 Session ID 获取链接
+            </summary>
+            <param name="sessionID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonServer.Server.IServer.GetSessions">
+            <summary>
+            获取所有链接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CommonServer.Server.IServer.ClientConnectString">
+            <summary>
+            客户端连接套接字
+            </summary>
+        </member>
+        <member name="P:CommonServer.Server.IServer.PackageCodec">
+            <summary>
+            获取编解码器
+            </summary>
+        </member>
+        <member name="P:CommonServer.Server.IServer.SessionCount">
+            <summary>
+            获取当前已连接数
+            </summary>
+        </member>
+        <member name="T:CommonServer.Server.ISession">
+            <summary>
+            描述一个链接
+            </summary>
+        </member>
+        <member name="M:CommonServer.Server.ISession.Disconnect(System.Boolean)">
+            <summary>
+            关闭此链接
+            </summary>
+            <param name="force"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonServer.Server.ISession.Send(System.Object)">
+            <summary>
+            发送消息【通知】
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonServer.Server.ISession.SendResponse(CommonLang.Protocol.IMessage,CommonLang.Protocol.IMessage)">
+            <summary>
+            发送消息【回馈】
+            </summary>
+            <param name="request"></param>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonServer.Server.ISession.GetRemoteAddress">
+            <summary>
+            获取远端地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CommonServer.Server.ISession.ID">
+            <summary>
+            Session ID
+            </summary>
+        </member>
+        <member name="P:CommonServer.Server.ISession.TotalSentBytes">
+            <summary>
+            总共发送字节数
+            </summary>
+        </member>
+        <member name="P:CommonServer.Server.ISession.TotalRecvBytes">
+            <summary>
+            总共接收字节数
+            </summary>
+        </member>
+        <member name="T:CommonServer.Server.ISessionListener">
+            <summary>
+            服务端监听器
+            </summary>
+        </member>
+        <member name="M:CommonServer.Server.ISessionListener.OnConnected(CommonServer.Server.ISession)">
+            <summary>
+            Session建立回调
+            </summary>
+            <param name="session"></param>
+        </member>
+        <member name="M:CommonServer.Server.ISessionListener.OnDisconnected(CommonServer.Server.ISession,System.Boolean,System.String)">
+            <summary>
+            Session关闭回调
+            </summary>
+            <param name="session"></param>
+            <param name="force"></param>
+            <param name="reason"></param>
+        </member>
+        <member name="M:CommonServer.Server.ISessionListener.OnError(CommonServer.Server.ISession,System.Exception)">
+            <summary>
+            错误【编解码或者网络底层】
+            </summary>
+            <param name="session"></param>
+            <param name="err"></param>
+        </member>
+        <member name="M:CommonServer.Server.ISessionListener.OnSentMessage(CommonServer.Server.ISession,System.Object)">
+            <summary>
+            消息发送成功
+            </summary>
+            <param name="session"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:CommonServer.Server.ISessionListener.OnReceivedMessage(CommonServer.Server.ISession,System.Object)">
+            <summary>
+            消息接收到
+            </summary>
+            <param name="session"></param>
+            <param name="message"></param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,102 @@
+//***************************************************************************
+//* 作者: 刘羿君
+//* 创建时间: 2015-10-17
+//* 用途: 道具处理器
+//***************************************************************************
+package pomelo.area;
+
+import 'common.proto';
+import 'item.proto';
+
+
+// 更新new角标
+message QueryItemStatusUpdateNotify{
+   required int32 index = 1;
+}
+
+message GetAllEquipDetailsRequest {
+}
+
+message GetAllEquipDetailsResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated item.ItemDetail s2c_items = 3;
+}
+
+//  请求合成公式
+message GetCombineFormulaRequest {
+    required int32 c2s_destID = 1; //合成表里面的索引ID
+}
+
+message GetCombineFormulaResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional item.Combine s2c_data = 3;
+}
+
+// 请求合成
+message CombineRequest {
+    required int32 c2s_destID = 1;
+    required int32 c2s_num = 2;  //要合成的数量
+    optional int32 c2s_gridIndex = 3;
+}
+
+message CombineResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+  
+  
+//道具处理器
+service itemHandler {
+    rpc getAllEquipDetailsRequest(GetAllEquipDetailsRequest) returns(GetAllEquipDetailsResponse);
+
+	rpc queryItemStatusUpdateNotify(QueryItemStatusUpdateNotify) returns(Void);
+
+	// 请求道具合成公式
+	rpc getCombineFormulaRequest(GetCombineFormulaRequest) returns(GetCombineFormulaResponse);
+
+    // 请求道具合成
+    rpc combineRequest(CombineRequest) returns(CombineResponse);
+}
+
+//message EquipmentDetailPush {
+//  required int32 s2c_code = 1;
+//  repeated item.ItemDetail s2c_data = 2;
+//}
+
+message ItemDetailPush {
+  required int32 s2c_code = 1;
+  repeated item.ItemDetail s2c_data = 2;
+}
+
+// 计数道具变化推送
+message CountItemChangePush {
+  required int32 s2c_code = 1;
+  repeated item.CountItem s2c_data = 2;
+}
+
+message FishItemPush {
+  required int32 s2c_code = 1;
+  repeated item.MiniItem s2c_item = 2;
+}
+
+message RewardItemPush {
+  required int32 s2c_code = 1;
+  repeated item.MiniItem s2c_item = 2;
+}
+
+//背包消息推送
+service itemPush {
+	//rpc equipmentDetailPush(EquipmentDetailPush) returns(Void);
+
+    rpc fishItemPush(FishItemPush) returns(Void);
+
+    rpc countItemChangePush(CountItemChangePush) returns(Void);
+
+    rpc itemDetailPush(ItemDetailPush) returns(Void);
+
+    rpc rewardItemPush(RewardItemPush) returns(Void);
+}
+
+

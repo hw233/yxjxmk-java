@@ -1,0 +1,8 @@
+﻿Key,Value,
+lv:,等级:{0},
+need,<f color='FFFF0000'>需{0}</f>,
+relAnd,<f>{0}且{1}</f>,
+relOr,<f>{0}或{1}</f>,
+notOpenToday,今日不开放,
+closed,已结束,
+opening,正在进行中,

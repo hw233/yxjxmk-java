@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>道友查询</title>
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/icon.css" />
+<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	function searchDaoyou() {
+		var daoyouName = $("#daoyouName").val();
+		if (!daoyouName) {
+			return;
+		}
+		parent.send({
+			single : true,
+			action : "load",
+			type : "4010",
+			value : [ daoyouName ],
+			call : function(json) {
+				if ($.isEmptyObject(json)) {
+					$.messager.alert("提示", "道友不存在！", "warning");
+				} else {
+					$("#daoyouPower").html(json.power);
+					$("#daoyouDg").datagrid('loadData', json);
+					parent.showTip("信息提示", "查询成功！", 1000);
+				}
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div class="easyui-panel"
+		style="width: 100%; height: auto; padding: 10px;" title="道友查询">
+		<table style="width: 100%; height: 800px;" class="easyui-datagrid"
+			id="daoyouDg"
+			data-options="singleSelect:true,toolbar:'#tb',footer:'#ft'">
+			<thead>
+				<tr>
+					<th data-options="field:'roleName',align:'center',width:200">角色名</th>
+					<th data-options="field:'level',align:'center',width:120">等级</th>
+					<th data-options="field:'power',align:'center',width:120">战斗力</th>
+					<th data-options="field:'pro',align:'center',width:150">职业</th>
+					<th data-options="field:'isCreator',align:'center',width:120">是否道主</th>
+					<th data-options="field:'todayRebate',align:'center',width:120">今日收到返利</th>
+					<th data-options="field:'sumRebate',align:'center',width:120">累计收到返利</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+	<div id="tb" style="padding: 10px;">
+		道友名：<input class="easyui-textbox" style="width: 300px;"
+			id="daoyouName" /> <a href="#" onclick="searchDaoyou()"
+			class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+			style="width: 120px">查询</a>
+	</div>
+	<div id="ft" style="padding: 20px;">
+		<strong>道友战力：</strong><span id="daoyouPower"></span>
+	</div>
+	
+</body>
+</html>
+

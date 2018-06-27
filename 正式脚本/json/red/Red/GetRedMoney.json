@@ -1,0 +1,7 @@
+[
+	[ "货币ID", "抢到红包货币种类" ],
+	[ "ID", "MonenyType" ],
+	[ "NUMBER", "STRING" ],
+	[ 1, "diamond" ],
+	[ 2, "gold" ]
+]

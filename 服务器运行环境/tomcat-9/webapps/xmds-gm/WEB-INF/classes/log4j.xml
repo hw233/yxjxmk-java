@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p %d{HH:mm:ss.SSS\} %l] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="gameLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/log-ppt/ppt" />
+		<param name="encoding" value="UTF-8"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p %d{HH:mm:ss.SSS\} %l] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="frameworkLog" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/log-framework/framework.log" />
+		<param name="Append" value="true"/>
+		<param name="encoding" value="UTF-8"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p %d{yyyy-MM-dd HH:mm:ss.SSS\} %l] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">   
+		   <param name="levelMin" value="warn" />   
+		   <param name="levelMax" value="fatal" />   
+		   <param name="AcceptOnMatch" value="true" />   
+		</filter>
+	</appender>
+
+	<appender name="junitTestLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/log-test/ppt-test" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<param name="Append" value="true"/>
+		<param name="encoding" value="UTF-8"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p %d{yyyy-MM-dd HH:mm:ss.SSS\} %l] - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="com.wanniu.web.web.action" additivity="false">
+		<level value="info" />
+		<appender-ref ref="gameLog" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<!-- <logger name="com.wanniu.web.junit" additivity="false">
+		<level value="info" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="junitTestLog" />
+	</logger>
+	
+	<logger name="com.wanniu.web.test" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="STDOUT" />
+	</logger> -->
+	
+	<root>
+		<level value="info" /><!-- 默认配置级别 [fatal、error、warn、info、debug]-->
+		<appender-ref ref="STDOUT" />
+	</root>
+	
+</log4j:configuration>   

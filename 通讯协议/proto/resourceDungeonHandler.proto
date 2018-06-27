@@ -1,0 +1,104 @@
+//***************************************************************************
+//* 用途=资源副本
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+
+// 资源副本条目信息
+message ResourceDungeonInfo {
+  required int32 dungeonId = 1; // 副本ID
+  required int32 lastTimes = 2; // 当日剩余进入次数
+  optional int32 buyTimes = 3; // 当日已购买次数
+  optional int32 canBuyTimes = 4; // 当日可购买次数
+  optional string awardItems = 5;     // 奖励预览
+  optional bool canSweep = 6;	//能否扫荡
+  optional int32 playType = 7;
+  optional int32 enterLevel = 8;
+}
+
+// 获取资源副本信息
+message QueryResourceDugeonInfoRequest  {
+    
+}
+
+message QueryResourceDugeonInfoResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated ResourceDungeonInfo dungeons = 3; // 当日剩余进入次数
+}
+
+// 购买次数
+message BuyTimesRequest  {
+    required int32 dungeonId = 1;        //类型
+}
+
+// 购买次数
+message BuyTimesResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  
+}
+
+// 进入资源副本
+message EnterResourceDugeonInfoRequest  {
+    required int32 dungeonId = 1;        //类型
+}
+
+message EnterResourceDugeonInfoResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 领取双倍奖励
+message ReceiveDoubleRewardRequest  {
+    required int32 dungeonId = 1;        //类型
+}
+
+message ReceiveDoubleRewardResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 资源副本倒计时请求
+message ResourceCountDownRequest {
+  optional int32 dungeonId = 1; // 副本ID
+}
+
+message ResourceCountDownResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int64 countDown = 3; // 剩余毫秒数
+}
+
+// 扫荡请求
+message ResourceSweepRequest  {
+    required int32 dungeonId = 1; //类型
+}
+// 扫荡响应
+message ResourceSweepResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated item.MiniItem awardItems = 3;     // 奖励
+}
+
+// 资源副本理器
+service resourceDungeonHandler {
+
+    // 获取资源副本界面信息
+    rpc queryResourceDugeonInfoRequest(QueryResourceDugeonInfoRequest) returns (QueryResourceDugeonInfoResponse);
+
+    // 购买次数
+    rpc buyTimesRequest(BuyTimesRequest) returns (BuyTimesResponse);
+
+    // 进入资源副本
+    rpc enterResourceDugeonInfoRequest(EnterResourceDugeonInfoRequest) returns (EnterResourceDugeonInfoResponse);
+
+    // 领取双倍奖励
+    rpc receiveDoubleRewardRequest(ReceiveDoubleRewardRequest) returns (ReceiveDoubleRewardResponse);
+
+    // 资源副本倒计时请求
+    rpc resourceCountDownRequest(ResourceCountDownRequest) returns (ResourceCountDownResponse);
+	
+	// 资源副本扫荡
+    rpc resourceSweepRequest(ResourceSweepRequest) returns (ResourceSweepResponse);
+}

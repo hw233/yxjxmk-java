@@ -1,0 +1,402 @@
+//***************************************************************************
+//* 作者= 陈晓鹏
+//* 创建时间= 2016-01-26
+//* 用途= 宠物处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message GetAllPetsBaseInfoRequest {
+}
+
+message PetInfo{
+    required string     id = 1;
+    required string     name = 2;
+    required int32      level = 3;
+    required int32      hp = 4;  //生命
+    required int32      mp = 5;  //法力
+    required int32      MaxHP = 6;//最大生命
+    required int32      MaxMP = 7;//最大法力
+    required int32      MinPhy = 8;//最小物攻
+    required int32      MaxPhy = 9;//最大物攻
+    required int32      MinMag = 10;//最小魔攻
+    required int32      MaxMag = 11;//最大魔攻
+    required int32      Hit = 12;  //命中
+    required int32      Dodge = 13;//闪避
+    required int32      Crit = 14; //暴击
+    required int32      ResCrit = 15;//抗暴
+    required int32      Ac = 16;  //物防
+    required int32      Resist = 17; //魔防
+    required int32      IgnoreAc = 18;//无视敌人物防
+    required int32      IgnoreResist = 19;//无视敌人魔防
+    required int32      exp = 20;//当前经验
+    required int32      upgradeExp = 21;//升级经验
+    required int32      transformLevel = 22;//幻化等级
+    required int32      upGradeLevel = 23;//进阶等级
+    required int32      upGradeNeedLevel = 24;//下一阶需要等级
+    required int32      fightPower = 25;//战斗力
+    required int32      stamina = 26;//当前体力
+    required int32      maxStamina = 27;//最大体力
+    required int32      loyalty = 28;//当前忠诚度
+    required int32      maxLoyalty = 29;//最大忠诚度
+    required int32      templateId = 30;//宠物模板id
+}
+
+message PetBaseInfo {
+    required string     id = 1;
+    required int32      templateId = 30;//宠物模板id
+    required int32      level = 3;
+    required int32      transformLevel = 22;//幻化等级
+    required int32      hp = 4;  //生命
+}
+
+message GetAllPetsBaseInfoResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+    repeated PetBaseInfo          s2c_petBaseInfo = 3;
+    required string               s2c_fightingPetId = 4;
+}
+
+message GetPetInfoRequest {
+    required string  s2c_petId = 1;
+    required string s2c_ownId = 2;
+}
+
+message GetPetInfoResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+    optional PetInfo              s2c_pet = 3;
+}
+
+message DevelopPetRequest {
+    required int32 s2c_type = 1;//1:使用10次，0：使用一次
+    required string s2c_itemCode = 2;
+    required string s2c_petId = 3;
+}
+
+message DevelopPetResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+}
+
+message  ChangePetNameRequest {
+    required string s2c_petId = 1;
+    required string s2c_petName = 2;
+}
+
+message ChangePetNameResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+}
+
+message  FreePetRequest {
+    required string s2c_petId = 1;
+    required int32 s2c_type = 2; //1：花费钻石回收全部材料，0：免费回收部分材料
+}
+
+message FreePetResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+}
+
+message  PetOutFightRequest {
+    required string s2c_petId = 1;
+    required int32 s2c_type = 2; //1：出战，0：休息
+}
+
+message PetOutFightResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+}
+
+message  PetReliveRequest {
+    required string s2c_petId = 1;
+}
+
+message PetReliveResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+}
+
+message  RandPetNameRequest {
+}
+
+message RandPetNameResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2; //宠物名字
+}
+
+message UpGradeData {
+    required int32         level = 1;     // 当前宠物等级
+    required int32         upLevel = 2;   // 当前进阶等级
+    required int32         reqLevel = 3;  // 要求宠物等级
+    required int32         downLevel = 4; // 进阶后的宠物等级
+    repeated AttributeBase attrs = 5;     // 进阶前后属性
+}
+
+// 进阶界面
+message UpGradeInfoRequest {
+    required string         s2c_petId = 1;
+}
+
+message UpGradeInfoResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional UpGradeData s2c_upGradeData = 3;
+}
+
+// 进阶
+message UpGradeLevelRequest {
+    required string         s2c_petId = 1;
+}
+
+message UpGradeLevelResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_canUpGrade = 3;
+}
+
+message ItemInfo {
+   required string  code = 1;
+   required int32  num = 2;
+}
+
+// 洗练升级
+message UpGradeRandPropertyRequest {
+    required string         s2c_petId = 1;
+    required int32         s2c_pos = 2;
+    repeated ItemInfo     s2c_materialItems = 3;
+}
+
+message UpGradeRandPropertyResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 洗练属性重置
+message ReSetRandPropertyRequest {
+    required string         s2c_petId = 1;
+    required int32         s2c_pos = 2;
+}
+
+message ReSetRandPropertyResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 洗练属性列表
+message RandPropertyListRequest {
+    required string         s2c_petId = 1;
+}
+
+message PropertyData {
+   required int32     pos = 1;
+   required int32     id = 2;
+   required int32     level = 3;
+   required int32     exp = 4;
+   required string    propertyKey = 5;
+   required int32     propertyValue = 6;
+}
+
+message RandPropertyListResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated PropertyData s2c_propertys = 3;
+    required int32  s2c_fightPower = 4;
+    required int32  s2c_addFightPower = 5;
+}
+
+// 幻化
+message PetIllusionRequest {
+    required string         s2c_petId = 1;
+}
+
+message PetIllusionResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_result = 3;//（1：成功，0：失败）
+    optional int32 s2c_luckyValue = 4;
+}
+
+// 幻化信息
+message PetIllusionInfoRequest {
+    required string         s2c_petId = 1;
+}
+
+message IllusionInfo {
+    required int32  fightPower = 1;
+    required int32  transformLevel = 2;
+    required int32  luckyValue = 3;
+    required int32  LuckyLimit = 4;
+    required int32  NeedUp = 5;
+    required int32  SuccessPer = 6;
+    required int32  itemNum = 7;
+    repeated AttributeBase attrs = 8;
+}
+
+message PetIllusionInfoResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional IllusionInfo s2c_data = 3;
+}
+
+// 幻化预览
+ message PetIllusionReviewRequest {
+     required string         s2c_petId = 1;
+ }
+
+ message IllusionReview {
+     required int32  fightPower = 1;
+     required int32  transformLevel = 2;
+     required int32  LuckyLimit = 3;
+     required int32  NeedUp = 4;
+     required int32  SuccessPer = 5;
+     required int32  itemNum = 6;
+     repeated AttributeBase attrs = 7;
+ }
+
+ message PetIllusionReviewResponse {
+     required int32  s2c_code = 1;
+     optional string s2c_msg = 2;
+     repeated IllusionReview s2c_data = 3;
+ }
+
+// 领悟技能
+message PetComprehendSkillRequest {
+    required string         s2c_petId = 1;
+    required string         s2c_skillBookCode = 2;
+    repeated int32          s2c_lockPos = 3;
+}
+
+message ResultData {
+
+    required int32 result = 1;//1：新增，2：替换，3：失败
+    required int32 srcSkillId = 2;//原技能id
+    required int32 srcSkillLevel = 3;//原技能level
+    required int32 destSkillId = 4;//新技能id
+    required int32 destSkillLevel = 5;//新技能level
+}
+
+message PetComprehendSkillResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional ResultData s2c_resultData = 3;//s2c_code = 200时使用
+}
+
+// 技能列表信息
+message PetSkillListRequest {
+    required string         s2c_petId = 1;
+}
+
+message SkillInfo {
+
+    required int32          id = 1;
+    required int32          level = 2;
+    required int32          pos = 3;
+    required int32          inborn = 4;
+}
+
+message PetSkillListResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated SkillInfo s2c_data = 3;
+}
+
+// 宠物挂机设置
+message PetOnHookSetRequest {
+    required string         s2c_petId = 1;
+    required string         s2c_onHookData = 2;
+}
+
+message PetOnHookSetResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 获取宠物挂机设置信息
+message PetOnHookGetRequest {
+    required string         s2c_petId = 1;
+}
+
+message PetOnHookGetResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+    required string s2c_data = 3;
+
+}
+
+// 切换宠物战斗模式
+message ChangePetPkModelRequest {
+    required int32         c2s_model = 1;
+}
+
+message ChangePetPkModelResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 宠物处理器
+service petHandler {
+  // 获取所有宠物基本信息
+  rpc getAllPetsBaseInfoRequest(GetAllPetsBaseInfoRequest) returns(GetAllPetsBaseInfoResponse);
+  //获取宠物信息
+  rpc getPetInfoRequest(GetPetInfoRequest) returns(GetPetInfoResponse);
+  // 培养宠物
+  rpc developPetRequest(DevelopPetRequest) returns(DevelopPetResponse);
+  //宠物改名
+  rpc changePetNameRequest(ChangePetNameRequest) returns(ChangePetNameResponse);
+  //宠物放生
+  rpc freePetRequest(FreePetRequest) returns(FreePetResponse);
+  //宠物出战
+  rpc petOutFightRequest(PetOutFightRequest) returns(PetOutFightResponse);
+  //宠物复活
+  rpc petReliveRequest(PetReliveRequest) returns(PetReliveResponse);
+  //随机宠物名
+  rpc randPetNameRequest(RandPetNameRequest) returns(RandPetNameResponse);
+  // 请求进阶界面
+  rpc upGradeInfoRequest(UpGradeInfoRequest) returns(UpGradeInfoResponse);
+  // 请求进阶
+  rpc upGradeLevelRequest(UpGradeLevelRequest) returns(UpGradeLevelResponse);
+  // 洗练升级
+  rpc upGradeRandPropertyRequest(UpGradeRandPropertyRequest) returns(UpGradeRandPropertyResponse);
+  // 洗练属性重置
+  rpc reSetRandPropertyRequest(ReSetRandPropertyRequest) returns(ReSetRandPropertyResponse);
+  // 洗练属性列表
+  rpc randPropertyListRequest(RandPropertyListRequest) returns(RandPropertyListResponse);
+  // 幻化
+  rpc petIllusionRequest(PetIllusionRequest) returns(PetIllusionResponse);
+  //幻化信息
+  rpc petIllusionInfoRequest(PetIllusionInfoRequest) returns(PetIllusionInfoResponse);
+  //幻化预览
+  rpc petIllusionReviewRequest(PetIllusionReviewRequest) returns(PetIllusionReviewResponse);
+  //领悟技能
+  rpc petComprehendSkillRequest(PetComprehendSkillRequest) returns(PetComprehendSkillResponse);
+  //技能列表信息
+  rpc petSkillListRequest(PetSkillListRequest) returns(PetSkillListResponse);
+  //宠物挂机设置
+  rpc petOnHookSetRequest(PetOnHookSetRequest) returns(PetOnHookSetResponse);
+  //获取宠物挂机设置信息
+  rpc petOnHookGetRequest(PetOnHookGetRequest) returns(PetOnHookGetResponse);
+  //切换宠物战斗模式
+  rpc changePetPkModelRequest(ChangePetPkModelRequest) returns(ChangePetPkModelResponse);
+}
+
+message OnPetDetailPush {
+    required int32                  s2c_code = 1;
+    optional string                 s2c_msg = 2;
+    optional PetInfo              s2c_pet = 3;
+}
+
+message OnPetExpPush {
+    required int32                  s2c_code = 1;
+    optional string                 s2c_msg = 2;
+    required int32              s2c_exp = 3;
+}
+
+// 宠物消息推送
+service petPush {
+  // 开始确认进入副本
+  rpc onPetDetailPush(OnPetDetailPush) returns(Void);
+  // 宠物经验推送
+  rpc onPetExpPush(OnPetExpPush) returns(Void);
+}

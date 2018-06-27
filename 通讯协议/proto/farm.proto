@@ -1,0 +1,67 @@
+//***************************************************************************
+//* 作者: 李玥
+//* 创建时间: 2017-08-24
+//* 用途: 果园
+//***************************************************************************/
+package pomelo.farm;
+import 'common.proto';
+
+//地块
+message Block {
+	required int32 blockId = 1; // 果园地块id
+	required int32 blockState = 2; // 地块状态 (0:未开垦    1:已开垦  3:已种植)
+	optional string seedCode = 3;//种子代码
+	optional int32 seedState = 4; // 种子成长状态 (0:未播种 1:种子期   2:成长期  3:成熟期  4:可收获)
+	optional int32 cultivateType = 5; // 成长周期中的培育操作种类 (0:无需操作 1:浇水    2:除虫  3:除草 )
+	optional int64 harvestTime = 6; // 可收获的时间戳,如果不在成长周期中，则无此值
+	optional int64 protectEndTime =7; //保护期结束的时间戳，如果不在保护期，则无此值
+}
+
+
+//种子
+message Seed {
+	required string seedCode=1; //种子代码
+	required int32 num = 2; // 种子数量
+	
+}
+
+//果实
+message Product{
+	required string productCode=1;//种子代码
+	required int32 num =2;//果实数量
+}
+
+//日志
+message RecordInfo {
+	required int32 recordType = 1; // 记录类型
+	required int64 recordTimeStamp = 2;//日志生成时间
+	repeated string recordParams = 3; // 记录所需参数
+}
+
+//玩家摘要
+message PlayerSummary {
+	required string playerId = 1; // 玩家id
+	required string roleName = 2; // 玩家名字
+	required int32 lv = 3; // 玩家等级
+	required int32 farmLv = 4;//果园等级
+	required bool canSow = 5; // 是否可培育
+	required bool canSteal = 6; // 是否可偷取
+	
+}
+
+//玩家果园详情
+message PlayerInfo {
+	required string playerId = 1; // 玩家id
+	required PlayerSummary playerSummary = 2;//摘要信息
+	repeated Block blockLs = 3 ; 
+}
+
+message ShopItemInfo{
+	required int32 itemId=1;
+	required int32 changeNumCurrent=2;//今日可兑换次数
+	required int32 changeNumMax=3;//最大可兑换次数
+	repeated KeyValueStruct need=4;
+	repeated KeyValueStruct award=5;
+}
+
+

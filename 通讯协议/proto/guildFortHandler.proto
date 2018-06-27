@@ -1,0 +1,346 @@
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+
+//据点占领信息
+message GuildAreaInfo{
+	required int32 areaId = 1;
+	required int32 applied = 2;			//0: 未报名 1：已报名
+	required string guildId = 3;		//占领仙盟id，为""表示据点未被占领
+	required string guildName = 4; 		//占领仙盟名字，为""表示据点未被占领
+	required string guildName1 = 5; 	//对战仙盟名字1
+	required string guildName2 = 6; 	//对战仙盟名字2
+}
+
+message GetGuildAreaListRequest{
+}
+
+message GetGuildAreaListResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required int32 curStatus = 3;		//当前据点战状态：0: 未开始 1：报名阶段 2:报名结束，等待开始, 3：准备中 4：进行中
+	repeated GuildAreaInfo areaList = 4;
+}
+
+
+//据点详细信息
+message GuildAreaDetail{
+	required string guildId = 1;		//guildId为""表示据点未被占领
+	optional string guildName = 2;
+	optional int32 guildLevel = 3;
+	optional string guildLeaderId = 4;
+	optional string guildLeaderName = 5;
+	optional int32 guildNumberCount = 6;
+	optional int32 guildNumberTotalCount = 7;
+	repeated item.MiniItem winnerAwardList = 8;	//据点战胜利奖励
+	repeated item.MiniItem dailyAwardList = 9;	//据点战每日奖励
+	required int32 dailyAwardFlag = 10;			//0: 不可领取 1: 可领取 2：已领取
+	required int32 areaStatus = 11;				//0: 未开始 1：报名阶段，还未下注，2:报名结束，等待开始, 3：准备中 4：进行中 5:报名阶段，已下注
+	optional int32 countDown = 12;				//相关倒计时，areaStatus为0,1,2,5时，必传
+}
+
+message GetGuildAreaDetailRequest{
+	required int32 areaId = 1;
+}
+
+message GetGuildAreaDetailResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required GuildAreaDetail areaDetail = 3;
+}
+
+
+//据点攻战报名仙盟信息
+message GuildAreaApplyInfo{
+	required string guildIcon = 1;
+	required string guildId = 2;
+	required string guildName = 3;
+	required int32 guildLevel = 4;
+	required string guildLeaderId = 5;
+	required string guildLeaderName = 6;
+	required int32 guildNumberCount = 7;
+	optional int32 guildNumberTotalCount = 8;
+	optional int32 applyFund = 9;	//下注资金:  0表示隐藏下注金额
+	optional bool isWinner = 10;	//是否胜出
+}
+
+message GetGuildAreaApplyListRequest{
+	required int32 areaId = 1;
+}
+
+message GetGuildAreaApplyListResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated GuildAreaApplyInfo applyList = 3;
+	optional int32 countDown = 4;				//公布下注结果倒计时，为0表示下注已结束
+}
+
+
+message ApplyGuildFundRequest{
+}
+
+message ApplyGuildFundResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required int32 guildFund = 3; //自己仙盟拥有资金数量
+}
+
+
+message ApplyFundRequest{
+	required int32 areaId = 1;
+	required int32 applyFund = 2;
+}
+
+message ApplyFundResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+
+message ApplyCancelFundRequest{
+	required int32 areaId = 1;
+}
+
+message ApplyCancelFundResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+
+//据点战每日奖励
+message AreaAward{
+	required int32 areaId = 1;
+	required string guildName = 2;	// ""为没有仙盟占领
+	required int32 status = 3;	//0：未领取  1：可领取  2：已领取
+	repeated item.MiniItem dailyAwardList = 4;	//据点战每日奖励
+}
+
+message ApplyDailyAwardListRequest{
+
+}
+
+message ApplyDailyAwardListResponse{
+	required int32 s2c_code = 1;
+	repeated AreaAward areaAwardList = 2;
+}
+
+
+message ApplyDailyAwardRequest{
+	required int32 areaId = 1;
+}
+
+message ApplyDailyAwardResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+
+message ApplyAccessRequest{
+	required int32 areaId = 1;
+}
+
+message ApplyAccessResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+
+//据点战攻防双方信息
+message FortGuildInfo{
+	optional string guildIcon = 1;
+	required string guildId = 2;
+	optional string guildName = 3;
+	optional int32 guildLevel = 4;
+	required int32 armyFlag = 5;		//军旗数量
+	required int32 mumber = 6;			//参与人数
+	required int32 defenseSoul = 7;		//防御精魄
+	required int32 attackSoul = 8;		//攻击精魄
+	required int32 kill = 9;			//击杀人数
+	required int32 defense = 10;		//防御加成
+	required int32 attack = 11;			//攻击加成
+	required int32 score = 12;			//仙盟积分
+}
+
+message ApplyFortGuildInfoRequest{
+
+}
+
+message ApplyFortGuildInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional FortGuildInfo ownGuild = 3;
+	optional FortGuildInfo enemyGuild = 4;
+}
+
+
+//战报列表信息
+message ReportListInfo{
+	required int32 areaId = 1;
+	optional string defenseGuildName = 2;	//防守仙盟
+	optional string defenseGuildIcon = 3;	//防守仙盟图标
+	optional string attackGuildName = 4;	//进攻仙盟
+	optional string attackGuildIcon = 5;	//进攻仙盟图标
+	required int32 result = 6; 				//0:防守方胜利，1:进攻方胜利 2: 没有胜者
+}
+
+//每日战报列表
+message ReportList{
+	required string date = 1;
+	repeated ReportListInfo reportListInfo = 2;
+}
+
+message ApplyAllReportListRequest{
+
+}
+
+message ApplyAllReportListResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated ReportList reportList = 3;
+}
+
+
+//仙盟战报详情
+message ReportGuildDetail{
+	optional string guildIcon = 1;
+	required string guildId = 2;
+	optional string guildName = 3;
+	optional int32 guildLevel = 4;
+	optional int32 isWinner = 5;
+	optional int32 collect = 6;				//灵药采集数量
+	optional int32 defense = 7;				//防御力加成
+	optional int32 soul = 8;				//精魄击杀数量
+	optional int32 attack = 9;				//攻击力加成
+	optional int32 kill = 10;				//击杀玩家
+	optional int32 killScore = 11;			//击杀玩家积分
+	optional int32 destroyFlag = 12;		//破坏军旗
+	optional int32 destroyFlagScore = 13;	//破坏军旗积分
+	optional int32 totalScore = 14;			//总积分
+}
+
+//战报详情
+message ReportDetail{
+	required int32 areaId = 1;
+	optional ReportGuildDetail detail1 = 2;
+	optional ReportGuildDetail detail2 = 3;
+}
+
+message ApplyReportDetailRequest{
+	required string date = 1;
+	required int32 areaId = 2;
+}
+
+message ApplyReportDetailResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required ReportDetail reportDetail = 3;
+}
+
+
+//仙盟成员输出统计
+message ReportStatisticsDetail{
+	optional string name = 1;
+	optional int32 level = 2;
+	optional int32 job = 3;					//仙盟职务
+	optional int32 kill = 4;				//击杀人数
+	optional int32 destroyFlag = 5;			//破坏军旗
+	optional int64 damage = 6;				//战场输出
+	optional int64 cure = 7;				//治疗量
+	optional int32 defenseScore = 8;		//防御精魄积分
+	optional int32 attackSoul = 9;			//输出精魄积分
+	optional int32 totalScore = 10;			//获得总积分
+}
+
+message ApplyReportStatisticsRequest{
+	required string date = 1;
+	required int32 areaId = 2;
+	required string guildId = 3;
+}
+
+message ApplyReportStatisticsResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated ReportStatisticsDetail statisticsDetail = 3;
+}
+
+
+//仙盟据点战处理器
+service guildFortHandler {
+
+   	//获取据点占领列表
+   	rpc getGuildAreaListRequest(GetGuildAreaListRequest) returns (GetGuildAreaListResponse);
+
+	//获取据点详细信息
+   	rpc getGuildAreaDetailRequest(GetGuildAreaDetailRequest) returns (GetGuildAreaDetailResponse);
+
+	//获取据点报名列表
+   	rpc getGuildAreaApplyListRequest(GetGuildAreaApplyListRequest) returns (GetGuildAreaApplyListResponse);
+
+	//请求自己仙盟拥有资金数量
+   	rpc applyGuildFundRequest(ApplyGuildFundRequest) returns (ApplyGuildFundResponse);
+
+	//请求下注资金报名
+   	rpc applyFundRequest(ApplyFundRequest) returns (ApplyFundResponse);
+
+	//请求取消报名
+   	rpc applyCancelFundRequest(ApplyCancelFundRequest) returns (ApplyCancelFundResponse);
+
+	//请求可领取据点奖励列表
+   	rpc applyDailyAwardListRequest(ApplyDailyAwardListRequest) returns (ApplyDailyAwardListResponse);
+
+	//请求领取每日占领奖励
+   	rpc applyDailyAwardRequest(ApplyDailyAwardRequest) returns (ApplyDailyAwardResponse);
+
+   	//请求进入据点战场
+   	rpc applyAccessRequest(ApplyAccessRequest) returns (ApplyAccessResponse);
+
+   	//请求战场双方信息
+   	rpc applyFortGuildInfoRequest(ApplyFortGuildInfoRequest) returns (ApplyFortGuildInfoResponse);
+
+   	//请求历史战报列表
+   	rpc applyAllReportListRequest(ApplyAllReportListRequest) returns (ApplyAllReportListResponse);
+
+   	//请求单场战报详情
+   	rpc applyReportDetailRequest(ApplyReportDetailRequest) returns (ApplyReportDetailResponse);
+
+   	//请求单场战报仙盟输出统计
+   	rpc applyReportStatisticsRequest(ApplyReportStatisticsRequest) returns (ApplyReportStatisticsResponse);
+}
+
+
+//据点战攻防双方统计信息推送
+message FortGuildStatistics{
+	required int32 armyFlag = 1;		//军旗数量
+	required int32 mumber = 2;			//参与人数
+	required int32 defenseSoul = 3;		//防御精魄
+	required int32 attackSoul = 4;		//攻击精魄
+	required int32 kill = 5;			//击杀人数
+	required int32 defense = 6;			//防御加成
+	required int32 attack = 7;			//攻击加成
+	required int32 score = 8;			//仙盟积分
+}
+
+message OnGuildFortPush{
+    required int32 s2c_code = 1;
+	optional FortGuildStatistics ownGuild = 2;
+	optional FortGuildStatistics enemyGuild = 3;
+}
+
+message OnGuildResultPush{
+    required int32 s2c_code = 1;
+    optional int32 result = 2;			//0：失败 1：获胜
+    optional int32 mixScore = 3;		//据点获胜所需最小积分
+    optional int32 countDown = 4;		//据点战退出倒计时
+	optional FortGuildInfo ownGuild = 5;
+	optional FortGuildInfo enemyGuild = 6;
+}
+
+//仙盟据点战推送
+service guildFortPush{
+	//据点战统计数据推送
+	rpc onGuildFortPush(OnGuildFortPush) returns(Void);
+
+	//据点战对战结果推送
+	rpc onGuildResultPush(OnGuildResultPush) returns(Void);
+}

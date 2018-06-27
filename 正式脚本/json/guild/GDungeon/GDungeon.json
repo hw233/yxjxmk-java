@@ -1,0 +1,6 @@
+[
+	[ "副本刷新时间", "副本持续时间", "公会每日开启次数", "通关后再次开启间隔", "开启后准备时间", "掷点时间" ],
+	[ "DungeonRefreshDate", "FightTime", "OpenTime", "OpenCD", "OpenForReady", "ThrowTime" ],
+	[ "STRING", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER" ],
+	[ "0", 60, 1, 60, 1, 30 ]
+]

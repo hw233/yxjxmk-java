@@ -1,0 +1,74 @@
+//***************************************************************************
+//* 作者= 陈晓鹏
+//* 创建时间= 2016-09-08
+//* 用途= 活跃度处理器
+//***************************************************************************
+package pomelo.area;
+
+message GetVitalityListRequest {
+}
+
+message VitalityInfo {
+
+    required int32 id = 1;
+    required int32 currCount = 2;
+    required int32 maxCount = 3;
+}
+
+message AwardInfo {
+
+    required int32 id = 1;
+    required int32 state = 2;
+}
+
+message GetVitalityListResponse {
+
+    required int32 s2c_code = 1;
+    required int32 s2c_totalCurrCount = 2;
+    required int32 s2c_totalMaxCount = 3;
+    optional string s2c_msg = 4;
+    repeated VitalityInfo s2c_vitalityList = 5;
+    repeated AwardInfo s2c_awardList = 6;
+}
+
+message GetVitalityRewardRequest {
+
+    required int32 c2s_rewardId = 1;
+}
+
+message GetVitalityRewardResponse {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message GetRecommendPlayListRequest {
+
+}
+
+message RecommendPlayInfo {
+
+    required int32 id = 1;
+    required int32 maxTime = 2;
+    required int32 remainTime = 3;
+}
+
+message GetRecommendPlayListResponse {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated RecommendPlayInfo s2c_recommendPlayList = 3;
+}
+
+//好友处理器
+service vitalityHandler {
+
+  rpc getVitalityListRequest(GetVitalityListRequest) returns(GetVitalityListResponse);
+
+  rpc getVitalityRewardRequest(GetVitalityRewardRequest) returns(GetVitalityRewardResponse);
+
+  rpc getRecommendPlayListRequest(GetRecommendPlayListRequest) returns(GetRecommendPlayListResponse);
+
+}
+
+

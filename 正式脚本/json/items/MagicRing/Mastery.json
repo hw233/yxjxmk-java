@@ -1,0 +1,11 @@
+[
+	[ "专精部位", "专精名称", "图标" ],
+	[ "Pos", "Name", "Icon" ],
+	[ "NUMBER", "STRING", "STRING" ],
+	[ 1, "攻击专精", "mastery01" ],
+	[ 2, "防御专精", "mastery02" ],
+	[ 3, "体质专精", "mastery03" ],
+	[ 4, "命中专精", "mastery04" ],
+	[ 5, "闪避专精", "mastery05" ],
+	[ 6, "暴击专精", "mastery06" ]
+]

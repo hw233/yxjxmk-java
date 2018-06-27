@@ -1,0 +1,25 @@
+//***************************************************************************
+//* 作者= 徐连昌
+//* 创建时间= 2016-06-4
+//* 用途= 偷窃任务
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+
+
+message StealResponse {
+  required int32   s2c_code = 1;
+  optional string  s2c_msg = 2;
+  optional int32   s2c_result = 3;
+  repeated item.MiniItem s2c_items = 4;
+}
+
+message StealRequest {
+  required int32 c2s_id = 1;
+}
+
+//任务处理器
+service stealHandler {
+  // 偷窃
+  rpc stealRequest(StealRequest) returns(StealResponse);
+}

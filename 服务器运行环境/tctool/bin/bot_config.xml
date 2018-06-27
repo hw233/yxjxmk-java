@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BotConfig type="XmdsBattleClientBot.BotConfig">
+  <Appid>80</Appid>
+  <Channel>0</Channel>
+  <ClientFPS>30</ClientFPS>
+  <ClientRegion>CHN</ClientRegion>
+  <ClientVersion>1.0.0</ClientVersion>
+  <DataRoot>E:\GameEditors\GameEditor\data</DataRoot>
+  <LogicVersion>10000</LogicVersion>
+  <LoginType>0</LoginType>
+  <LoginUrl>192.168.1.212:10001</LoginUrl>
+  <LuaRoot>E:\GameEditors\UIEdit\res\ui_edit\lua</LuaRoot>
+  <MacAddr>1234</MacAddr>
+  <NoBattleView>False</NoBattleView>
+  <OSType>5</OSType>
+  <ResourcesURL>http://192.168.4.169/sjcs/res_develop/</ResourcesURL>
+  <SaveMemory>True</SaveMemory>
+  <SdkExpansion></SdkExpansion>
+  <SdkVersion></SdkVersion>
+  <ServerID>117</ServerID>
+  <SVNVersion>24194</SVNVersion>
+  <UseMPQ>False</UseMPQ>
+</BotConfig>

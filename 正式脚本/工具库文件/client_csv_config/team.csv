@@ -1,0 +1,91 @@
+﻿Key,Value,
+advanced_0, ,
+advanced_1, 一阶,
+advanced_2, 二阶,
+advanced_3, 三阶,
+advanced_4, 四阶,
+advanced_5, 五阶,
+advanced_6, 六阶,
+advanced_7, 七阶,
+advanced_8, 八阶,
+advanced_9, 九阶,
+advanced_10, 十阶,
+teamManager,队伍管理,
+taskManager,任务信息,
+type_1,<font size='20' color='ffe7e5d1'>自由分配</font>,
+type_2,<font size='20' color='ffFF0000'>队长分配</font>,
+type_3,<font size='20' color='ff00d600'>掷点分配</font>,
+quality_2,<font size='20' color='ff6BB8FF'>蓝色</font>,
+quality_3,<font size='20' color='fff403db'>紫色</font>,
+quality_4,<font size='20' color='ffef880e'>橙色</font>,
+isdistribution,确定将%s分配给队友【%s】(%s)吗？,
+job,职业：%s,
+level,等级：%s,
+remind,请选择需要分配的物品,
+leave,你离开了队伍，{0}秒后将被传出副本,
+IsLeave,退组确认,
+inviteSuc,已经发送邀请,
+leaveConfirm,你确定要退出队伍吗？,
+teaminvite,<f color='ffef880e'>【|1|】</f>|2|，|3|，来|4||5|的,
+teaminviteLv,<f color='ffe7e5d1'>|1|级以上</f>,
+teaminviteFight,<f color='ffe7e5d1'>战力|1|以上</f>,
+inviteNOLv,<f color='ffe7e5d1'>任意等级</f>,
+inviteNOFight,<f color='ffe7e5d1'>任意战力</f>,
+anyLv,任意等级,
+anyFightPower,任意战力,
+sendmessage,招募信息发送成功,
+sengdsummon,<f size='22' color='ffe7e5d1'>是否召唤%s到当前位置？</f>,
+sendmessageend,<f color='ff00d600'>（<font style = '4'>点击加入队伍</font>）</f>,
+teamtipsclose,{0}秒后可关闭该界面,
+teamtipsclosetime,5,
+teamquit,确定现在需要离开队伍吗？,
+levelLimit,%d级,
+lvUnLimit,无限制,
+textLv,%s-%s,
+followLeader,您正在跟随队长,
+leaveLeader,跟随状态已取消,
+followState,跟随队长
+unFollowState,取消跟随,
+autoFit,自动匹配,
+cancelFit,取消匹配,
+noTeamDes,你还没有队伍,
+leaderOnly,只有队长才能设置队伍目标,
+noTarget,您当前没有设定具体目标，无法前往,
+onlyLeaderDo,只有队长才能操作,
+followCannotOperateTip,您当前处于跟随状态，请解除跟随后再作尝试,
+followError1,队长在副本中，不能跟随队长,
+followError2,你在副本中，不能跟随队长,
+teamfull,队伍人数已满，是否立即前往目标？,
+teamenough,队伍人数已满足进入条件，是否立即前往目标？,
+cancelgo,取消,
+confirmgo,前往,
+cantTeam,当前场景内无法组队,
+leadDead,队长死亡，自动取消跟随,
+cannotInvite,该玩家不符合队伍等级条件，无法邀请。,
+isLeader1,你已是队长。,
+isLeader2,你已是队长，队伍目标是【%s】，是否立即开启队伍自动匹配？,
+confirm,确定,
+changetarget,请选择具体的组队目标
+createteam,创建队伍
+exitteam,离开队伍
+noteam,附近没有队伍可以加入
+noplayer,附近没有玩家可以邀请
+shenqing,一键申请
+yaoqing,一键邀请
+quxiaopipei,取消匹配
+zidongpipei,自动匹配
+noshenqing,当前没有入队申请
+noxianmengfriend,没有可邀请的仙盟伙伴
+noxianmeng,"您还没有加入仙盟哦~"
+shenqing2,申 请
+lesslevel,不低于%s级
+morelevel,不超过%s级
+rank,%s
+addExp,%d%%
+times,膜拜次数:%d/%d
+btnSuperText,膜拜(%d元宝)
+leadercando,只有队长才能执行该操作
+isstart,已开启
+levelopen,级开启
+resetlogin,重连失败，请重新登录!
+accountfail,账号校验失败，请重新登录!

@@ -1,0 +1,134 @@
+//***************************************************************************
+//* 作者= 李静
+//* 创建时间= 2015-08-27
+//* 用途= 技能处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message UpgradeSkillRequest {
+   required int32 s2c_skillId = 1;
+}
+
+message UpgradeSkillOneKeyRequest {
+}
+
+message UnlockSkillRequest {
+  required int32 s2c_skillId = 1;
+}
+
+message GetSkillDetailRequest {
+  required int32 s2c_skillId = 1;
+}
+
+message GetAllSkillRequest {
+}
+
+message ReqItem{
+   required string itemCode = 1;
+   required int32 itemQua = 2;
+   required string itemIcon = 3;
+   required int32 itemReqNum = 4;
+   required int32 itemCurNum = 5;
+}
+
+message SkillBasic {
+  required int32 level = 1;
+  optional int32 pos = 2;
+  optional int32 extlv = 3;
+  required string name = 4;
+  required string pic = 5;
+  required int32 type = 6;
+  // 0 未解锁  1解锁
+  required int32 flag = 7;
+  required int32 skillId = 8;
+  required int32 maxLevel = 9;
+  required int32 upgradeNeedLevel = 10;
+  //是否需要刷新详情 现有条件是等级变化
+  required bool detailNeedRefresh = 11;
+  repeated int32 canUpgrade = 12;
+  required int32 cost = 13; //升级需要的钱
+}
+
+message TalentDetail{
+  required int32 skillId = 1;
+  required int32 level = 2;
+  optional int32 extlv = 3;
+  required string name = 4;
+  required int32 maxLevel = 5;
+  required int32 flag = 6;
+  repeated string curDesData = 7;
+  repeated ReqItem reqItems = 8;
+  optional int32 canUpgrade = 9;
+}
+
+message SkillDetail{
+  required int32 colddown = 1;
+  required int32 curManaCost = 2;
+  repeated string curDesData = 3;
+  repeated ReqItem reqItems = 4;
+  repeated TalentDetail TalentList = 5;
+  optional int32 canUpgrade = 6;
+}
+
+
+message UpgradeSkillResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message UpgradeSkillOneKeyResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated SkillBasic skillList = 3;
+}
+
+message GetSkillDetailResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional SkillDetail s2c_skill = 3;
+}
+
+message GetAllSkillResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  required bool hubLock = 3;//0 是否能设置快捷键
+  repeated SkillBasic skillList = 4;
+}
+
+message UseSkillTabResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message UnlockSkillResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+  
+//技能处理器
+service skillHandler {
+ rpc unlockSkillRequest(UnlockSkillRequest) returns(UnlockSkillResponse);
+
+ rpc upgradeSkillRequest(UpgradeSkillRequest) returns(UpgradeSkillResponse);
+ 
+ rpc upgradeSkillOneKeyRequest(UpgradeSkillOneKeyRequest) returns(UpgradeSkillOneKeyResponse);
+
+ rpc getSkillDetailRequest(GetSkillDetailRequest) returns(GetSkillDetailResponse);
+
+ rpc getAllSkillRequest(GetAllSkillRequest) returns(GetAllSkillResponse);
+}
+
+
+message SkillUpdatePush {
+  required int32 s2c_code = 1;
+  repeated SkillBasic s2c_data = 2;
+  required bool hubLock = 3;//0 是否能设置快捷键
+}
+
+
+//技能消息推送
+service skillPush {  
+ rpc skillUpdatePush(SkillUpdatePush) returns(Void);
+
+}

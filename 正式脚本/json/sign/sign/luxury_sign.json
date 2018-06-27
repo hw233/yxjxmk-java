@@ -1,0 +1,6 @@
+[
+	[ "ID", "名称", "奖励内容1", "数量", "奖励内容2", "数量", "奖励内容3", "数量", "奖励内容4", "数量" ],
+	[ "Id", "Name", "Item1code", "Item1count", "Item2code", "Item2count", "Item3code", "Item3count", "Item4code", "Item4count" ],
+	[ "NUMBER", "STRING", "STRING", "NUMBER", "STRING", "NUMBER", "STRING", "NUMBER", "STRING", "NUMBER" ],
+	[ 1, "豪华签到", "gold", 200000, "cash", 50, "res2", 5, "mag1", 5 ]
+]

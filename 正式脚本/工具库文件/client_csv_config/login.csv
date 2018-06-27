@@ -1,0 +1,82 @@
+﻿Key,Value,
+lastLoginSrv,上次登录服务器,
+recommendSrv,推荐服务器,
+zoneName,{0}区,
+proDesc1,  拥有强壮的肉体与狂热的战斗意志，精通各类作战技巧。战斗中仅仅听到他们的怒吼已令敌人胆战心惊。,
+proDesc11,天绝霸刀,
+proDesc12,                      豪气洒脱，华丽刀舞中蕴含巨大的杀伤力,
+proDesc13,#dynamic_n/land/land2.xml|land2|4,
+proDesc14,#dynamic_n/land/land2.xml|land2|41,
+proDesc15,#dynamic_n/land/land2.xml|land2|43,
+proDesc16,#dynamic_n/land/land2.xml|land2|14,
+proDesc17,#dynamic_n/land/land2.xml|land2|21,
+proDesc2,  纤细的身体中隐藏着恐怖的爆发力，刀光剑影中会让敌人知道她的恐怖之处,
+proDesc21,玉琼剑,
+proDesc22,                      飘逸灵敏，瞬息间给予敌人重击,
+proDesc23,#dynamic_n/land/land2.xml|land2|5,
+proDesc24,#dynamic_n/land/land2.xml|land2|41,
+proDesc25,#dynamic_n/land/land2.xml|land2|44,
+proDesc26,#dynamic_n/land/land2.xml|land2|11,
+proDesc27,#dynamic_n/land/land2.xml|land2|19,
+proDesc3,  能够自如运用五行元素能量，交织成一场毁灭的奏鸣曲，带给敌人最可怕的噩梦。,
+proDesc31,烟云伞,
+proDesc32,                      仙气夺人，掌控五行元素，分秒覆灭
+proDesc33,#dynamic_n/land/land2.xml|land2|6,
+proDesc34,#dynamic_n/land/land2.xml|land2|46,
+proDesc35,#dynamic_n/land/land2.xml|land2|44,
+proDesc36,#dynamic_n/land/land2.xml|land2|12,
+proDesc37,#dynamic_n/land/land2.xml|land2|20,
+proDesc4,  拥有精准箭术的弓箭手，配合着自身的灵活给予敌人毁灭性的打击。,
+proDesc41,后羿弓,
+proDesc42,                      帅气灵活，密集的剑雨下谁都无法逃脱,
+proDesc43,#dynamic_n/land/land2.xml|land2|3,
+proDesc44,#dynamic_n/land/land2.xml|land2|46,
+proDesc45,#dynamic_n/land/land2.xml|land2|44,
+proDesc46,#dynamic_n/land/land2.xml|land2|15,
+proDesc47,#dynamic_n/land/land2.xml|land2|17,
+proDesc5,  灵狐掌握着强大的妖力，给予敌人重创的同时可以并将这种力量转换为对盟友的治疗。,
+proDesc51,苍穹宝珠,
+proDesc52,                      可爱妖艳，妖力盛宴中完美玩弄对手,
+proDesc53,#dynamic_n/land/land2.xml|land2|2,
+proDesc54,#dynamic_n/land/land2.xml|land2|46,
+proDesc55,#dynamic_n/land/land2.xml|land2|42,
+proDesc56,#dynamic_n/land/land2.xml|land2|13,
+proDesc57,#dynamic_n/land/land2.xml|land2|18,
+lv,等级,
+createRoleName,请输入角色名,
+roleNameTooLong,角色名过长，请输入6个以内汉字,
+serverMaintain,服务器维护中，请稍后再试,
+deleteWrongInput,输入错误，请输入“删除”二字,
+deleteNoInput,您还未输入“删除”二字,
+deleteRegret,<a>即将删除角色所有信息，删除后无法恢复。您还有<f color='ffff0000'>{0}</f>秒可以后悔</a>,
+deleteTitle,删除角色,
+deleteCancel,取消删除,
+activatesuccess,激活成功，欢迎来到艾德拉斯！,
+notactive,请输入正确的激活码！,
+lineUpTitle,登录排队,
+lineUpBtn,取消排队,
+lineUpTime1,服务器人数已满，排队进入游戏中…<br/>您排队的位置：<f color='ff00d600'>{0}</f>位<br/>预计等待时间：<f color='ff00d600'>{1}</f>分钟,
+lineUpTime2,服务器人数已满，排队进入游戏中…<br/>您排队的位置：<f color='ff00d600'>{0}</f>位<br/>预计等待时间：<f color='ff00d600'>小于1分钟</f>,
+logining,"正在登陆游戏服务器,请稍后..."
+loginfail,"登陆失败!"
+loginsuccess,登陆成功
+success,成功
+registersuccess,"注册成功！"
+notopen,"该职业暂未开放，敬请期待!"
+updateresource,共计要下载{0}M资源，你确定要更新吗?
+updateOK,更新确定
+ok,确定
+cancel,取消
+exitGame,确定退出游戏?
+exitOK,确认退出
+updategame,需要更新至最新的游戏版本！
+updateversion,更新版本
+versionloser,版本检查失败，缺少必要信息!！
+checkversion,检查版本
+versionjsonloser,版本检查失败，JSON格式错误!！
+versiontryagain,版本检查失败，重试一次！
+downloadfail,下载出错
+warning,警告
+onstartit,请在运行时执行此功能
+checkscript,正在检查脚本资源
+

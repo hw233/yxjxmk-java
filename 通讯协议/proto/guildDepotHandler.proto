@@ -1,0 +1,119 @@
+//***************************************************************************
+//* 作者= 马章勇
+//* 创建时间 = 2016-5-11
+//* 用途= 公会仓库处理器
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+import 'common.proto';
+
+message UseCond {//使用权限
+    optional int32 level = 1;
+    optional int32 upLevel = 2;
+    required int32 job = 3;
+}
+
+message QualityCond{//装备品质条件
+    optional int32 level = 1;
+    optional int32 upLevel = 2;
+    optional int32 qColor = 3;
+}
+
+message DepotCondition{
+    optional UseCond useCond = 1;//使用权限
+    optional QualityCond minCond = 2;//装备最低条件
+    optional QualityCond maxCond = 3;//装备最高条件
+}
+
+message DepositItemRequest{//存入
+    required int32 c2s_fromIndex = 1;//自己背包格子索引
+}
+
+message TakeOutItemRequest{//取出
+    required int32 c2s_fromIndex = 1; //仓库格子索引
+}
+
+message SetConditionRequest{//设置使用权限
+    optional int32 useLevel = 1;
+    optional int32 useUpLevel = 2;
+    required int32 useJob = 3;
+    optional int32 minLevel = 4;
+    optional int32 minUpLevel = 5;
+    optional int32 minqColor = 6;
+    optional int32 maxLevel = 7;
+    optional int32 maxUpLevel = 8;
+    optional int32 maxqColor = 9;
+}
+
+message DeleteItemRequest{//删除
+    required int32 c2s_fromIndex = 1; //仓库格子索引
+}
+
+message UpgradeDepotRequest{//升级
+}
+
+
+
+//消息返回
+message DepositItemResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional item.Grid s2c_bagGrid = 3;
+    optional int32 depositCount = 4;
+}
+
+message TakeOutItemResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message SetConditionResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional DepotCondition s2c_condition = 3;
+}
+
+message DeleteItemResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 deleteCount = 3;
+}
+
+message UpgradeDepotResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_level = 3;
+    optional int32 s2c_fund = 4;
+}
+
+service guildDepotHandler{
+    //存入装备
+    rpc depositItemRequest(DepositItemRequest) returns(DepositItemResponse);
+    //取出装备
+    rpc takeOutItemRequest(TakeOutItemRequest) returns(TakeOutItemResponse);
+    //设置使用权限
+    rpc setConditionRequest(SetConditionRequest) returns(SetConditionResponse);
+    //删除装备
+    rpc deleteItemRequest(DeleteItemRequest) returns(DeleteItemResponse);
+    //仓库升级
+    rpc upgradeDepotRequest(UpgradeDepotRequest) returns(UpgradeDepotResponse);
+}
+
+message DepotLevelInfo{
+    optional int32 level = 1;
+    optional int32 bagGridCount = 2;
+    optional int32 bagTotalCount = 3;
+}
+
+message DepotRefreshPush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional int32 type = 3; //1:增加（存入） 2：减少（取出） 3：升级 4:权限设置
+    optional int32 bagIndex = 4; //存入和取出的格子索引
+    optional DepotLevelInfo levelInfo = 5; //升级后等级
+    optional DepotCondition condition = 6; //条件
+}
+
+service guildDepotPush{
+    rpc depotRefreshPush(DepotRefreshPush) returns(Void);
+}

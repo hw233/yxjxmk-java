@@ -1,0 +1,10 @@
+[
+	[ "职位ID", "职位名称", "职位颜色", "人数", "修改公告", "公会改名", "审核人员", "移除成员", "准入条件", "公会仓库", "公会Q群", "公会科技", "公会加成", "公会副本", "邀请入会", "仙盟升级" ],
+	[ "positionID", "position", "positionColor", "setNumber", "right1", "right2", "right3", "right4", "right5", "right6", "right7", "right8", "right9", "right10", "right11", "right12" ],
+	[ "NUMBER", "STRING", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER" ],
+	[ 1, "盟主", 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+	[ 2, "副盟主", 3, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+	[ 3, "长老", 2, 6, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 ],
+	[ 4, "精英", 1, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+	[ 5, "成员", 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+]

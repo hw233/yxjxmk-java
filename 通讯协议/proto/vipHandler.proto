@@ -1,0 +1,79 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 时装处理器
+//***************************************************************************
+package pomelo.area;
+
+message VipRequest{
+
+}
+
+message VipGiftInfo{
+	required int32 type = 1;
+	required int32 flag = 2;  //0表示没有领取过，1表示领取过了
+}
+
+message VipGetGiftData {
+    repeated VipGiftInfo datas = 1;
+}
+
+message VipBuyGiftData {
+    required int32 vipLevel = 1;
+    required int32 dailyBuyCount = 2;   // 当天购买次数
+}
+
+message VipResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated VipGiftInfo datas = 3;
+	optional int64 s2c_remainTime =4;//vip剩余时间，秒
+}
+
+message GetEveryDayGiftRequest {
+    required int32 c2s_type = 1;
+}
+
+message GetEveryDayGiftResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message BuyEveryDayGiftRequest {
+    required int32 c2s_vipLevel = 1;
+}
+
+message BuyEveryDayGiftResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message BuyVipCardRequest {
+    required int32 c2s_typeId = 1; // 分类ID
+    required int32 c2s_itemId = 2; // 编号ID
+    required int32 c2s_type = 3; // 1 购买并使用 2 购买不使用
+}
+
+message BuyVipCardResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional string s2c_vipTime = 3;    //vip到期时间戳
+    repeated VipGetGiftData s2c_getData = 4;
+    repeated VipBuyGiftData s2c_buyData = 5;
+}
+
+//时装处理器
+service vipHandler {
+  // vip界面
+  rpc vipInfoRequest(VipRequest) returns(VipResponse);
+
+  // 领取每日vip特权奖励
+  rpc getEveryDayGiftRequest(GetEveryDayGiftRequest) returns(GetEveryDayGiftResponse);
+
+  // 购买每日vip礼包
+  rpc buyEveryDayGiftRequest(BuyEveryDayGiftRequest) returns(BuyEveryDayGiftResponse);
+
+  // 购买vip特权卡
+  rpc buyVipCardRequest(BuyVipCardRequest) returns(BuyVipCardResponse);
+}
+

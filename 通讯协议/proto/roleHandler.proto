@@ -1,0 +1,65 @@
+//***************************************************************************
+//* 作者: 卢松洁
+//* 创建时间: 2015-08-27
+//* 用途: 角色处理器
+//***************************************************************************
+
+package pomelo.connector;
+import 'player.proto';
+
+
+message CreatePlayerRequest{
+   required int32 c2s_pro = 1;
+   required string c2s_name = 2;
+}
+
+message CreatePlayerResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional player.PlayerBasic s2c_player= 3;
+  repeated  player.PlayerBasic s2c_players= 4;
+}
+
+message ChangePlayerNameRequest{
+   required string c2s_name = 1;
+   required int32 pos = 2;
+}
+
+message ChangePlayerNameResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional string s2c_name = 3;
+}
+
+message GetRandomNameRequest{
+  required int32 c2s_pro = 1;
+}
+
+message GetRandomNameResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg =  2;
+  optional string s2c_name =  3; 
+}
+
+message DeletePlayerRequest{
+  required string c2s_playerId = 1;
+}
+
+message DeletePlayerResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg =  2;
+}
+
+//角色处理器
+service roleHandler {
+  rpc createPlayerRequest(CreatePlayerRequest) returns (CreatePlayerResponse);
+  //创建角色
+  rpc changePlayerNameRequest(ChangePlayerNameRequest) returns (ChangePlayerNameResponse);
+
+  rpc deletePlayerRequest(DeletePlayerRequest) returns (DeletePlayerResponse);
+
+  rpc getRandomNameRequest(GetRandomNameRequest) returns (GetRandomNameResponse);
+  
+}
+
+

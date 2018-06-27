@@ -1,0 +1,6 @@
+[
+	[ "入会等级", "创建消耗", "退会冷却", "被踢冷却", "踢人冷却", "踢人次数", "申请失效时长", "弹劾基础条件", "弹劾持续时长", "弹劾人数", "公告字数", "默认公告", "动态条目", "申请限制", "公会名称", "最长字数", "改名道具", "改名消耗", "改名冷却", "公会仓库存入次数", "公会仓库删除次数", "公会仓库存入等级", "公会仓库存入品质", "公会科技物品每日刷新时间", "仙盟BOSS开启", "仙盟BOSS倒计时时间", "仙盟BOSS结束时间" ],
+	[ "joinLv", "cost", "selfOut", "kickOut", "fireOut", "fireNum", "ApplicationFail", "impeach", "impeachTime", "impeachNo", "announcement", "DefaultNote", "recording", "applyMax", "NameMaxLen", "maxLen", "changeName", "changeNameCost", "changeNameCD", "WarehousePutIn", "WarehouseDel", "WarehouseMinLv", "WarehouseMinQ", "GTechItemRefreshTime", "GBossOpenTime", "GBossShowTime", "GBossCloseTime" ],
+	[ "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "STRING", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "STRING", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "FLOAT", "STRING", "STRING", "STRING" ],
+	[ 14, 400, 30, 0, 0, 50, 10, 3, 120, 5, 200, "1、进仙盟捐献，提升仙盟等级 2、仙盟修行，提升角色属性 3、祈福可获得神秘BUFF加成", 200, 5, 6, 4, "guildName", 1, 7, 15, 15, 50, 2, 0.208333333333, "20:00:00", "20:29:30", "20:30:00" ]
+]

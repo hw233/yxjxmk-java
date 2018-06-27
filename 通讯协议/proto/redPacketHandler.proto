@@ -1,0 +1,87 @@
+//***************************************************************************
+//* 作者= 李玥
+//* 创建时间= 2018-03-05
+//* 用途= 红包
+//***************************************************************************
+package pomelo.redpacket;
+import 'common.proto';
+
+//获得者信息
+message FetcherInfo {
+	required string fetcherId = 1;//玩家id
+	required string fetcherName = 2;//姓名
+	required int32 fetcherValue = 3;//获得数量
+}
+
+//红包信息
+message RedPacketInfo {
+	required string id = 1;//红包id
+	required int32 count = 2;//红包个数
+	required int32 totalNum = 3;//红包总额（这里指发送者花费的元宝）
+	required int32 channelType = 4;//0世界红包 1仙盟红包
+	required int32 fetchType = 5;//0口令红包 1普通红包
+	required int32 benifitType = 6;//0元宝红包 1银币红包
+	repeated FetcherInfo fetcherList = 7;//所有抢到红包的玩家
+	optional string providerId = 8;//主人id
+	required string providerName = 9;//主人姓名
+	optional string message = 10;//主人寄语或者口令    在fetchType为0时，表示口令，在fetchType为1且state为1或2时，表示寄语，否则无此字段
+	required int64 dispatchTimestamp = 11;//红包创建时间戳
+}
+
+//获取所有红包列表
+message GetRedPacketListRequest {
+}
+message GetRedPacketListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated RedPacketInfo redPacketInfo = 3;
+}
+
+
+
+
+
+//发红包
+message DispatchRedPacketRequest {
+	required int32 count = 1;//红包数量
+	required int32 totalNum = 2;//红包总额（这里指发送者花费的元宝）
+	required int32 channelType = 3;//0世界红包 1仙盟红包
+	required int32 fetchType = 4;//0口令红包 1普通红包
+	required int32 benifitType = 5;//0元宝红包 1银币红包
+	required string message = 6;//主人寄语或者口令  在fetchType为0时，表示口令，在fetchType为1时，表示寄语
+}
+message DispatchRedPacketResponse {
+	required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//抢红包
+message FetchRedPacketRequest {
+	required string id = 1;
+}
+message FetchRedPacketResponse {
+	required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 value = 3;//抢到的金额
+}
+
+//新红包推送
+message OnRedPacketDispatchPush {
+	required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional RedPacketInfo redPacketInfo = 3;//新增或变更的红包
+    optional string id = 4;//删除的红包id，由于一次推送只处理一次增删改，3号字段负责增改，4号字段负责删，3和4最多只有一个存在
+}
+
+service  redPacketHandler {
+    //获取所有红包列表
+    rpc getRedPacketListRequest(GetRedPacketListRequest) returns (GetRedPacketListResponse);
+    //发红包
+    rpc dispatchRedPacketRequest(DispatchRedPacketRequest) returns (DispatchRedPacketResponse);
+    //抢红包
+    rpc fetchRedPacketRequest(FetchRedPacketRequest) returns (FetchRedPacketResponse);
+ }
+
+service redPacketPush {
+    rpc onRedPacketDispatchPush(OnRedPacketDispatchPush) returns(Void);
+}

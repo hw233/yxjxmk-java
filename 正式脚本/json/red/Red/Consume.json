@@ -1,0 +1,7 @@
+[
+	[ "货币ID", "红包消耗货币种类" ],
+	[ "ID", "ConsumeType" ],
+	[ "NUMBER", "STRING" ],
+	[ 1, "diamond" ],
+	[ 2, "gold" ]
+]

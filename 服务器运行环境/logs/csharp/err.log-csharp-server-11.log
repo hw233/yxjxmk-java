@@ -1,0 +1,15 @@
+﻿2018-05-04 13:17:29,405 [56896] ERROR EditorTemplates - 未将对象引用设置到对象的实例。
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadResVersion() 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 235
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadAllTemplates(Boolean client) 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 340
+2018-05-04 13:18:36,586 [50408] ERROR EditorTemplates - 未将对象引用设置到对象的实例。
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadResVersion() 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 235
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadAllTemplates(Boolean client) 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 340
+2018-05-04 13:22:35,534 [56136] ERROR EditorTemplates - 未将对象引用设置到对象的实例。
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadResVersion() 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 235
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadAllTemplates(Boolean client) 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 340
+2018-05-04 13:24:06,254 [44276] ERROR EditorTemplates - 未将对象引用设置到对象的实例。
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadResVersion() 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 235
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadAllTemplates(Boolean client) 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 340
+2018-05-04 13:28:31,301 [57036] ERROR EditorTemplates - 未将对象引用设置到对象的实例。
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadResVersion() 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 235
+   在 CommonAI.Zone.ZoneEditor.EditorTemplates.LoadAllTemplates(Boolean client) 位置 E:\work\trunk\XmdsCommon\Common\CommonAI\Zone\ZoneEditor\EditorTemplates.cs:行号 340

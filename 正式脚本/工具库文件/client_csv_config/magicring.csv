@@ -1,0 +1,7 @@
+﻿Key,Value,
+magicringShop,<f size='18' color='ffe7e5d1'>(激活属性获得魔界威望，商城可购买<f link = 'your msg' color= 'ffcc00ff'>威望丹</f>。)</f>,
+danlack,"威望丹数量不足,请前往商城购买!",
+master_yes,是的,
+master_no,不去,
+master_nothing,无,
+master_maxlv,已满级,

@@ -1,0 +1,177 @@
+//***************************************************************************
+//* 作者= wht
+//* 创建时间= 2017-04-10
+//* 用途= 道友数据
+//***************************************************************************/
+package pomelo.daoyou;
+
+//道友信息
+message DaoYouInfo {
+	optional string playerId = 1; //玩家ID
+	optional string playerName = 2; //玩家名称
+	optional int32 playerLvl = 3; //玩家等级
+	optional int32 pro = 4; //职业
+	optional int32 playerUpLvl = 5; //玩家进阶等级
+	optional string areaName = 6; //玩家所在场景
+	optional int32 playerFightPower = 7; //玩家战斗力
+	optional int32 isAdmin = 8; //是否是管理员
+	optional int32 onlineState = 9; //在线状态 0: 离线    1:在线
+	optional int32 lastActiveTime = 10; //上次离线时间
+	optional int32 joinTime = 11; //加入道友的时间
+}
+
+//系统和留言信息
+message DaoYouMessage {
+	optional int32 type = 1; //信息类型:1、系统2、留言
+	optional string content = 2; //内容
+	optional int32 time = 3; //时间
+}
+
+//打开道友界面请求
+message DaoYouRequest {
+}
+
+//打开道友界面响应
+message DaoYouResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+	optional int32 isHasDaoYou = 3;//是否有道友(1有、0没有)
+	optional int32 isEditedDyName = 4;
+	optional string dyId = 5;
+	optional string dyName = 6;
+	optional int32 dyFightPower = 7;
+	optional int32 dyRank = 8;
+	optional string dyNotice = 9;
+	repeated DaoYouMessage message = 10;
+	repeated DaoYouInfo dyInfo = 11;
+}
+
+
+//邀请道友请求
+message DaoYouInviteDaoYouRequest {
+	required string playerId = 1; //被邀请的玩家ID
+}
+
+//邀请道友响应
+message DaoYouInviteDaoYouResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+}
+
+//快捷组队道友请求
+message DaoYouFastInviteDaoYouRequest {
+}
+
+//快捷组队道友响应
+message DaoYouFastInviteDaoYouResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+}
+
+//修改道友名称请求
+message DaoYouEditTeamNameRequest {
+	required string teamName = 1; //道友团队名称
+}
+
+//修改道友名称响应
+message DaoYouEditTeamNameResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+}
+
+//留言请求
+message DaoYouLeaveMessageRequest {
+	required string message = 1;
+}
+
+//留言响应
+message DaoYouLeaveMessageResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+}
+
+//公告请求
+message DaoYouNoticeRequest {
+	required string notice = 1;
+}
+
+//公告响应
+message DaoYouNoticeResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+}
+
+//踢出道友团队请求
+message DaoYouKickTeamRequest {
+	required string playerId = 1; //被踢的玩家ID
+}
+
+//踢出道友团队响应
+message DaoYouKickTeamResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+}
+
+//转让管理职位请求
+message DaoYouTransferAdminRequest {
+	required string playerId = 1; //转让的玩家ID
+}
+
+//转让管理职位响应
+message DaoYouTransferAdminResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+}
+
+//退出道友请求
+message DaoYouQuitTeamRequest {
+}
+
+//退出道友响应
+message DaoYouQuitTeamResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+}
+
+//道友返利请求
+message DaoYouRebateRequest {
+}
+
+//道友成员收到返利信息
+message DaoYouMemRebaeReciveInfo{
+	optional string playerName = 1; //玩家名称
+	optional int32 reciveNumber = 2; //获得数量
+}
+
+//返利信息
+message DaoYouRebateInfo {
+	optional string playerName = 1; //玩家名称
+	optional int32 totalSendRebate = 2; //累计发放
+	optional int32 todaySendRebate = 3; //今日发放
+	repeated DaoYouMemRebaeReciveInfo memRebaeReciveInfo = 4; //道友成员收到返利信息
+}
+
+
+//道友返利响应
+message DaoYouRebateResponse {
+	required int32 s2c_code = 1; //状态(成功、失败)
+	optional string s2c_msg = 2;
+	optional int32 selfTotalReciveRebate = 3;
+	optional int32 selfTodayReciveRebate = 4;
+	repeated DaoYouRebateInfo ri = 5;
+}
+
+
+//道友处理器
+service daoYouHandler {
+	rpc daoYouRequest (DaoYouRequest) returns (DaoYouResponse);
+	rpc daoYouInviteDaoYouRequest (DaoYouInviteDaoYouRequest) returns (DaoYouInviteDaoYouResponse);
+	rpc daoYouFastInviteDaoYouRequest (DaoYouFastInviteDaoYouRequest) returns (DaoYouFastInviteDaoYouResponse);
+	rpc daoYouEditTeamNameRequest (DaoYouEditTeamNameRequest) returns (DaoYouEditTeamNameResponse);
+	rpc daoYouLeaveMessageRequest (DaoYouLeaveMessageRequest) returns (DaoYouLeaveMessageResponse);
+	rpc daoYouNoticeRequest (DaoYouNoticeRequest) returns (DaoYouNoticeResponse);
+	rpc daoYouKickTeamRequest (DaoYouKickTeamRequest) returns (DaoYouKickTeamResponse);
+	rpc daoYouTransferAdminRequest (DaoYouTransferAdminRequest) returns	(DaoYouTransferAdminResponse);
+	rpc daoYouQuitTeamRequest (DaoYouQuitTeamRequest) returns (DaoYouQuitTeamResponse);
+	rpc daoYouRebateRequest (DaoYouRebateRequest) returns (DaoYouRebateResponse);
+}

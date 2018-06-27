@@ -1,0 +1,48 @@
+//***************************************************************************
+//* 作者= liyue
+//* 创建时间= 2018-03-08
+//* 用途= 七日目标
+//***************************************************************************
+package pomelo.sevengoal;
+
+
+//任务信息
+message TaskInfo{
+	required int32 taskId = 1;//任务id
+	required int32 finishedNum = 2;//完成次数
+}
+
+//每日目标信息
+message DayInfo{
+	required int32 dayId = 1;//天数 从1开始
+	repeated TaskInfo taskInfo = 2;//任务列表
+	required bool fetched = 3;//是否已领取
+}
+
+//获取七日目标信息
+message GetSevenGoalRequest{
+}
+message GetSevenGoalResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated DayInfo dayInfo = 3;
+	optional int32 currentDayId = 4;//当前是第几天
+	optional string startTimestamp = 5;//活动开始时间
+	optional string endTimestamp = 6;//活动结束时间
+}
+
+//领奖励
+message FetchAwardRequest{
+	required int32 id = 1;//天数 从1开始
+}
+message FetchAwardResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+service  sevenGoalHandler {
+    //获取七日目标信息
+    rpc getSevenGoalRequest(GetSevenGoalRequest) returns (GetSevenGoalResponse);
+    //领奖励
+    rpc fetchAwardRequest(FetchAwardRequest) returns (FetchAwardResponse);
+}

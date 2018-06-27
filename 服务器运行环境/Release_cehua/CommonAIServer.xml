@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonAIServer</name>
+    </assembly>
+    <members>
+        <member name="P:CommonAIServer.Node.Interface.IPlayer.PlayerUUID">
+            <summary>
+            单位全局唯一标识符
+            </summary>
+        </member>
+        <member name="P:CommonAIServer.Node.Interface.IPlayer.DisplayName">
+            <summary>
+            用于显示的名字
+            </summary>
+        </member>
+        <member name="P:CommonAIServer.Node.Interface.IPlayer.BindingPlayer">
+            <summary>
+            绑定数据
+            </summary>
+        </member>
+        <member name="M:CommonAIServer.Node.Interface.IPlayer.Send(CommonLang.Protocol.IMessage)">
+            <summary>
+            向此玩家发送战斗服事件
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:CommonAIServer.Node.Interface.IPlayer.Listen(System.Action{System.Object})">
+            <summary>
+            监听接收消息
+            </summary>
+            <param name="handler"></param>
+        </member>
+        <member name="M:CommonAIServer.Node.Interface.IPlayer.OnConnected(CommonAIServer.Node.ZoneNode.PlayerClient)">
+            <summary>
+            连接时回调
+            </summary>
+            <param name="binding"></param>
+        </member>
+        <member name="M:CommonAIServer.Node.Interface.IPlayer.OnDisconnect(CommonAIServer.Node.ZoneNode.PlayerClient)">
+            <summary>
+            断线时回调
+            </summary>
+        </member>
+        <member name="M:CommonAIServer.Node.BaseZoneNode.GetScenePointData(System.String)">
+            <summary>
+            获得指定名称的路点坐标
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonAIServer.Node.BaseZoneNode.Start(CommonAI.Zone.ZoneEditor.SceneData)">
+            <summary>
+            房间初始化
+            </summary>
+        </member>
+        <member name="M:CommonAIServer.Node.BaseZoneNode.Stop">
+            <summary>
+            开始异步关闭房间
+            </summary>
+        </member>
+        <member name="M:CommonAIServer.Node.BaseZoneNode.OnMessageHandlerFromInstanceZone(CommonAI.Zone.Event)">
+            <summary>
+            当收到从场景来的消息（预过滤发送给客户端）
+            </summary>
+            <param name="e"></param>
+            <returns>True截断消息</returns>
+        </member>
+        <member name="M:CommonAIServer.Node.BaseZoneNode.ZoneUpdate(System.Int32)">
+            <summary>
+            战斗场景主逻辑更新//
+            </summary>
+            <param name="intervalMS"></param>
+        </member>
+        <member name="M:CommonAIServer.Node.BaseZoneNode.QueueTask(CommonAIServer.Node.BaseZoneNode.Task)">
+            <summary>
+            保证在Task内部执行的代码线程安全
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="F:CommonAIServer.Node.ZoneNode.mPlayerObjectMap">
+            <summary> 
+            存储玩家UUID和场景内单位的对应关系，如果玩家掉线重连，优先从此表内获取单位信息。
+            </summary>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.GetPlayer(System.String)">
+            <summary>
+            根据UUID获取单位
+            </summary>
+            <param name="uuid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.ForEachPlayers(System.Action{CommonAIServer.Node.ZoneNode.PlayerClient})">
+            <summary>
+            遍历所有客户端
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.PlayerEnter(CommonAIServer.Node.Interface.IPlayer,CommonAI.Zone.UnitInfo,System.Byte,System.Int32,CommonLang.Vector.Vector2,System.Single,System.Action{CommonAIServer.Node.ZoneNode.PlayerClient},System.Action{System.Exception})">
+            <summary>
+            单位进入场景
+            </summary>
+            <param name="player"></param>
+            <param name="temp"></param>
+            <param name="force"></param>
+            <param name="level"></param>
+            <param name="enterPos"></param>
+            <param name="direction"></param>
+            <param name="callback"></param>
+            <param name="callerror"></param>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.PlayerLeave(CommonAI.Zone.Instance.InstancePlayer,System.Action{CommonAIServer.Node.ZoneNode.PlayerClient},System.Action{System.Exception},System.Boolean)">
+            <summary>
+            单位离开场景
+            </summary>
+            <param name="player"></param>
+            <param name="callback"></param>
+            <param name="callerror"></param>
+            <param name="keep_object">保留单位</param>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.FilterSendingMessage(CommonAIServer.Node.ZoneNode.PlayerClient,CommonLang.Protocol.IMessage)">
+            <summary>
+            过滤消息，过滤掉非知晓消息
+            </summary>
+            <param name="client"></param>
+            <param name="msg"></param>
+            <returns></returns>
+        </member>
+        <member name="P:CommonAIServer.Node.ZoneNode.PlayerClient.ActiveCount">
+            <summary>
+            未释放实例数量
+            </summary>
+        </member>
+        <member name="P:CommonAIServer.Node.ZoneNode.PlayerClient.AllocCount">
+            <summary>
+            分配实例数量
+            </summary>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.PlayerClient.BeginUpdate">
+            <summary>
+            定时更新Client
+            </summary>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.PlayerClient.Send(CommonLang.Protocol.IMessage,System.Boolean)">
+            <summary>
+            排队发送消息
+            </summary>
+            <param name="msg"></param>
+            <param name="immediately"></param>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.PlayerClient.RecvInternal(System.Object)">
+            <summary>
+            从客户端接收消息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.PlayerClient.GetSyncObjectsEvent">
+            <summary>
+            获取当前场景内所有单位，用于同步现有场景中单位 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.PlayerClient.IsLookInRange(CommonAI.Zone.Instance.InstanceZoneObject)">
+            <summary>
+            判断单位是否进入视野
+            </summary>
+            <param name="obj"></param>
+            <returns>True，进入视野</returns>
+        </member>
+        <member name="M:CommonAIServer.Node.ZoneNode.PlayerClient.IsLookOutRange(CommonAI.Zone.Instance.InstanceZoneObject)">
+            <summary>
+            判断单位是否超出视野
+            </summary>
+            <param name="obj"></param>
+            <returns>True，超出视野</returns>
+        </member>
+    </members>
+</doc>

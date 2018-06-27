@@ -1,0 +1,175 @@
+//***************************************************************************
+//* 作者= 周明凯
+//* 创建时间= 2017-12-14
+//* 用途= 冲榜处理器
+//***************************************************************************/
+package pomelo.revelry;
+import 'common.proto';
+
+// 每一天中的小栏目
+message RevelryColumnInfo {
+	required string 		id 		= 1;//编号，用这个编号来取对应的排行数据
+	required string			name 	= 2;
+	required string			label	= 3;
+	optional string			goto1	= 4;//查看榜单
+	optional string 		goto2	= 5;//我要变强
+	optional string 		tip		= 6;//提示
+}
+
+// 冲榜大类中的每一天
+message RevelryTodayInfo {
+	required string				name 	= 1;
+	repeated RevelryColumnInfo 	column 	= 2;
+}
+
+// 冲榜大类
+message RevelryTabInfo {
+	required string				name 	= 1;
+	repeated RevelryTodayInfo 	today 	= 2;
+}
+
+// 兑换配置
+message KingExchange {
+	required int32		tabId   = 1;
+	required string 	tabName = 2;
+	
+	required string		item1code = 3;//兑换获得物品
+	required int32		item1num  = 4;//兑换获得数量
+	
+	required string		item2code = 5;//兑换消耗物品
+	required int32		item2num  = 6;//兑换消耗数量
+	
+	required string 	avatarId  = 7;//展示模型
+	optional string 		tip	  = 8;//提示
+	optional int32		showType  = 9;//显示类型
+}
+
+//拉取冲榜栏目请求
+message RevelryGetColumnRequest{
+}
+//拉取冲榜栏目响应
+message RevelryGetColumnResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated RevelryTabInfo info = 3;
+	
+	repeated KingExchange exchange = 4;//兑换展示（如果数组为空，则不显示）
+	optional int32 selectedIndex = 5;//默认选中的info字段的下标，从0开始
+}
+
+// 冲榜排行信息（数组内容参考排行榜）
+message RevelryRankInfo {
+	repeated string 	contents = 1;//玩家或公会的信息数组
+	repeated Avatar 	avatars  = 2;//只有第一名才有此属性
+}
+
+// 排行奖励信息
+message RevelryAwardInfo{
+  required string itemcode = 1;
+  required int32 itemcount = 2;
+}
+
+// 排行配置信息
+message RevelryConfigInfo {
+	required int32 				minRank = 1;//最小排名
+	required int32 				maxRank = 2;//最大排名
+	repeated RevelryAwardInfo 	award 	= 3;//奖励
+	optional RevelryRankInfo	player  = 4;//上榜玩家
+}
+
+//拉取栏目中排行信息请求
+message RevelryGetRankInfoRequest{
+	required string 		id 		= 1;//编号
+}
+//拉取栏目中排行信息响应
+message RevelryGetRankInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	
+	required int32			   rankKey	= 3;//冲榜专用属性，用来标识是哪个排行榜
+	repeated RevelryConfigInfo config   = 4;
+	optional RevelryRankInfo self	    = 5;//自己的信息
+	optional int32			   selfRank = 6;//自己的排名
+	optional string 		   title	= 7;//第一名送的称号资源
+	optional int32			   timeleft = 8;//剩余时间（单位：秒）
+}
+
+// 冲榜活动兑换请求
+message RevelryExchangeRequest {
+	required int32 		id 		= 1;//兑换配置中的tabId
+	required int32		num		= 2;//兑换数量
+}
+// 冲榜活动兑换响应
+message RevelryExchangeResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//累计充值栏目
+message RevelryRechargeColumn {
+	required int32 day = 1;
+	required string name = 2;
+}
+//拉取累计充值栏目请求
+message RevelryRechargeGetColumnRequest{
+}
+//拉取累计充值栏目响应
+message RevelryRechargeGetColumnResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required string beginTime = 3;
+    required string endTime = 4;
+    required string describe = 5;
+	optional int32 today 	= 6;//今天第几天
+	repeated RevelryRechargeColumn column = 7;
+}
+
+
+message RevelryRechargeItem{
+	required string code = 1;
+	required int32 groupCount = 2;
+}
+message RevelryRechargeAwardInfo{
+  required int32 id 					= 1; //领取奖励的唯一编号
+  repeated RevelryRechargeItem item		= 2;
+  required int32 state 					= 3; //0未领取 1可领取 2已领取
+  required int32 currNum 				= 4; //当前进度
+  required int32 needNum 				= 5; //总进度
+}
+//拉取累计充值信息请求
+message RevelryRechargeGetInfoRequest{
+	required int32	day	= 1;//天数
+}
+//拉取累计充值信息响应
+message RevelryRechargeGetInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated RevelryRechargeAwardInfo info   = 3;
+}
+
+//领取充值奖励
+message RevelryRechargeAwardRequest{
+  required int32 id	= 1;
+}
+message RevelryRechargeAwardResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//冲榜处理器
+service activityRevelryHandler {
+   	// 拉取冲榜栏目请求
+   	rpc revelryGetColumnRequest(RevelryGetColumnRequest) returns (RevelryGetColumnResponse);
+	// 拉取单榜排行数据
+   	rpc revelryGetRankInfoRequest(RevelryGetRankInfoRequest) returns (RevelryGetRankInfoResponse);
+	
+	// 冲榜活动兑换
+   	rpc revelryExchangeRequest(RevelryExchangeRequest) returns (RevelryExchangeResponse);
+	
+	// 拉取累计充值栏目
+   	rpc revelryRechargeGetColumnRequest(RevelryRechargeGetColumnRequest) returns (RevelryRechargeGetColumnResponse);
+	// 拉取累计充值信息
+   	rpc revelryRechargeGetInfoRequest(RevelryRechargeGetInfoRequest) returns (RevelryRechargeGetInfoResponse);
+	// 领取累计充值
+   	rpc revelryRechargeAwardRequest(RevelryRechargeAwardRequest) returns (RevelryRechargeAwardResponse);
+}

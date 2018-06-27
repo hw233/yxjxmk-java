@@ -1,0 +1,8 @@
+﻿Key,Value,
+price,{0}元,
+targetTab,{0}y,
+notEnoughTips,<f>今天累计充值:<f color='ff00d600'>{0}</f>元，还差<f color='ff00d600'>{1}</f>元即可领取大礼！</f>,
+enoughTips,<f>今天累计充值:<f color='ff00d600'>{0}</f>元</f>,
+getReward,领取奖励,
+Recharge,立即充值,
+Received,已领取,

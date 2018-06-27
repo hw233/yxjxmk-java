@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>商城表</title>
+		<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+		<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			load();
+		})
+		function getServer() {
+			return parent.getSingleServer();
+		}
+		function load() {
+			$('#mall').datagrid({
+				title:'商城表',
+				iconCls:'icon-edit',
+				nowrap: false,
+				striped: true,
+				fit: true,
+				singleSelect:true,
+				url : '../action/table',
+				queryParams:{ type : '119a' , server : getServer()},
+				toolbar: [{
+					iconCls: 'icon-reload',
+					handler: function(){
+						load();
+					}
+				},'-',{
+					iconCls: 'icon-help',
+					handler: function(){alert('help')}
+				}],
+				columns:[[
+		            {field:'id',title:'ID',width:80,align:'right'},
+					{field:'itemId',title:'itemId',width:120,align:'right'},
+					{field:'type',title:'type',width:120,align:'right'}
+				]],
+				pagination:true,
+				pageSize: 20,
+				pageList: [15, 20, 25, 30, 35],
+				rownumbers:true,
+				onDblClickRow:function(rowIndex, rowData){
+					window.parent.showTip("信息提示",  rowData.id + " -> " + rowData.itemId, 3000);
+				}
+			});
+		}
+		</script>
+	</head>
+	<body>
+		<table id="mall"></table> 
+	</body>
+</html>
+

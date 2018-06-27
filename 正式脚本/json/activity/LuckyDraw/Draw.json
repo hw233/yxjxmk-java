@@ -1,0 +1,10 @@
+[
+	[ "编号", "类型", "道具数", "进入奖池轮数", "道具库" ],
+	[ "ID", "Type", "ItemNumber", "Round", "PropLibrary" ],
+	[ "NUMBER", "STRING", "NUMBER", "NUMBER", "STRING" ],
+	[ 1, "A类", 2, 14, "orp:1:1;gp10:1:1;gg10:1:1;gr10:1:1;gb10:1:1;gy10:1:1" ],
+	[ 2, "B类", 14, 1, "en1:5:5;en2:5:5;wing1:5:5;mag1:5:5;mag2:5:5;mag3:5:5;res1:5:5;res2:5:5;res3:5:5;mou1:5:5;orp:5:5;rep:5:5;gg1:5:5;gg2:5:5;gg3:5:5;gg4:5:5;gy1:5:5;gy2:5:5;gy3:5:5;gy4:5:5;gb1:5:5;gb2:5:5;gb3:5:5;gb4:5:5;gr1:5:5;gr2:5:5;gr3:5:5;gr4:5:5" ],
+	[ 3, "C类", 2, 1, "numx2:0:5;numx3:0:5" ],
+	[ 4, "道具展示", 3, 0, "gr10:1;gb10:1;gy10:1" ],
+	[ 5, "奖励预览", 14, 0, "gg1;gg2;gg3;gg4;gy1;gy2;gy3;gy4;gb1;gb2;gb3;gb4;gr1;gr5;gr3;gr4" ]
+]

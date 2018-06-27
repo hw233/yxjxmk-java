@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--一个application对应一个游戏帐号中心服 id不可重复 -->
+<applications>
+	<!-- 仅供公司内网连接TCP使用-1 ID号-->
+	<!-- id游戏中心服编号不能重复，长度4  notifyurl通知中心服的地址 notifykey验证密钥 -->
+	<application id="80" name="逸仙诀中国安卓一区" notifyurl="" notifykey="" ip="">
+		<servers>
+			<server serverid="1" note="内网测试用的"/>
+			<server serverid="2" note="正式服"/>
+		</servers>
+	</application>
+<!-- 	<application id="80" name="玄门大师中国安卓一区" notifyurl="http://180.168.2.210:82/order" notifykey="8956bb50bb2b77072e61d7ca8fc5e999" ip="192.168.1.143"> -->
+<!-- 		<servers> -->
+<!-- 			<server serverid="1" note="内网测试用的"/> -->
+<!-- 			<server serverid="2" note="正式服"/> -->
+<!-- 		</servers> -->
+<!-- 	</application> -->
+<!-- 	<application id="0045" name="射雕三国米娱BT专区" notifyurl="http://180.168.2.210:82/order" notifykey="8956bb50bb2b77072e61d7ca8fc5e999" ip="192.168.1.143"> -->
+<!-- 		<servers> -->
+<!-- 			<server serverid="1" note="内网测试用的"/> -->
+<!-- 			<server serverid="2" note="正式服"/> -->
+<!-- 		</servers> -->
+<!-- 	</application> -->
+</applications>

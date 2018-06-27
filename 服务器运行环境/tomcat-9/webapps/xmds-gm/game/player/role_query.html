@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>用户管理</title>
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/color.css">
+<script type="text/javascript" src="../../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<style>
+.table {
+	border-collapse: collapse;
+	border: none;
+	width: 200px;
+}
+
+.table td {
+	border: solid #95B8E7 1px;
+	height: 30px;
+}
+
+.td-title {
+	font-weight: bold;
+	background-color: #f4f4f4;
+}
+</style>
+<script type="text/javascript">
+	var playerId;
+	function searchRole() {
+		var roleName = $("#roleName").val();
+		if (!roleName) {
+			return;
+		}
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3020",
+			value : [ roleName, 0 ],
+			call : function(json) {
+				if ($.isEmptyObject(json)) {
+					$.messager.alert("提示", "未找到该玩家信息!", "warning");
+				} else {
+					$.each(json, function(key, value) {
+						$("#" + key).html(value);
+					});
+					playerId = json.id;
+					var index = $("#dataAccordion").accordion('getPanelIndex',
+							$("#dataAccordion").accordion('getSelected'));
+					onSelect('', index);
+				}
+			}
+		});
+	}
+
+	function loadItemData(id) {
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3021",
+			value : [ id, 0 ],
+			call : function(json) {
+				$("#itemDg").datagrid('loadData', json);
+			}
+		});
+	}
+
+	function loadEquipData(id) {
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3021",
+			value : [ id, 1 ],
+			call : function(json) {
+				$("#equipDg").datagrid('loadData', json);
+			}
+		});
+	}
+
+	function loadWarehouseData(id) {
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3021",
+			value : [ id, 2 ],
+			call : function(json) {
+				$("#warehouseDg").datagrid('loadData', json);
+			}
+		});
+	}
+
+	var itemId;
+	var deleteType;// 删除道具类型 0-背包1-仓库
+	var loadFunc;
+	// 删除背包道具
+	function deleteItem(t) {
+		deleteType = t;
+		var row;
+		if (t == 0) {
+			row = $("#itemDg").datagrid('getSelected');
+			loadFunc = loadItemData;
+		} else if (t == 1) {
+			row = $("#warehouseDg").datagrid('getSelected');
+			loadFunc = loadWarehouseData;
+		}
+		if (!row) {
+			return;
+		}
+		$.messager.confirm('提示', '确定删除吗?', function(r) {
+			if (r) {
+				itemId = row.id;
+				if (row.isEquip == "否") {
+					$("#numDialog").dialog("open");
+					return;
+				}
+				doDelete(1, loadFunc);
+			}
+		});
+	}
+
+	// 输入数量删除道具
+	function deleteByNum() {
+		var num = $("#num").val();
+		if (!num || parseInt(num) < 0) {
+			$.messager.alert("提示", "请输入要删除的数量！", "warning");
+			return;
+		}
+		doDelete(num, loadFunc);
+		$("#numDialog").dialog("close");
+	}
+
+	function doDelete(num, loadData) {
+		parent.parent.send({
+			single : true,
+			action : "execute",
+			type : "3022",
+			value : [ playerId, itemId, num, deleteType ],
+			call : function(json) {
+				$.each(json, function(sid, state) {
+					if (state == 1) {
+						$.messager.alert("提示", "删除成功！");
+						loadData(playerId);
+					} else {
+						$.messager.alert("提示", "删除失败！", "error");
+					}
+				});
+			}
+		});
+	}
+
+	// 加载个人榜数据
+	function loadRankData(id) {
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3023",
+			value : [ id ],
+			call : function(json) {
+				$("#rankDg").datagrid('loadData', json);
+				$("#rankDg").datagrid('mergeCells', {
+					index : 0,
+					field : 'type',
+					rowspan : 5
+				});
+				$("#rankDg").datagrid('mergeCells', {
+					index : 5,
+					field : 'type',
+					rowspan : 3
+				});
+			}
+		});
+	}
+
+	// 加载技能数据
+	function loadSkillData(id) {
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3024",
+			value : [ id ],
+			call : function(json) {
+				$("#skillDg").datagrid('loadData', json);
+			}
+		});
+	}
+
+	// 加载宠物数据
+	function loadPetData(id) {
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3025",
+			value : [ id ],
+			call : function(json) {
+				$("#petDg").datagrid('loadData', json);
+			}
+		});
+	}
+
+	// 加载坐骑数据
+	function loadHorseData(id) {
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3027",
+			value : [ id ],
+			call : function(json) {
+				$("#mountDg").datagrid('loadData', json);
+			}
+		});
+	}
+
+	function onSelect(title, index) {
+		if (!playerId) {
+			return;
+		}
+		if (index == 0) {
+			loadEquipData(playerId);
+		} else if (index == 1) {
+			loadItemData(playerId);
+		} else if (index == 2) {
+			loadWarehouseData(playerId);
+		} else if (index == 3) {
+			loadRankData(playerId);
+		} else if (index == 4) {
+			loadSkillData(playerId);
+		} else if (index == 5) {
+			loadPetData(playerId);
+		} else if (index == 6) {
+			loadHorseData(playerId);
+		}
+	}
+
+	// 查看宠物详情
+	function onClickPet(index, row) {
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3026",
+			value : [ playerId, row.id ],
+			call : function(json) {
+				$("#petAttrDg").datagrid('loadData', json.attr);
+				$("#petSkillDg").datagrid('loadData', json.skills);
+				$("#petMasterDg").datagrid('loadData', json.master);
+				$("#petDialog").dialog("open");
+			}
+		});
+	}
+	
+	// 模糊搜索
+	function searchRoleDim() {
+		var dimName = $("#dimName").val();
+		if (!dimName) {
+			return;
+		}
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3020",
+			value : [ dimName, 1 ],
+			call : function(json) {
+				if ($.isEmptyObject(json)) {
+					$('#dimDg').datagrid('loadData', {
+						total : 0,
+						rows : []
+					});
+				} else {
+					$("#dimDg").datagrid('loadData',json);
+				}
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div class="easyui-tabs" style="width: 100%; height: auto;">
+		<div style="width: 100%; height: auto; padding: 10px;" title="精确查找">
+			<div style="padding: 10px;">
+				角色名：<input class="easyui-textbox" name="name" style="width: 300px;"
+					id="roleName"> <a href="#" onclick="searchRole()"
+					class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+					style="width: 120px">查询</a>
+			</div>
+			<div style="padding: 10px; width: 100%; height: auto;"
+				class="easyui-panel" title="基础信息">
+				<table style="width: 100%;" class="table">
+					<tr align="center">
+						<td class="td-title">服务器</td>
+						<td id="serverName"></td>
+						<td class="td-title">用户名</td>
+						<td id="username"></td>
+						<td class="td-title">角色名</td>
+						<td id="name"></td>
+						<td class="td-title">角色ID</td>
+						<td id="id"></td>
+					</tr>
+
+					<tr align="center">
+						<td class="td-title">渠道名</td>
+						<td id="channel"></td>
+						<td class="td-title">角色状态</td>
+						<td id="roleState"></td>
+						<td class="td-title">是否在线</td>
+						<td id="isOnline"></td>
+						<td class="td-title">战力</td>
+						<td id="fightPower"></td>
+					</tr>
+
+					<tr align="center">
+						<td class="td-title">职业</td>
+						<td id="pro"></td>
+						<td class="td-title">银两</td>
+						<td id="gold"></td>
+						<td class="td-title">VIP类型</td>
+						<td id="vip"></td>
+						<td class="td-title">最后登录时间</td>
+						<td id="loginTime"></td>
+					</tr>
+
+					<tr align="center">
+						<td class="td-title">元宝</td>
+						<td id="diamond"></td>
+						<td class="td-title">等级</td>
+						<td id="level"></td>
+						<td class="td-title">经验</td>
+						<td id="exp" />
+						<td class="td-title">下线时间</td>
+						<td id="logoutTime"></td>
+					</tr>
+
+					<tr align="center">
+						<td class="td-title">道友团队</td>
+						<td id="daoyouName"></td>
+						<td class="td-title">所属仙盟</td>
+						<td id="guildName"></td>
+						<td class="td-title">修为</td>
+						<td id="classExp"></td>
+						<td class="td-title">绑定元宝</td>
+						<td id="ticket"></td>
+					</tr>
+				</table>
+			</div>
+			<br />
+			<div class="easyui-accordion" style="width: 100%; height: auto;"
+				id="dataAccordion" data-options="onSelect:onSelect">
+				<div style="padding: 10px;" title="穿戴装备">
+					<table style="width: 100%; height: 300px;" class="easyui-datagrid"
+						id="equipDg" data-options="singleSelect:true">
+						<thead>
+							<tr>
+								<th data-options="field:'id',hidden:true">ID</th>
+								<th data-options="field:'itemName',align:'center',width:150">道具名</th>
+								<th data-options="field:'level',align:'center',width:60">强化等级</th>
+								<th data-options="field:'gemAttr',align:'center',width:200">宝石属性</th>
+								<th data-options="field:'baseAttr',align:'center',width:200">基础属性</th>
+								<th data-options="field:'extAttr',align:'center',width:200">扩展属性</th>
+								<th data-options="field:'legendAttr',align:'center',width:200">传奇属性</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div style="padding: 10px;" title="背包物品">
+					<table style="width: 100%; height: 300px;" class="easyui-datagrid"
+						id="itemDg" data-options="singleSelect:true,toolbar:'#itemTb'">
+						<thead>
+							<tr>
+								<th data-options="field:'id',hidden:true">ID</th>
+								<th data-options="field:'itemId',width:150,align:'center'">物品标识</th>
+								<th data-options="field:'itemName',align:'center',width:200">道具名</th>
+								<th data-options="field:'itemNum',align:'center',width:100">物品数量</th>
+								<th data-options="field:'isEquip',align:'center',width:100">是否装备</th>
+								<th data-options="field:'baseAttr',align:'center',width:200">基础属性</th>
+								<th data-options="field:'extAttr',align:'center',width:200">扩展属性</th>
+								<th data-options="field:'legendAttr',align:'center',width:200">传奇属性</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div style="padding: 10px;" title="仓库物品">
+					<table style="width: 100%; height: 300px;" class="easyui-datagrid"
+						id="warehouseDg"
+						data-options="singleSelect:true,toolbar:'#warehouseTb'">
+						<thead>
+							<tr>
+								<th data-options="field:'id',hidden:true">ID</th>
+								<th data-options="field:'itemId',width:150,align:'center'">物品标识</th>
+								<th data-options="field:'itemName',align:'center',width:200">道具名</th>
+								<th data-options="field:'itemNum',align:'center',width:100">物品数量</th>
+								<th data-options="field:'isEquip',align:'center',width:100">是否装备</th>
+								<th data-options="field:'baseAttr',align:'center',width:200">基础属性</th>
+								<th data-options="field:'extAttr',align:'center',width:200">扩展属性</th>
+								<th data-options="field:'legendAttr',align:'center',width:200">传奇属性</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div style="padding: 10px;" title="个人排行榜">
+					<table style="width: 100%; height: 300px;" class="easyui-datagrid"
+						id="rankDg" data-options="singleSelect:true">
+						<thead>
+							<tr>
+								<th data-options="field:'type',width:150,align:'center'">榜单类型</th>
+								<th data-options="field:'name',align:'center',width:200">榜单名称</th>
+								<th data-options="field:'rank',align:'center',width:100">排名</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div style="padding: 10px;" title="技能信息">
+					<table style="width: 100%; height: 300px;" class="easyui-datagrid"
+						id="skillDg" data-options="singleSelect:true">
+						<thead>
+							<tr>
+								<th data-options="field:'skillName',width:200,align:'center'">技能名称</th>
+								<th data-options="field:'skillLevel',align:'center',width:200">技能等级</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div style="padding: 10px;" title="宠物信息">
+					<table style="width: 100%; height: 300px;" class="easyui-datagrid"
+						id="petDg" data-options="singleSelect:true,onClickRow:onClickPet">
+						<thead>
+							<tr>
+								<th data-options="field:'id',hidden:true"></th>
+								<th data-options="field:'name',width:200,align:'center'">宠物名</th>
+								<th data-options="field:'quality',align:'center',width:200">宠物品质</th>
+								<th data-options="field:'fightPower',align:'center',width:200">宠物战力</th>
+								<th data-options="field:'upLevel',align:'center',width:200">宠物突破等级</th>
+								<th data-options="field:'level',align:'center',width:200">宠物等级</th>
+								<th data-options="field:'skillNum',align:'center',width:200">宠物技能数量</th>
+								<th data-options="field:'isOut',align:'center',width:200">是否出战</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div style="padding: 10px;" title="坐骑信息">
+					<table style="width: 100%; height: 300px;" class="easyui-datagrid"
+						id="mountDg" data-options="singleSelect:true">
+						<thead>
+							<tr>
+								<th data-options="field:'name',width:200,align:'center'">坐骑名</th>
+								<th data-options="field:'quality',align:'center',width:200">品阶</th>
+								<th data-options="field:'star',align:'center',width:200">培养星级</th>
+								<th data-options="field:'attr',align:'center',width:200">属性</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+
+			<div id="warehouseTb">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					data-options="iconCls:'icon-remove',plain:true"
+					onclick="deleteItem(1)">删除</a>
+			</div>
+
+			<div id="itemTb">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					data-options="iconCls:'icon-remove',plain:true"
+					onclick="deleteItem(0)">删除</a>
+			</div>
+
+			<div class="easyui-dialog" title="删除道具"
+				data-options="modal:true,closed:true" id="numDialog"
+				style="width: 420px; height: 200px;">
+				<div style="padding: 40px">
+					<div style="margin-bottom: 20px">
+						<input class="easyui-numberbox" id="num" value="1"
+							data-options="required:true,width:300,label:'删除数量：'"
+							style="margin-bottom: 20px" />
+					</div>
+					<div style="margin-left: 80px;">
+						<a href="#" class="easyui-linkbutton" style="width: 50px"
+							onclick="deleteByNum()">确定</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="easyui-dialog" title="宠物详情"
+				data-options="modal:true,closed:true" id="petDialog"
+				style="width: 1000px; height: 700px; padding: 10px;">
+				<table class="easyui-datagrid" title="宠物属性" id="petAttrDg">
+					<thead>
+						<tr>
+							<th data-options="field:'strValue',width:200,align:'center'">属性名</th>
+							<th data-options="field:'intValue',align:'center',width:200">属性值</th>
+						</tr>
+					</thead>
+				</table>
+				<br />
+				<table class="easyui-datagrid" title="宠物技能" id="petSkillDg">
+					<thead>
+						<tr>
+							<th data-options="field:'strValue',width:200,align:'center'">技能名</th>
+							<th data-options="field:'intValue',align:'center',width:200">等级</th>
+						</tr>
+					</thead>
+				</table>
+				<br />
+				<table class="easyui-datagrid" title="主人加成" id="petMasterDg">
+					<thead>
+						<tr>
+							<th data-options="field:'strValue',width:200,align:'center'">属性名</th>
+							<th data-options="field:'intValue',align:'center',width:200">属性值</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div title="模糊查询" style="padding: 10px;">
+			<table class="easyui-datagrid" id="dimDg" data-options="toolbar:'#dimTb'" style="height: 800px;">
+				<thead>
+					<tr>
+						<th data-options="field:'name',width:200,align:'center'">角色名</th>
+						<th data-options="field:'level',align:'center',width:200">等级</th>
+						<th data-options="field:'pro',align:'center',width:200">职业</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div style="padding: 10px;" id="dimTb">
+			角色名关键字：<input class="easyui-textbox" name="name" style="width: 300px;"
+				id="dimName"> <a href="#" onclick="searchRoleDim()"
+				class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+				style="width: 120px">查询</a>
+		</div>
+	</div>
+</body>
+</html>
+

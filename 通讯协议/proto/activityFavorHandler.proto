@@ -1,0 +1,354 @@
+//***************************************************************************
+//* 作者= liyue
+//* 创建时间= 2017-10-26
+//* 用途= 活动处理器
+//***************************************************************************/
+package pomelo.area;
+import 'common.proto';
+import 'activityHandler.proto';
+
+
+
+//每日充值
+//获取今日充值信息
+message DailyRechargeGetInfoRequest{
+}
+message DailyRechargeGetInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional totalInfo totalInfo = 3;//
+	optional int32 rechargeNum = 4;//今日充值进度
+	optional int32 rechargeMax = 5;//今日可领奖的最大额度
+}
+
+//领取今日充值奖励
+message DailyRechargeGetAwardRequest{
+	required int32 awardId =1;//ActivityConfig表的id
+}
+
+message DailyRechargeGetAwardResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//超值礼包
+//礼包奖励信息
+message SuperPackageAwardInfo{
+	required int32 packageId=1;//礼包 id
+	required string packageName=2;
+	required string packageCode =3;
+	required int32 packageNum=4;
+	required string packageIcon=5;//礼包图标
+	required int32 packageScript=6;//礼包角标 
+	required int32 packagePrice=7;//礼包价格
+	required int32 packageState = 8;  // 0未购买 1已购买
+}
+//礼包信息
+message SuperPackageInfo{
+	required string beginTime = 1;
+    required string endTime = 2;
+    required string describe = 3;
+	repeated SuperPackageAwardInfo superPackageAwardInfo = 4;
+}
+//获取信息
+message SuperPackageGetInfoRequest{
+	
+}
+message SuperPackageGetInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional SuperPackageInfo superPackageInfo = 3;
+}
+//购买礼包
+message SuperPackageBuyRequest{
+	required int32 packageId=1;
+	required int32 channelId=2;//usercenter分配的渠道编号
+	optional string c2s_imei = 3;	//设备号
+	optional int32 	c2s_os = 4;		//系统类型
+}
+message SuperPackageBuyResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+    optional string s2c_orderId = 3;
+	optional string app_notify_url = 4;// 默认为空，如果有值，请使用此回调充值
+}
+message SuperPackageBuyPush{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required int32 packageId=3;
+}
+
+//七日礼包奖励信息
+message SevenDayPackageAwardInfo{
+  required int32 packageId = 1;
+  required string itemcode = 2;
+  required int32 itemcount = 3;
+  optional string itemmodel = 4;
+  required int32 state = 5;  // 0未领取 1可领取 2已领取
+}
+
+//七日礼包信息
+message SevenDayPackageInfo{
+	required string beginTime = 1;
+    required string endTime = 2;
+    required string describe = 3;
+    repeated SevenDayPackageAwardInfo sevenDayPackageAwardInfo = 4;
+}
+
+//获取七日礼包信息
+message SevenDayPackageGetInfoRequest{
+  
+}
+message SevenDayPackageGetInfoResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional SevenDayPackageInfo sevenDayPackageInfo = 3;
+}
+
+//领取七日礼包
+message SevenDayPackageAwardRequest{
+  required int32 packageId=1;
+}
+
+message SevenDayPackageAwardResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+
+//每日抽奖
+//奖品信息
+message DailyDrawAwardInfo{
+	required int32 id=1;
+	required string code=2;
+	required int32 num=3;
+}
+
+//获取抽奖界面信息
+message DailyDrawInfoRequest{
+	required int32 id=1;//0:常规活动抽奖  1:春节活动抽奖
+}
+
+message DailyDrawInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required int32 freeCountLeft = 3;//免费抽奖次数
+	required int32 exploredTicketCountLeft = 4;//剩余探索券
+	repeated DailyDrawAwardInfo awards = 5; //总奖励预览
+	required string beginTime = 6;
+    required string endTime = 7;
+    required string describe = 8;
+    required int64 freeCountUpdateTimeStamp =9;//免费次数刷新时间
+    required int32 proportion =10;//每个探索券需要多少元宝
+}
+//抽奖
+message DailyDrawRequest {
+	required int32 timeType = 1;//0-单抽1-十连抽
+	required int32 costType = 2;//0免费抽 1探索券抽 2元宝抽
+	required int32 id=3;//0:常规活动抽奖  1:春节活动抽奖
+	
+}
+message DailyDrawResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated DailyDrawAwardInfo awards = 3;
+	optional int32 freeCountLeft = 4;
+	optional int32 exploredTicketCountLeft = 5;
+}
+
+
+//资源找回
+message RecoveredItem{
+	required string code = 1;
+	required int32 num = 2;
+}
+
+message RecoveredSourceInfo{
+	required int32 id = 1;		  	//找回资源id
+	required string sourceName = 2;	//找回资源名称
+	required int32 minDate = 3;		//找回资源最小天数
+	required int32 maxDate = 4;		//找回资源最大天数
+	required int32 state = 5;     	//找回资源状态 0未找回 1已找回
+	repeated RecoveredItem recoveredItems = 6;	//找回资源物品列表
+	required int32 needDiamond = 7; //完美找回所需元宝
+}
+
+message RecoveredInfo{
+	required string beginTime = 1;
+    required string endTime = 2;
+    required string describe = 3;
+    repeated RecoveredSourceInfo recoveredSourceInfo = 4;
+}
+
+//资源找回界面信息
+message RecoveredInfoRequest{
+}
+
+message RecoveredInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional RecoveredInfo recoveredInfo = 3;
+}
+
+//资源找回领取
+message RecoveredRequest {
+	required int32 id = 1;	//找回资源id
+	required int32 type = 2;  //找回方式：0免费找回,1完美找回
+}
+message RecoveredResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//限时礼包
+message LimitTimeGiftInfo{
+	required int32 id = 1;
+	required int32 secondRemain = 2;
+}
+message LimitTimeGiftInfoPush{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated LimitTimeGiftInfo limitTimeGiftInfo = 3;
+
+}
+message LimitTimeGiftInfoRequest{
+}
+message LimitTimeGiftInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated LimitTimeGiftInfo limitTimeGiftInfo = 3;
+}
+message LimitTimeGiftBuyRequest{
+	required int32 id = 1;//礼包id
+}
+message LimitTimeGiftBuyResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+message ContinuousRechargeItem{
+	required string code = 1;
+	required int32 groupCount = 2;
+}
+
+//连续充值奖励信息
+message ContinuousRechargeAwardInfo{
+  required int32 day		 			= 1;
+  repeated ContinuousRechargeItem item	= 2;
+  required int32 state 					= 3;  // 0未领取 1可领取 2已领取
+  required int32 money 					= 4;  //充值额度
+}
+
+//连续充值信息
+message ContinuousRechargeInfo{
+	required string beginTime = 1;
+    required string endTime = 2;
+    optional string describe = 3;
+    repeated ContinuousRechargeAwardInfo continuousRechargeAwardInfo = 4;
+	required int32 day = 5;//当前第几天
+	optional int32 currNum	= 6; //今日充值进度
+  	optional int32 needNum	= 7; //今日所需充值进度
+}
+
+//获取连续充值信息
+message ContinuousRechargeGetInfoRequest{}
+message ContinuousRechargeGetInfoResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional ContinuousRechargeInfo continuousRechargeInfo = 3;
+}
+
+//领取连续充值
+message ContinuousRechargeAwardRequest{
+  required int32 day=1;//12345,0=领最后那个大礼包....
+}
+message ContinuousRechargeAwardResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+
+//单笔
+message SingleRechargeItem{
+	required string code = 1;
+	required int32 groupCount = 2;
+}
+//单笔充值奖励信息
+message SingleRechargeAwardInfo{
+  required int32 id						= 1; //ID
+  repeated SingleRechargeItem	 item	= 2;
+  required int32 state 					= 3;  // 0未领取 1可领取 2已领取
+  required int32 currNum 				= 4; //当前进度
+  required int32 needNum 				= 5; //总进度
+}
+//单笔充值信息
+message SingleRechargeInfo{
+	required string beginTime = 1;
+    required string endTime = 2;
+    optional string describe = 3;
+    repeated SingleRechargeAwardInfo singleRechargeAwardInfo = 4;
+}
+//获取单笔充值信息
+message SingleRechargeGetInfoRequest{}
+message SingleRechargeGetInfoResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional SingleRechargeInfo singleRechargeInfo = 3;
+}
+//领取单笔充值
+message SingleRechargeAwardRequest{
+  required int32 id	=	1;
+}
+message SingleRechargeAwardResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//活动处理器
+service activityFavorHandler {
+	
+   	
+   	//每日充值
+   	rpc dailyRechargeGetInfoRequest(DailyRechargeGetInfoRequest) returns (DailyRechargeGetInfoResponse);
+   	rpc dailyRechargeGetAwardRequest(DailyRechargeGetAwardRequest) returns (DailyRechargeGetAwardResponse);
+   	
+   	//超值礼包
+   	rpc superPackageGetInfoRequest(SuperPackageGetInfoRequest) returns (SuperPackageGetInfoResponse);
+   	rpc superPackageBuyRequest(SuperPackageBuyRequest) returns (SuperPackageBuyResponse);
+ 
+	//七日礼包
+    rpc sevenDayPackageGetInfoRequest(SevenDayPackageGetInfoRequest) returns (SevenDayPackageGetInfoResponse);
+    rpc sevenDayPackageAwardRequest(SevenDayPackageAwardRequest) returns (SevenDayPackageAwardResponse);
+	
+	//每日抽奖
+	rpc dailyDrawInfoRequest(DailyDrawInfoRequest) returns (DailyDrawInfoResponse);
+   	rpc dailyDrawRequest(DailyDrawRequest) returns (DailyDrawResponse);
+	
+	//资源找回
+	rpc recoveredInfoRequest(RecoveredInfoRequest) returns (RecoveredInfoResponse);
+   	rpc recoveredRequest(RecoveredRequest) returns (RecoveredResponse);
+
+   	//限时礼包
+   	rpc limitTimeGiftInfoRequest(LimitTimeGiftInfoRequest) returns (LimitTimeGiftInfoResponse);
+   	rpc limitTimeGiftBuyRequest(LimitTimeGiftBuyRequest) returns (LimitTimeGiftBuyResponse);
+	
+	//连续充值
+	rpc continuousRechargeGetInfoRequest(ContinuousRechargeGetInfoRequest) returns (ContinuousRechargeGetInfoResponse);
+    rpc continuousRechargeAwardRequest(ContinuousRechargeAwardRequest) returns (ContinuousRechargeAwardResponse);
+
+	//单笔充值
+	rpc singleRechargeGetInfoRequest(SingleRechargeGetInfoRequest) returns (SingleRechargeGetInfoResponse);
+    rpc singleRechargeAwardRequest(SingleRechargeAwardRequest) returns (SingleRechargeAwardResponse);
+	
+}
+
+service activityFavorPush {
+	//超值礼包
+	rpc superPackageBuyPush(SuperPackageBuyPush) returns(Void);
+
+	//限时礼包
+	rpc limitTimeGiftInfoPush(LimitTimeGiftInfoPush) returns(Void);
+}
+

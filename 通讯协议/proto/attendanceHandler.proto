@@ -1,0 +1,101 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-04-24
+//* 用途= 签到处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+message GetAttendanceInfoRequest{
+}
+
+message GetDailyRewardRequest{
+}
+
+message GetCumulativeRewardRequest{
+    required int32 id = 1;
+}
+
+message GetLuxuryRewardRequest{
+}
+
+message GetLeftVipRewardRequest{
+    required int32 id = 1;
+}
+
+message DailyInfo{
+    required int32 id = 1;//序号
+    optional item.MiniItem itemList = 2;//奖励
+    optional int32 vipDoubleLevel = 3;//VIP双倍等级,0为无vip等级双倍
+    optional int32 state = 4;//1：未领取 2：已领取 3：未领取vip部分
+}
+
+message CumulativeInfo{
+    required int32 id = 1;
+    repeated item.MiniItem itemList = 2;
+    optional int32 needCountDay = 3;
+    optional int32 state = 4;// 0:条件不满足 1：未领取 2：已领取
+    optional string boxIcon = 5;//宝箱显示图标
+}
+
+message AttendanceInfo{
+    optional int32 todayState = 1;//1：未签到 2：已签到
+    optional int32 signedCount= 2;//累计签到天数
+    repeated DailyInfo dailyList = 3;
+    repeated CumulativeInfo cumulativeList = 4;
+}
+
+message LuxuryInfo{
+     repeated item.MiniItem itemList = 1;
+     optional int32 state = 2;// 0:条件不满足（未充值） 1：未领取 2：已领取
+}
+
+message GetAttendanceInfoResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional AttendanceInfo s2c_attendance = 3;
+    optional LuxuryInfo s2c_luxury = 4;
+}
+
+message GetDailyRewardResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional AttendanceInfo s2c_attendance = 3;
+}
+
+message GetCumulativeRewardResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional AttendanceInfo s2c_attendance = 3;
+}
+
+message GetLuxuryRewardResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional LuxuryInfo s2c_luxury = 3;
+}
+
+message GetLeftVipRewardResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional AttendanceInfo s2c_attendance = 3;
+}
+
+service attendanceHandler {
+    rpc getAttendanceInfoRequest(GetAttendanceInfoRequest) returns(GetAttendanceInfoResponse);
+    rpc getDailyRewardRequest(GetDailyRewardRequest) returns(GetDailyRewardResponse);
+    rpc getCumulativeRewardRequest(GetCumulativeRewardRequest) returns(GetCumulativeRewardResponse);
+    rpc getLuxuryRewardRequest(GetLuxuryRewardRequest) returns(GetLuxuryRewardResponse);
+    rpc getLeftVipRewardRequest(GetLeftVipRewardRequest) returns(GetLeftVipRewardResponse);
+}
+
+message LuxuryRewardPush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional LuxuryInfo s2c_luxury = 3;
+}
+
+service attendancePush {
+    rpc luxuryRewardPush(LuxuryRewardPush) returns(Void);
+}

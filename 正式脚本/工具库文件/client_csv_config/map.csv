@@ -1,0 +1,40 @@
+﻿Key,Value,
+xiaohao,消耗：,
+shifouchuansong,是否传送到|1|？,
+shijieditu,世界地图,
+adlsdalu,逸仙诀,
+bunengchuansong,需主动进入一次该地图后才可使用传送功能,
+chuansonglengque,请过|1|后再使用传送功能,
+patherror,此区域无法行走,
+mapName,{0}  分线选择,
+lineNow,当前分线:{0}线,
+line,{0}线,
+lineLua,%s线,
+lineWarn,当前无法选择分线,
+cannotAutoRun,无法自动寻路,
+nowstay,您当前已经在此地图,
+needlv_not,人物等级不足，不能传送,
+no_open_version,当前版本尚未开启，尽请期待,
+now_map,当前地图,
+delivery,可传送,
+lv,级,
+no_open,尚未开放,
+cangotomap,以上才能前往该地图,
+vipnocost,<br/>(成为VIP后，可不消耗传送卷轴）,
+nochuansong,不能使用快捷传送功能,
+mapxunlu,正在前往该目标点,
+have,拥有：<f color='ff00d600'>{0}</f>,
+maperror,"<f color=\'ffff1f00\'>地图配置错误：找不到当前地图配置的背景图片</f>"
+losename,"地图错误，名字丢了"
+chatservererror,聊天服务器出问题了
+testcompete,测试竞技场
+box,宝箱
+bianshenquest,"变身任务中，无法进行其他操作..."
+personlimit,个人鼓舞次数已达上限
+xianmenglimit,仙盟鼓舞次数已达上限
+exitmijing,"确定要退出秘境吗?"
+btnOK,确定
+btnCancel,取消
+exitScene,"是否确认离开当前场景?"
+shuaijian,衰减
+

@@ -1,0 +1,460 @@
+//***************************************************************************
+//* 作者= 阿贵
+//* 创建时间= 2017-04-27
+//* 用途= 组队处理器
+//***************************************************************************
+package pomelo.area;
+
+import 'common.proto';
+
+message TeamTarget {
+    required int32 targetId = 1; //目标难度
+    required int32 difficulty = 2;  //1.普通 2.精英 3.英雄
+    required int32 minLevel = 3;  // 最低等级
+    required int32 maxLevel = 4;  // 最低阶级
+    required int32 isAutoTeam = 6; // 自动接受组队 0.不接受 1.接受
+    required int32 isAutoStart = 7; //人满自动开始 0.不开始 1.开始
+}
+
+message TeamMemberBasic {
+    required string id = 1;
+    required int32 pro = 2;
+    required string name = 3;
+    required int32 level = 4;
+    required int32 upLevel = 5;
+    required string guildName = 6;
+}
+
+message TeamMember {
+    required string id = 1;
+    optional int32 pro = 2;
+    optional string name = 3;
+    optional int32 level = 4;
+    // 1.是队长 0.不是队长
+    optional int32 isLeader = 5;
+    // 1.在线 2.远离 3.离线
+    optional int32 status = 6;
+    optional int32 areaId = 7;
+    // 是否跟随
+    optional int32 follow = 8;
+}
+
+message TeamMemberDetail {
+    required string id = 1;
+    optional int32 pro = 2;
+    optional string name = 3;
+    optional int32 level = 4;
+    // 1.是队长 0.不是队长
+    optional int32 isLeader = 5;
+    repeated Avatar avatars = 6;
+    //战力
+    required int32 fightPower = 7;
+    // 1.在线 2.远离 3.离线
+    optional int32 status = 8;
+    // 场景信息描述
+    optional string areaDes = 9;
+    optional int32 upLevel = 10;
+    // 是否跟随
+    optional int32 follow = 11;
+    optional string guildName = 12;
+}
+
+message Team {
+    required string id = 1;
+    optional string leaderId = 2;
+    optional int32 isApplied = 3; //是否已申请过  1.已申请 0.未申请
+    repeated TeamMemberBasic teamMembers = 4;
+    required int32 minLevel = 5;  // 最低等级
+    required int32 maxLevel = 6;  // 最低等级
+    optional int32 targetId = 7;  // 目标ID
+    optional bool isFighting = 8; // 战斗状态
+}
+
+message Player {
+    required string id = 1;
+    optional int32 pro = 2;
+    optional string name = 3;
+    optional int32 level = 4;
+    //阶级
+    optional int32 upLevel = 5;
+    required string guildName = 6;
+    //是否已邀请过  1.已邀请 0.未邀请
+    optional int32 isInvited = 7;
+}
+
+message OnTeamUpdatePush {
+    optional int32 s2c_isAcceptAutoTeam = 1;
+    required string s2c_teamId = 2;
+    repeated TeamMember s2c_data = 3;
+    optional int32 follow = 4;	// 1：自己跟随队长
+}
+
+message OnTeamMemberUpdatePush {
+    required TeamMember s2c_data = 2;
+}
+
+message GetTeamMembersRequest {
+}
+
+message GetTeamMembersResponse {
+    required int32 s2c_code = 1;
+    optional int32 s2c_isAcceptAutoTeam = 2;
+    repeated TeamMemberDetail s2c_teamMembers = 5;
+    optional TeamTarget s2c_teamTarget = 6; //队伍目标
+    optional string s2c_msg = 7;
+    optional int32 follow = 8;	// 1：自己跟随队长
+    optional int32 haveApply = 9;	// >1：有审批
+    optional int32 expBuff = 10;	// >1：有经验加成
+    optional int32 goldBuff = 11;	// >1：有金币加成
+}
+
+message GetNearbyPlayersRequest {
+}
+
+message GetNearbyPlayersResponse {
+    required int32 s2c_code = 1;
+    repeated Player s2c_players = 2;
+    optional int32 s2c_nowCount = 3;
+    optional int32 s2c_maxCount = 4;
+    optional string s2c_msg = 5;
+}
+
+message NearTeamLeader {
+    optional string name = 1;
+    optional int32 lv = 2;
+    optional int32 pro = 3;		// 职业
+    optional string guildName = 4;	// 公会名
+}
+message NearTeamMember {
+    optional int32 pro = 1;
+    optional int32 lv = 2;
+}
+message NearTeam {
+	optional string teamId = 1;
+    optional NearTeamLeader leader = 2;
+    repeated NearTeamMember members = 3;
+	optional int32 apply = 4;		// 1：已申请
+}
+
+message GetNearTeamsRequest {
+}
+
+message GetNearTeamsResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated NearTeam teams = 3;
+}
+
+//踢出队伍
+message KickOutTeamRequest {
+    required string c2s_playerId = 1;
+}
+
+message KickOutTeamResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//离开队伍
+message LeaveTeamRequest {
+}
+
+message LeaveTeamResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//转让队长
+message ChangeTeamLeaderRequest {
+    //被转让角色id
+    required string c2s_playerId = 1;
+}
+
+message ChangeTeamLeaderResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//设置自动接受组队
+message SetAutoAcceptTeamRequest {
+    //1.自动接受 0.不接受
+    required int32 c2s_isAccept = 1;
+}
+
+message SetAutoAcceptTeamResponse {
+    required int32 s2c_code = 1;
+    optional int32 s2c_isAcceptAutoTeam = 2;
+    optional string s2c_msg = 3;
+}
+
+//取消自动组队
+message CancelAutoRequest {
+}
+
+message CancelAutoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//组队申请
+message FormTeamRequest {
+    //角色id
+    required string c2s_playerId = 1;
+}
+
+message FormTeamResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+
+// 创建队伍
+message CreateTeamRequest {
+}
+
+message CreateTeamResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 按条件查询队伍
+message QueryTeamByTargetRequest {
+    required int32 c2s_targetId = 1;
+    required int32 c2s_difficulty = 2;  //1.普通 2.精英 3.英雄
+}
+
+message QueryTeamByTargetResponse {
+    required int32 s2c_code = 1;
+    repeated Team s2c_teams = 2;
+    optional string s2c_msg = 3;
+}
+
+// 设置队伍目标
+message SetTeamTargetRequest {
+    required int32 c2s_targetId = 1; //目标难度
+    required int32 c2s_difficulty = 2;  //1.普通 2.精英 3.英雄
+    required int32 c2s_minLevel = 3;  // 最低等级
+    required int32 c2s_maxLevel = 4;  // 最低阶级
+    required int32 c2s_isAutoTeam = 6; // 自动接受组队 0.不接受 1.接受
+    required int32 c2s_isAutoStart = 7; //人满自动开始 0.不开始 1.开始
+}
+
+message SetTeamTargetResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//获取不同类型在线角色数据
+message GetPlayersByTypeRequest {
+    required int32 c2s_type = 1; //1.好友 2.盟友 3.公会成员
+}
+
+message GetPlayersByTypeResponse {
+    required int32 s2c_code = 1;
+    repeated Player s2c_players = 2;
+    optional string s2c_msg = 3;
+}
+
+// 获取申请列表
+message GetAppliedPlayersRequest {
+}
+
+message GetAppliedPlayersResponse {
+    required int32 s2c_code = 1;
+    repeated TeamMemberBasic s2c_players = 2;
+    optional string s2c_msg = 3;
+}
+
+//申请加入队伍
+message JoinTeamRequest {
+    required string c2s_teamId = 1; // 队伍id
+}
+
+message JoinTeamResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//自动申请加入
+message AutoJoinTeamRequest {
+    required int32 c2s_targetId = 1;
+    required int32 c2s_difficulty = 2;  //1.普通 2.精英 3.英雄
+}
+
+message AutoJoinTeamResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//召唤请求
+message SummonRequest {
+    required string c2s_teamMemberId = 1;
+}
+
+message SummonResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+
+//召唤确认
+message SummonConfirmRequest {
+    required string c2s_id = 1;
+    required int32 s2c_operate = 2; // 0.拒绝 1.同意
+}
+
+message SummonConfirmResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//召唤推送
+message OnSummonTeamPush {
+    required string s2c_id = 2;
+    required string s2c_content = 3;
+}
+
+//队伍前往目标
+message GotoTeamTargetRequest {
+	optional int32 targetId = 1;
+	optional int32 difficulty = 2;
+}
+
+message GotoTeamTargetResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//跨服匹配
+message AcrossMatchRequest {
+	optional int32 targetId = 1;
+	optional int32 difficulty = 2;
+}
+
+message AcrossMatchResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//退出跨服匹配
+message LeaveAcrossMatchRequest {
+}
+
+message LeaveAcrossMatchResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//跟随
+message FollowLeaderRequest {
+	required int32 follow = 1; // 1：跟随；0：不跟随
+}
+
+message FollowLeaderResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message OnTeamTargetPush {
+	optional int32 s2c_isAcceptAutoTeam = 1;
+	optional TeamTarget s2c_teamTarget = 2; // 队伍目标
+	optional int32 haveApply = 3; 			// >1：有审批
+}
+
+message AcrossPlayer {
+    optional int32 pro = 1;
+    optional string name = 2;
+    optional int32 level = 3;
+}
+
+message OnAcrossTeamInfoPush {
+	optional int32 targetId = 1;		// 目标ID
+	optional int32 difficulty = 2;		// 目标难道
+	optional int32 second = 3;			// 当前耗时
+	repeated AcrossPlayer players = 4;	// 当前玩家列表
+}
+
+message MumberHurtInfo {
+    optional string playerName = 1;
+    optional int64 hurt = 2;
+    optional int64 cure = 3;
+}
+
+message OnTeamMumberHurtPush {
+    repeated MumberHurtInfo players = 1;
+}
+
+
+//组队处理器
+service teamHandler {
+    // 前往队伍目标
+  rpc gotoTeamTargetRequest(GotoTeamTargetRequest) returns(GotoTeamTargetResponse);
+
+    // 召唤请求
+  rpc summonRequest(SummonRequest) returns(SummonResponse);
+
+    // 召唤确认
+  rpc summonConfirmRequest(SummonConfirmRequest) returns(SummonConfirmResponse);
+
+    // 自动申请加入
+  rpc autoJoinTeamRequest(AutoJoinTeamRequest) returns(AutoJoinTeamResponse);
+
+    // 申请加入队伍
+  rpc joinTeamRequest(JoinTeamRequest) returns(JoinTeamResponse);
+
+    // 获取申请列表
+  rpc getAppliedPlayersRequest(GetAppliedPlayersRequest) returns(GetAppliedPlayersResponse);
+
+    // 获取不同类型在线角色数据
+  rpc getPlayersByTypeRequest(GetPlayersByTypeRequest) returns(GetPlayersByTypeResponse);
+
+    // 按条件查询队伍
+  rpc queryTeamByTargetRequest(QueryTeamByTargetRequest) returns(QueryTeamByTargetResponse);
+
+    // 设置队伍目标
+  rpc setTeamTargetRequest(SetTeamTargetRequest) returns(SetTeamTargetResponse);
+
+    // 创建队伍
+  rpc createTeamRequest(CreateTeamRequest) returns(CreateTeamResponse);
+
+    // 跟随队长
+  rpc followLeaderRequest(FollowLeaderRequest) returns(FollowLeaderResponse);
+
+  rpc formTeamRequest(FormTeamRequest) returns(FormTeamResponse);
+
+  rpc getTeamMembersRequest(GetTeamMembersRequest) returns(GetTeamMembersResponse);
+
+  rpc getNearbyPlayersRequest(GetNearbyPlayersRequest) returns(GetNearbyPlayersResponse);
+
+    // 获取附近队伍
+  rpc getNearTeamsRequest(GetNearTeamsRequest) returns(GetNearTeamsResponse);
+
+  rpc changeTeamLeaderRequest(ChangeTeamLeaderRequest) returns(ChangeTeamLeaderResponse);
+
+  rpc kickOutTeamRequest(KickOutTeamRequest) returns(KickOutTeamResponse);
+
+  rpc leaveTeamRequest(LeaveTeamRequest) returns(LeaveTeamResponse);
+
+  rpc setAutoAcceptTeamRequest(SetAutoAcceptTeamRequest) returns(SetAutoAcceptTeamResponse);
+
+	// 取消自动组队
+  rpc cancelAutoRequest(CancelAutoRequest) returns(CancelAutoResponse);
+
+	// 跨服组队
+  rpc acrossMatchRequest(AcrossMatchRequest) returns(AcrossMatchResponse);
+	// 退出跨服组队
+  rpc leaveAcrossMatchRequest(LeaveAcrossMatchRequest) returns(LeaveAcrossMatchResponse);
+}
+
+service teamPush{
+	// 召唤推送
+	rpc onSummonTeamPush (OnSummonTeamPush) returns (Void);
+	rpc onTeamUpdatePush (OnTeamUpdatePush) returns (Void);
+	rpc onTeamMemberUpdatePush (OnTeamMemberUpdatePush) returns (Void);
+	rpc onTeamTargetPush (OnTeamTargetPush) returns (Void);
+
+	rpc onAcrossTeamInfoPush (OnAcrossTeamInfoPush) returns (Void);
+
+    rpc onTeamMumberHurtPush (OnTeamMumberHurtPush) returns (Void);
+}
+

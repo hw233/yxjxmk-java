@@ -1,0 +1,54 @@
+﻿Key,Value,
+buyTimesText,限购{0}份,
+consumeScore,赠消费积分{0},
+noLimitTime,限时抢购暂未开启,
+limitTime,限时抢购剩余时间：{0},
+tipmsg1,消费积分可以在商城中购买时获得,
+tipmsg2,要记得常来看哦,
+tipmsg3,我这时常会出现稀有宝贝,
+confirmSendItem1,"<f>确定要花费{0}<h img='#static_n/func/common2.xml,common2,173'>H</h>购买{1}*{2}送给{3}吗</f>",
+confirmSendItem2,"<f>确定要花费{0}<h img='#static_n/func/common2.xml,common2,171'>H</h>购买{1}*{2}送给{3}吗</f>",
+confirmBuyItem1,"<f>确定要花费<h img='#static/static_pic/static001.xml,static001,88'>H</h>{0}购买{1}*{2}吗</f>",
+confirmBuyItem2,"<f>确定要花费<h img='#static/static_pic/static001.xml,static001,147'>H</h>{0}购买{1}*{2}吗</f>",
+confirmBuyScoreItem,"<f>确定要花费<h img='#dynamic/dynamic_new/shop/shop.xml,shop,7'>H</h>{0}购买{1}吗</f>",
+originPrice,原价,
+price,售价,
+sellFinish,<color=#'ffed2a0a'>0</color>,
+notEnoughDiamond,元宝不足,
+buytip,<f><f color='ff00f012' >{0}</f>可以兑换下列物品</f>,
+tiplimitGoodsMax,"<f>别点了,已经是最大了!</f>"
+minTips,不能再低了！
+OK,确定,
+Cancel,取消,
+Send,赠送,
+notEnoughGoods,道具剩余数量不足，无法购买,
+CannotExchange,道具剩余数量不足，无法兑换,
+cannotexchange,材料不足，无法兑换.
+Diamond,元宝,
+Ticket,绑元,
+Sliver,银两,
+ShopCard,商城积分,
+XianYuanNum,仙缘值,
+ZongShiBi,宗师币,
+XianMengGX,仙盟贡献,
+ResidueDay,"剩余%d天"
+BuyMonthCard,"<f>是否充值月惠卡？</f>"
+BuyExaltedCard,"<f>是否充值尊享卡？</f>"
+Recharge,充值
+IsRecharge,"<f>是否充值 %s ？</f>"
+WaitOrder,"<f>您的订单已经提交成功，请等待后台处理！</f>"
+FinishOrder,"<f>您的订单未成功完成！</f>"
+notenouchbangyuan,"绑元不足，是否使用元宝补足?"
+bangyuanbuzu,绑元不足
+goumaiyuanbao,"请确认是否花费{0}元宝购买{1}?"
+bencifree,本次免费
+feiyong,"费用{0}银两"
+youxianxiaofei,"费用%s元宝<size='18'>\n(优先消耗绑元)</size>"
+changeprice,"(调整幅度为基础价格{0}的-50%~50%)"
+format_exp,你获得了<color=#00f012ff>%s</color>经验
+format_gold,你获得了<color=#00f012ff>%s</color>银两
+nolimit,不限
+
+
+
+

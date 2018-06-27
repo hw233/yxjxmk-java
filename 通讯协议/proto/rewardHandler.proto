@@ -1,0 +1,77 @@
+//***************************************************************************
+//* 作者= 王春桃
+//* 创建时间= 2016-08-03
+//* 用途= 悬赏
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+
+message RewardDeskRequest{
+}
+
+message RewardDeskResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	required item.MiniItem s2c_itemInfo = 3;	// 需要物品
+};
+
+message RewardRequest{
+    required string c2s_playerName = 1;  // 目标玩家	
+}
+
+message RewardResponse{
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message BountyInfo{
+	required string playerName = 1;
+	required int32 bounty = 2;					//赏金
+	required int32 pro = 3;					//职业
+	required item.CountItem itemInfo = 4;
+	required string preyId = 5;    		// 猎物（被悬赏者ID）
+	required string hunterId = 6;			//猎人 （悬赏者ID）
+	optional int32 isFinish = 7;
+}
+message CheckBountyRequest{
+	required int32 c2s_index = 1; 			// 第几次请求 每次30条数据（既排名）	
+}
+
+message CheckBountyResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated BountyInfo s2c_bounty = 3;
+	optional int32 s2c_rewardNum = 4;	//悬赏条数
+}
+
+message GetAwardBountyRequest{
+	required string c2s_preyId = 1;    		// 猎物（被悬赏者ID）
+	required string c2s_hunterId = 2;			//猎人 （悬赏者ID）
+	required int32 c2s_bounty = 3;			//赏金
+}
+
+message GetAwardBountyResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+message FinishRewardRequest{
+}
+
+message FinishRewardResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated BountyInfo s2c_bounty = 3;
+}
+
+service rewardHandler {
+	rpc rewardDeskRequest(RewardDeskRequest) returns(RewardDeskResponse);
+
+	rpc rewardRequest(RewardRequest) returns(RewardResponse);
+	
+	rpc checkBountyRequest(CheckBountyRequest) returns(CheckBountyResponse);
+	
+	rpc getHasFinishRequest(FinishRewardRequest) returns(FinishRewardResponse);
+	
+	rpc getAwardBountyRequest(GetAwardBountyRequest) returns(GetAwardBountyResponse);
+}

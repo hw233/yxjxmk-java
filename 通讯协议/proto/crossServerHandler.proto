@@ -1,0 +1,24 @@
+//***************************************************************************
+//* 作者= 马章勇
+//* 创建时间= 2016-08-04
+//* 用途= 连服协议
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+
+
+service crossServerHandler{
+
+}
+
+message TreasureOpenPush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated OpenTimeInfo s2c_openList = 3;
+}
+
+service crossServerPush{
+    rpc treasureOpenPush(TreasureOpenPush) returns(Void);
+}
+

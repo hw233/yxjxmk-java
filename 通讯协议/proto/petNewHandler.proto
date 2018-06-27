@@ -1,0 +1,159 @@
+package pomelo.area;
+import 'common.proto';
+
+
+message GetAllPetsInfoRequest {
+}
+
+message SkillDataInfo {
+
+    required int32          id = 1;
+    required int32          level = 2;
+    required int32          pos = 3;
+    required int32          inborn = 4;
+}
+
+message PetDataInfo {
+    required int32      id = 1;//宠物模板id
+    required int32      level = 2;
+    required string      name = 3;
+    required int64          exp=4;
+    repeated AttributeSimple attrs_final = 5;   // 战斗属性
+    repeated SkillDataInfo skills = 7;
+	required int32 upLevel = 8;
+	required int32 fightPower = 9;
+	repeated AttributeSimple next_attrs_final = 10;   // 战斗属性
+}
+
+message GetAllPetsInfoResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+    repeated PetDataInfo          s2c_petInfo = 3;
+    required int32               s2c_fightingPetId = 4;
+}
+
+
+message SummonPetRequest {
+    required int32  c2s_id = 1;
+}
+
+message SummonPetResponse {
+    required int32   s2c_code = 1;
+    optional string    s2c_msg = 2;
+	optional int32    s2c_fight = 3; //是否立马出战了 1是0否
+}
+
+message UpGradeUpLevelRequest{
+	required int32  c2s_id = 1;
+}
+
+message UpGradeUpLevelResponse {
+    required int32   s2c_code = 1;
+    optional string    s2c_msg = 2;
+	optional PetDataInfo petInfo =3;
+}
+
+message AddExpByItemRequest{
+	required int32  c2s_id = 1;
+	required string c2s_itemCode = 2;
+}
+
+message AddExpByItemResponse{
+	required int32   s2c_code = 1;
+    optional string    s2c_msg = 2;
+	optional PetDataInfo petInfo =3;
+}
+
+message UpgradeOneLevelRequest{
+	required int32  c2s_id = 1;
+}
+
+message UpgradeOneLevelResponse{
+	required int32   s2c_code = 1;
+    optional string    s2c_msg = 2;
+	optional PetDataInfo petInfo =3;
+}
+
+message UpgradeToTopRequest{
+	required int32  c2s_id = 1;
+}
+
+message UpgradeToTopResponse{
+	required int32   s2c_code = 1;
+    optional string    s2c_msg = 2;
+	optional PetDataInfo petInfo =3;
+}
+message ChangePetNameNewRequest{
+	required int32  c2s_id = 1;
+	required string  c2s_name = 2;
+}
+
+message ChangePetNameNewResponse{
+	required int32   s2c_code = 1;
+    optional string    s2c_msg = 2;
+	optional PetDataInfo petInfo =3;
+}
+
+message PetFightRequest{
+	required int32  c2s_id = 1;
+	required int32  c2s_type = 2; //1：出战，0：休息
+}
+
+message PetFightResponse{
+	required int32   s2c_code = 1;
+    optional string    s2c_msg = 2;
+}
+
+
+message GetPetInfoNewRequest {
+    required int32  c2s_petId = 1;
+    required string c2s_ownId = 2;
+}
+
+message GetPetInfoNewResponse {
+    required int32                s2c_code = 1;
+    optional string               s2c_msg = 2;
+    optional PetDataInfo              s2c_pet = 3;
+}
+
+service petNewHandler {
+	rpc getAllPetsInfoRequest(GetAllPetsInfoRequest) returns(GetAllPetsInfoResponse);
+	rpc summonPetRequest(SummonPetRequest) returns(SummonPetResponse);
+	rpc upGradeUpLevelRequest(UpGradeUpLevelRequest) returns(UpGradeUpLevelResponse);
+	rpc addExpByItemRequest(AddExpByItemRequest) returns(AddExpByItemResponse);
+	rpc upgradeOneLevelRequest(UpgradeOneLevelRequest) returns(UpgradeOneLevelResponse);
+	rpc upgradeToTopRequest(UpgradeToTopRequest) returns(UpgradeToTopResponse);
+	rpc changePetNameNewRequest(ChangePetNameNewRequest) returns(ChangePetNameNewResponse);
+	rpc petFightRequest(PetFightRequest) returns(PetFightResponse);
+	rpc getPetInfoNewRequest(GetPetInfoNewRequest) returns(GetPetInfoNewResponse);
+}
+
+message OnNewPetDetailPush {
+    required int32   s2c_code = 1;
+    optional string    s2c_msg = 2;
+    optional PetDataInfo petInfo =3;
+}
+
+
+message PetExpUpdatePush{
+	required int32  s2c_petId = 1;
+	required int64  s2c_curExp = 2;
+}
+
+message PetInfoUpdatePush{
+	required PetDataInfo s2c_pet = 1;
+}
+
+
+// 宠物消息推送
+service petNewPush {
+	//通过在背包里面使用物品获得宠物的推送消息
+	rpc onNewPetDetailPush(OnNewPetDetailPush) returns(Void);
+	//宠物经验更新
+	rpc petExpUpdatePush(PetExpUpdatePush) returns(Void);
+	//宠物数据更新
+	rpc petInfoUpdatePush(PetInfoUpdatePush) returns(Void);
+}
+
+
+

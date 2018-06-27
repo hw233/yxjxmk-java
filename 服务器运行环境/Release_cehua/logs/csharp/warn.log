@@ -1,0 +1,20 @@
+﻿2018-05-16 17:53:08,241 [88624] WARN  Ice - connection exception:
+Ice.ConnectionLostException
+    error = 0
+   在 IceInternal.StreamSocket.finishRead(Buffer buf)
+   在 IceInternal.TcpTransceiver.finishRead(Buffer buf)
+   在 Ice.ConnectionI.finishAsync(Int32 operation)
+Caused by: System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+   在 IceInternal.StreamSocket.finishRead(Buffer buf)
+local address = ::ffff:127.0.0.1:3900
+remote address = ::ffff:127.0.0.1:54141
+2018-05-16 17:53:08,256 [89904] WARN  Ice - connection exception:
+Ice.ConnectionLostException
+    error = 0
+   在 IceInternal.StreamSocket.finishRead(Buffer buf)
+   在 IceInternal.TcpTransceiver.finishRead(Buffer buf)
+   在 Ice.ConnectionI.finishAsync(Int32 operation)
+Caused by: System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+   在 IceInternal.StreamSocket.finishRead(Buffer buf)
+local address = ::ffff:127.0.0.1:3900
+remote address = ::ffff:127.0.0.1:54137

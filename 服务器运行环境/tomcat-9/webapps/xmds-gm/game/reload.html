@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>热加载</title>
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/icon.css">
+<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+	function execute() {
+		var reloadType = "";
+		$('input[name="reloadType"]:checked').each(function() {
+			reloadType += $(this).val()+";";
+		});
+		if(!reloadType){
+			return;
+		}
+		$.messager.confirm("提示","确定热加载吗？",function(f){
+			if(f){
+				parent.send({
+					action : "execute",
+					type : "6010",
+					value : [ reloadType ],
+					call : function(json) {
+						var tip = "";
+						var count = 0;
+						$.each(json, function(key, value) {
+							tip += parent.getName(key) + " -> ";
+							tip += value > 0 ? "执行成功" : parent.getError(value);
+							tip += "<br/>";
+							count++;
+						});
+						parent.showTip("信息提示", tip, 3000, Math.min(
+								Math.max(1, count) * 20 + 50, 500));
+					}
+				});
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div class="easyui-panel" title="热加载"
+		style="width: 800px; height: 600px;">
+		<div style="padding: 20px;" align="center">
+			<input type="checkbox" value="0" name="reloadType" />活动列表&nbsp;&nbsp;
+			<input type="checkbox" value="1" name="reloadType" />签到&nbsp;&nbsp;
+			<input type="checkbox" value="2" name="reloadType" />在线礼包&nbsp;&nbsp;
+			<input type="checkbox" value="3" name="reloadType" />等级礼包&nbsp;&nbsp;
+			<input type="checkbox" value="4" name="reloadType" />战力礼包&nbsp;&nbsp;
+			<input type="checkbox" value="5" name="reloadType" />开服狂欢&nbsp;&nbsp;
+		</div>
+		<div align="center">
+			<a href="javascript:void(0)" class="easyui-linkbutton"
+				onclick="execute()" style="width: 80px">执行</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-03-15
+//* 用途= 角色数据
+//***************************************************************************/
+package pomelo.player;
+import 'common.proto';
+import 'task.proto';
+import 'item.proto';
+
+
+//玩家基本信息
+message PlayerBasic {
+    required string id = 1;
+    optional string name = 2;
+    optional int32 level = 3;
+    optional int32 pro = 4;
+    optional int32 upLevel = 5;
+    repeated Avatar avatars = 6;
+}  
+
+  
+message Store {
+   repeated item.Grid bagGrids = 1;
+   optional int32 bagGridCount = 2;
+   optional int32 bagTotalCount = 3;
+   optional int32 type = 4;
+   optional int32 gridPrice = 5;  //一个格子需要的钻石
+}
+
+message Stores{
+  optional Store bag = 1;           //背包
+  optional Store wareHouse = 2;     //仓库
+  optional Store recycle = 3;       //出售物品回收站
+}
+
+message Equipments {
+  repeated item.Grid equips = 1;
+}
+
+
+message OfflineBaseData  {
+  required int32 flag = 1;
+  required int32 areaId = 2;
+}
+
+
+/*
+message FashionDetail  {
+  required int32 id = 1;
+  required int32 showId = 2;
+  required string name = 3;
+  required string desc = 4;
+  required int32 getway = 5;
+  required string getwayDesc = 6;
+  required int32 vip = 7;
+  required int32 week = 8;
+  required int32 month = 9;
+  required int32 forever = 10;
+  repeated item.MountDetail mount = 11;
+  required int32 expire = 12;
+  optional int32 hot = 13;
+}
+
+message Fashions  {
+  required int32 equip_fashion = 1;
+  repeated FashionDetail fashionDetail = 2;
+}
+*/
+
+ message Attachment  {
+  required int32 templateId = 1;
+  required int32 icon = 2;
+  required int32 num = 3;
+  required int32 quality = 4;
+}
+
+message Mail  {
+  required int32 id = 1;
+  required int32 type = 2;
+  required int32 fromType = 3;
+  required int32 fromIcon = 4;
+  required string fromName = 5;
+  required string title = 6;
+  required string content = 7;
+  required string createDate = 8;
+  required int32 status = 9;
+  repeated Attachment attachment =10;
+  required string timeStamp = 11;
+}
+
+message SetData {
+  required int32 recvMailSet = 1;        // 接收邮件
+  required int32 teamInviteSet = 2;      // 允许组队邀请
+  required int32 recvStrangerMsgSet = 3; // 允许接收陌生人消息
+  required int32 recvAddFriendSet = 4;   // 允许接收好友申请
+  // 其它待定
+}
+
+message HookSetData {
+  required int32  hpPercent = 1;  // 生命低于%
+  required int32  mpPercent = 2;  // 法力低于%
+  required string hpItemCode = 3; // 生命药剂
+  required string mpItemCode = 4; // 法力药剂
+  required int32  pkSet = 5;      // 防PK设置 0-自动反击 1-自动逃走
+  repeated int32  meltQcolor = 6; // 熔炼装备颜色
+  optional int32  autoBuyHpItem = 7;
+  optional int32  autoBuyMpItem = 8;
+  required int32  fieldMaphook = 9;   // 野外全图挂机 0 不挂 1 挂
+  required int32  areaMaphook = 10;    // 其他场景全图挂机 0 不挂 1 挂
+}
+/*
+message GiftOnLineStruct  {
+  required int32 templateId = 1;
+  required int32 count = 2;
+  required int32 quality = 3;
+  required int32 picId = 4;
+  required string name = 5;
+}*/
+/*
+message GiftOnlineData  {
+  required int32 s2c_time = 1;
+  repeated GiftOnLineStruct s2c_items = 2;
+}*/
+
+message FunctionInfo{
+    optional string funcName = 1; //功能名称
+    optional int32 openFlag = 2;//开启情况 0 未开启 1:开启
+    optional int32 playFlag = 3; //开启后是否玩过
+}
+
+message Player  {
+  required string id = 1;
+  optional string uid = 2;
+  optional string name = 3;
+  optional int32 level = 4;
+  optional int64 exp = 5;
+  optional int32 pro = 6;
+  optional int32 sp = 7;
+  optional int32 upOrder = 8;
+  optional int32 classExp = 9;
+  optional int64 gold = 13;
+  optional int64 diamond = 14;
+  optional int32 energy = 15;
+  optional int32 vip = 16;
+  optional int32 areaId = 17;
+  optional int32 hp = 18;
+  optional int32 mp = 19;
+  optional int32 needExp = 20;
+  optional int32 fightPower = 21;
+  optional Stores store = 22;
+  optional Equipments equipments = 23;
+  optional task.Tasks tasks = 24;
+  optional OfflineBaseData offlineBaseData = 25;
+  //optional Fashions fashions = 26;
+  optional SetData setData = 27;
+  optional int32 prestige = 29;
+  optional int32 juewei = 30;
+  repeated SkillKeyStruct skillKeys = 31;
+  optional item.CountItems countItems = 32;
+  optional int64 ticket = 33;
+  optional int32 friendly = 34;
+  optional int32 upLevel = 35;
+  optional int32 reqLevel = 36;
+  optional int32 pkModel = 37;
+  optional int32 pkValue = 38;
+  optional HookSetData hookSetData = 39;
+  optional string zoneId = 42;
+  optional int32 solopoint = 43; // 宗师币
+  optional int32 consumePoint = 44;
+  optional int32 pawnGold = 45;//工会仓库贡献
+  optional int32 petPkModel = 46;//宠物PK模式
+  optional int32 guildpoint = 47; //副本积分
+  repeated FunctionInfo functionList = 48; //功能开放列表
+  repeated KeyValueStruct clientConfig = 49;
+  optional string fightingPetId = 50; //出战宠物id
+  optional int32 mapId = 51;
+  optional string instanceId = 52;
+  optional int32 treasurePoint = 53; //君王宝藏积分
+  // optional int32 dailySoulFinNum = 54;//炼魂今日完成次数
+  //首充奖励领取信息，0没有充值 1已经首冲 2已经完成所有首冲
+  optional int32 payGiftData = 55;
+  repeated string blackList = 56;//黑名单
+  repeated item.EquipGridStrengthInfo strengthPos = 57;  // 格子强化信息[索引-强化段位-强化等级]
+  optional string guildId = 58; // 仙盟id
+  optional int32 guildPro = 59; // 仙盟职位
+  optional int32 openMount = 60; //1有坐骑，0没有
+  repeated item.EquipFashionInfo fashionInfo = 61; // 时装信息
+}
+
+/* 护符
+message Amulet {
+  optional int32 totalCount = 1;
+  optional int32 maxCount = 2;
+  repeated item.ItemDetail amulets = 3;
+}*/
+
+message LookUpPlayer {
+  optional string name = 1;             // 名称
+  optional int32 level = 2;             // 等级
+  optional int32 upLevel = 3;           // 进阶等级
+  optional int32 pro = 4;               // 职业
+  optional int32 fightPower = 5;        // 战斗力
+  optional int32 fightPowerRank = 6;    // 战力排行
+  optional int32 juewei = 7;            // 爵位
+  optional int32 titleId = 8;           // 称号
+  optional string guildName = 9;        // 公会名
+  optional int32 guildJob = 10;         // 公会职位
+  optional string guildIcon = 11;       // 公会icon
+  repeated item.ItemDetail equipments = 12;  // 装备
+  repeated Avatar avatars = 13;         // avatar 信息
+  repeated AttributeSimple attrs = 14;   // 战斗属性
+  optional int32 upOrder = 15;           //境界
+  optional int32 pkValue = 16;           //PK值
+  repeated item.EquipGridStrengthInfo strengthPos = 17;  // 格子强化信息[索引-强化段位-强化等级]
+  optional int64 exp=18;                    //经验
+}

@@ -1,0 +1,70 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-04-18
+//* 用途= 在线礼包处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+message GetGiftInfoRequest{
+
+}
+
+message GetOnlineTimeRequest{
+}
+
+message ReceiveGiftRequest{
+    optional int32 c2s_id = 1;
+}
+
+
+
+message GiftInfo{
+    optional int32 id = 1;
+    optional int32 time = 2;//需要在线时间(分钟)
+    optional string name = 3;//礼包名称
+    optional int32 state = 4;//领取状态 0:不可领取 1:可领取 2:已领取
+    repeated item.MiniItem item = 5;
+}
+
+message OnlineGift{
+    optional int32 onlineTime = 1;  //当前在线时长(秒)
+    repeated GiftInfo giftList = 2; //礼包列表
+}
+
+message GetGiftInfoResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional OnlineGift s2c_gift = 3;
+}
+
+message GetOnlineTimeResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_onlineTime = 3;  //秒
+}
+
+message ReceiveGiftResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional OnlineGift s2c_gift = 3;
+}
+
+service onlineGiftHandler{
+    rpc getGiftInfoRequest(GetGiftInfoRequest) returns(GetGiftInfoResponse);
+    rpc getOnlineTimeRequest(GetOnlineTimeRequest) returns(GetOnlineTimeResponse);
+    rpc receiveGiftRequest(ReceiveGiftRequest) returns(ReceiveGiftResponse);
+
+}
+
+
+message GiftInfoPush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional OnlineGift s2c_gift = 3;
+}
+
+service onlineGiftPush{
+    rpc giftInfoPush(GiftInfoPush) returns(Void);
+}

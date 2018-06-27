@@ -1,0 +1,80 @@
+//***************************************************************************
+//* 作者: 卢松洁
+//* 创建时间: 2015-08-27
+//* 用途: 进入游戏处理器
+//***************************************************************************
+
+package pomelo.connector;
+
+import 'common.proto';
+import 'player.proto';
+
+//获取系统时间请求
+message GetSysTimeRequest{
+
+}
+
+//获取系统时间返回
+message GetSysTimeResponse  {
+  required int32 s2c_code = 1;
+  required string s2c_time = 2;
+  optional string s2c_msg = 3;
+}
+
+message EntryRequest{
+   required string c2s_uid = 1;
+   required string c2s_token = 2;
+   required int32 c2s_logicServerId = 3;
+   optional string c2s_deviceMac = 4;
+   optional int32 c2s_deviceType = 5;
+   optional string c2s_clientRegion = 6;
+   optional string c2s_clientChannel = 7;
+   optional string c2s_clientVersion = 8;
+}
+
+message EntryResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated  player.PlayerBasic s2c_players= 3;
+}
+
+
+message BindPlayerRequest{
+   required string c2s_playerId = 1; 
+}
+
+message BindPlayerResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional  player.Player s2c_player = 3;
+  optional int32 s2c_sceneType = 4;
+  optional int32 s2c_sceneUseAgent = 5; //能否吃药剂
+  optional int32 s2c_changePkType = 6; //能否改变pk模式
+  optional int32 s2c_rideMount = 7; //能否骑马
+}
+
+
+//进入游戏处理器
+service entryHandler {
+
+  //进入游戏,获取角色列表
+  rpc entryRequest(EntryRequest) returns (EntryResponse);
+  
+  //绑定角色
+  rpc bindPlayerRequest(BindPlayerRequest) returns (BindPlayerResponse);
+
+  //获取服务器时间
+    rpc getSysTimeRequest(GetSysTimeRequest) returns(GetSysTimeResponse);
+
+}
+
+message LoginQueuePush {
+  required int32 num = 1;	// 排队人数
+  required int32 time = 2;	// 剩余时间：单位秒
+}
+
+service entryPush {
+
+    rpc loginQueuePush(LoginQueuePush) returns(Void);
+}
+

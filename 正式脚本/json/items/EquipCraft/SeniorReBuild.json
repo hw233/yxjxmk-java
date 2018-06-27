@@ -1,0 +1,16 @@
+[
+	[ "重铸编号", "装备等级", "装备星级（表示是否是神器）", "所需材料代码1", "材料数量1", "所需材料代码2", "材料数量2", "所需材料代码3", "材料数量3", "消耗金钱" ],
+	[ "ID", "Level", "Star", "MateCode1", "MateCount1", "MateCode2", "MateCount2", "MateCode3", "MateCount3", "CostGold" ],
+	[ "NUMBER", "NUMBER", "NUMBER", "STRING", "NUMBER", "STRING", "NUMBER", "STRING", "NUMBER", "NUMBER" ],
+	[ 1, 1, 0, "rbd1", 1, "srbd1", 1, "assth1", 1, 1000 ],
+	[ 2, 10, 0, "rbd1", 1, "srbd1", 1, "assth1", 1, 5000 ],
+	[ 3, 20, 0, "rbd1", 1, "srbd1", 1, "assth1", 1, 10000 ],
+	[ 4, 30, 0, "rbd1", 1, "srbd1", 1, "assth1", 1, 20000 ],
+	[ 5, 40, 0, "rbd2", 3, "srbd2", 3, "assth2", 3, 40000 ],
+	[ 6, 50, 0, "rbd2", 4, "srbd2", 4, "assth2", 10, 60000 ],
+	[ 7, 60, 0, "rbd2", 6, "srbd2", 6, "assth2", 10, 80000 ],
+	[ 8, 70, 0, "rbd2", 8, "srbd2", 8, "assth2", 10, 100000 ],
+	[ 9, 80, 0, "rbd3", 4, "srbd3", 4, "assth3", 10, 120000 ],
+	[ 10, 90, 0, "rbd3", 6, "srbd3", 6, "assth3", 10, 140000 ],
+	[ 11, 100, 0, "rbd3", 8, "srbd3", 8, "assth3", 10, 160000 ]
+]

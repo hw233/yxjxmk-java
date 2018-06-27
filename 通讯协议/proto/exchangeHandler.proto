@@ -1,0 +1,117 @@
+//***************************************************************************
+//* 作者= 马章勇
+//* 创建时间= 2016-1-20
+//* 用途= 兑换处理器
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+
+message GetExchangeLabelRequest{
+    required string c2s_npcId = 1;
+}
+
+message GetExchangeListRequest {
+    required string c2s_npcId = 1;
+    required int32 c2s_typeId = 2;//标签id
+
+}
+
+message ExchangeItemRequest {
+    required int32 c2s_typeId = 1;
+    required int32 c2s_itemId = 2;
+    required int32 c2s_num = 3;//数量
+    optional string c2s_npcId = 4;
+}
+
+enum ConditionType{
+    CONDITION_LEVEL = 1;//需要等级
+    CONDITION_UP_REQ = 2;//需要阶级
+    CONDITION_VIP_LEVEL = 3;//需要vip等级
+    CONDITION_RACE = 4;//需要阵营
+    CONDITION_RACE_CLASS = 5;//需要阵营声望等级
+    CONDITION_ARENA_SCORE = 6;//需要竞技场点数
+    CONDITION_GUILD_HONOR = 7;//需要工会荣誉
+}
+
+message Condition {
+    optional ConditionType type = 1;//类型
+    optional int32 number = 2;//级别，点数等
+}
+
+enum MoneyType{
+    MT_GOLD = 1; //金币
+    MT_DIAMOND = 2; //钻石
+    MT_TICKET = 3; //金票
+    MT_FEE_POINT = 4; //消费积分
+    MT_TREASURE_POINT = 8; //君王宝藏积分
+}
+
+//货币类型
+message MoneyInfo{
+    required MoneyType type = 1; //货币类型
+    required int32 value = 2;   //货币数量
+}
+
+message ExchangeInfo{
+    optional int32 typeId = 1;//类型Id
+    optional int32 itemId = 2;//编号Id
+    optional string itemShowName = 3; //物品显示名称
+    optional item.MiniItem item = 4;//兑换的物品
+    optional int32 scoreRatio = 5;//获得装备基础评分
+    optional string itemDes = 6; //物品描述
+    repeated Condition condition = 7;//前提条件
+    repeated MoneyInfo needMoney = 8; //需要的货币
+    repeated item.MiniItem needItem = 9;//需要的道具
+    optional int32 meetCondition = 10;//是否满足兑换条件
+    optional int32 maxExchangeNum = 11;//可兑换的数量
+    optional int32 state = 12; //0:保留 1:正常 2:售罄
+}
+
+message label {
+    optional int32 typeId = 1;//兑换类型
+    optional string typeName = 2;//类型标签名字
+}
+
+message ExchangeData {
+    repeated ExchangeInfo exchangeList = 1;
+}
+
+message GetExchangeLabelResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated label s2c_labelList = 3;
+}
+
+message GetExchangeListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional ExchangeData s2c_data = 3;
+}
+
+message ExchangeItemResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional ExchangeData s2c_data = 3;
+}
+
+message AllyFightExchangeRequest {
+    required string c2s_npcId = 1;
+    required int32 c2s_typeId = 2;//标签id
+}
+
+message AllyFightExchangeResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional ExchangeData s2c_data = 3;
+}
+
+service exchangeHandler{
+    rpc getExchangeLabelRequest(GetExchangeLabelRequest) returns(GetExchangeLabelResponse);
+
+    rpc getExchangeListRequest(GetExchangeListRequest) returns(GetExchangeListResponse);
+
+    rpc exchangeItemRequest(ExchangeItemRequest) returns(ExchangeItemResponse);
+
+    // 盟战商店刷新
+    rpc allyFightExchangeRequest(AllyFightExchangeRequest) returns(AllyFightExchangeResponse);
+ }

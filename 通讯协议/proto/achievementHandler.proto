@@ -1,0 +1,92 @@
+//***************************************************************************
+//* 作者= 王育安
+//* 创建时间= 2015-08-27
+//* 用途= 成就
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+
+//获取成就项内容
+message AchievementGetTypeElementRequest {
+    required int32 c2s_id = 1;
+}
+
+//领取奖励
+message AchievementGetAwardRequest {
+    required int32  c2s_id = 1;
+    required int32  c2s_type = 2; // 0:累计奖励 1:单条成就奖励
+}
+
+
+//成就内容
+message Achievement {
+   // 成就id
+   required int32                 id = 1;
+   // 成就完成进度
+   required int32                 scheduleCurr  = 2;
+   required int32                 status = 3; // 0:未达成 1:已达成,未领取 2:已领取
+}
+
+message AchievementGetTypeElementResponse {
+    required int32                  s2c_code = 1;
+    optional string                 s2c_msg = 2;
+    repeated Achievement            s2c_achievements = 3;
+    optional int32                  s2c_rewardCount = 4;
+    optional int32                  s2c_reward_status = 5; // 0:未达成 1:已达成,未领取 2:已领取
+    repeated int32                  s2c_opened_chapter = 6; // 已开放的章节ID 
+    repeated item.MiniItem          s2c_chest_view = 7;   //宝箱预览
+}
+
+message AchievementGetAwardResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message OnAchievementPush {
+    required int32 s2c_code = 1;
+    optional int32 s2c_id = 2;
+    repeated Achievement   s2c_achievements = 3;
+}
+
+//元始圣甲
+message HolyArmor {
+    required int32 id = 1;//部位id
+    required int32 states = 2;  //激活状态  1:未激活 2：可激活 3：已激活
+}
+
+//获取原始圣甲列表
+message GetHolyArmorsRequest {
+}
+message GetHolyArmorsResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated HolyArmor holyArmors = 3;
+}
+
+//激活元始圣甲
+message ActivateHolyArmorRequest {
+  required int32 id = 1; //部位id
+}
+message ActivateHolyArmorResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+//成就处理器
+service  achievementHandler {
+    // 请求对于项的成就
+    rpc achievementGetTypeElementRequest(AchievementGetTypeElementRequest) returns (AchievementGetTypeElementResponse);
+    // 请求奖励
+    rpc achievementGetAwardRequest(AchievementGetAwardRequest) returns (AchievementGetAwardResponse);
+    // 元始圣甲列表
+    rpc getHolyArmorsRequest(GetHolyArmorsRequest) returns(GetHolyArmorsResponse);
+    // 激活元始圣甲
+    rpc activateHolyArmorRequest(ActivateHolyArmorRequest) returns(ActivateHolyArmorResponse);
+ }
+
+service achievementPush {
+    rpc onAchievementPush(OnAchievementPush) returns(Void);
+}

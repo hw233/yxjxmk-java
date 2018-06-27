@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <listener>
+		<listener-class>com.wanniu.usercenter.listener.Loader</listener-class>
+  </listener>
+  
+  <servlet>
+  	<servlet-name>channelLogin</servlet-name>
+  	<servlet-class>com.wanniu.usercenter.servlet.ChannelLoginServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>channelLogin</servlet-name>
+  	<url-pattern>/channelLogin</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

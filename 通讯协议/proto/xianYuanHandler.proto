@@ -1,0 +1,31 @@
+//***************************************************************************
+//* 作者= wht
+//* 创建时间= 2017-04-14
+//* 用途= 仙缘数据
+//***************************************************************************/
+package pomelo.xianyuan;
+
+//打开仙缘界面请求
+message XianYuanRequest {
+}
+
+//每个仙缘获取渠道的获取信息
+message XianYuanGetInfo {
+	optional int32 configId = 1; //配置ID
+	optional int32 todayRecive = 2; //今日获得
+	optional int32 todayLimite = 3; //获得上限
+}
+
+//打开仙缘界面响应
+message XianYuanResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+	optional int32 totalXianYuan = 3; //总仙缘值
+	repeated XianYuanGetInfo xianYuanGetInfo = 4;
+}
+
+
+//仙缘处理器
+service xianYuanHandler{
+	rpc applyXianYuanRequest (XianYuanRequest) returns (XianYuanResponse);
+}

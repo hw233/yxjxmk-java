@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>发送道具</title>
+</head>
+<style type="text/css">
+	.field{ width:400px; height:20px; }
+	td{height: 60px; padding-right: 10px; font-size: 13px;}
+</style>
+<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+function execute() {
+	if(!$("#rids").val() || !$("#items").val()) {
+		parent.show("错误提示",  "请正确填写数据！");
+		return;
+	}
+	parent.send({
+		single	: true,
+		action	: "execute",
+		type		: "1151",
+		value : [ $("#rids").val(), $("#items").val()],
+		call : function(json) {
+	    	$.each(json, function(key, value) {
+	    		switch(value) {
+		    		case -2:{
+		    			parent.show("错误提示",  "发送的玩家ID错误，道具未发送！");
+		    			return;
+		    		}
+		    		case -3:{
+		    			parent.show("错误提示",  "发送道具格式错误！");
+		    			return;
+		    		}
+		    		case -1:{
+		    			parent.show("错误提示",  "服务器内部错误！");
+		    			return;
+		    		}
+	    		}
+	    		parent.showTip("信息提示",  "道具已发送");
+	    		return;
+	   		});
+		}
+	});
+}
+
+function reset() {
+	$("#item").reset()
+}
+</script>
+<body>
+	<form  id="item">
+		<table style="width: 600px;" align="center" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td align="right" >角色ID<br>(多个角色用<font color="red" size="3"> ; </font>分隔)</td>
+				<td><input class="field"  id="rids" ></input></td>
+			</tr>
+			<tr>
+				<td align="right">格式化道具</td>
+				<td><textarea id="items" rows="10" cols="55"></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+		            格式化道具解释:0,8,1,1|0,9,1,1<br/>
+		            第一位:0-卡牌  1-道具   4-钻石    5-金币  11-体力<br/>
+		            第二位:道具id,如果其他类型 请填写0<br/>
+		            第三位:数量<br/>           
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+						<input type="button" value="确 认" style="width:100px;height:30px;"onclick="javascript:execute()"></input>
+						<input type="button" value="取 消" style="width:100px;height:30px;" onclick="javascript:reset()"></input>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+
+</html>

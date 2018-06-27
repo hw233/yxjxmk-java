@@ -1,0 +1,163 @@
+//***************************************************************************
+//* 作者= 李静
+//* 创建时间= 2015-10-21
+//* 用途= 坐骑处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message ActiveMountSkinRequest {
+  required int32 c2s_skinId = 1;
+}
+
+message SaveMountRequest {
+  required int32 c2s_mountId = 1;
+  required int32 c2s_skinId = 2;
+}
+
+message UpMountStageRequest {
+}
+
+message GetMountInfoRequest {
+}
+
+message TrainingMountRequest {
+  required int32 c2s_type = 1;
+}
+
+message RidingMountRequest {
+  required int32 c2s_isUp = 1;
+}
+
+message OneKeyTrainingRequest {
+
+}
+
+message ItemData{
+  required string costId = 1;
+  required string costItemIcon = 2;
+  required string costItemName = 3;
+  required int32 curItemNum = 4;
+  required int32 costNum = 5;
+  required int32 costItemQuality = 6;
+}
+
+message SkinInfoData {
+  required int32 id = 1;
+  required string name = 2;
+  required int32 needRideLevel = 3;
+  required string icon = 4;
+  required string modelFile = 5;
+  required string desc = 6;
+  required int32 state = 7;
+  required int32 fightPowerValue = 8;
+  repeated AttributeBase skinAttrs = 9;
+}
+
+message MountInfoData{
+    required int32 id = 1;
+    required string name = 2;
+    required int32 level = 3;
+    required string icon = 4;
+    required string modelFile = 5;
+    required string desc = 6;
+    required int32 state = 7;
+    required int32 fightPowerValue = 8;
+    repeated AttributeBase skinAttrs = 9;
+}
+
+message MountData {
+  required int32 rideLevel = 1;
+  required int32 starLv = 2;
+  required int32 fightPowerValue = 4;
+  required int32 usingSkinID = 7;
+  repeated int32 mountSkins = 8 ;
+  repeated AttributeBase mountAttrs = 13;
+  repeated AttributeBase mountAttrsNext = 14;
+}
+
+message ActiveMountSkinResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message SaveMountResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional MountData s2c_data = 3;
+}
+
+message UpMountStageResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional MountData s2c_data = 3;
+  optional int32 s2c_curLuckyValue = 4;
+}
+
+message GetMountInfoResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional MountData s2c_data = 3;
+}
+
+message TrainingMountResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional MountData s2c_data = 3;
+}
+
+message RidingMountResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message OneKeyTrainingResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional MountData s2c_data = 3;
+}
+
+message ChooseFirstSkinRequest {
+	required int32 c2s_skinId = 1;
+}
+message ChooseFirstSkinResponse  {
+	required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+service mountHandler {
+ rpc activeMountSkinRequest(ActiveMountSkinRequest) returns(ActiveMountSkinResponse);
+
+ rpc saveMountRequest(SaveMountRequest) returns(SaveMountResponse); //这条协议废弃
+
+ rpc upMountStageRequest(UpMountStageRequest) returns(UpMountStageResponse); // 这条废弃
+
+ rpc getMountInfoRequest(GetMountInfoRequest) returns(GetMountInfoResponse);
+
+ rpc trainingMountRequest(TrainingMountRequest) returns(TrainingMountResponse);
+
+ rpc ridingMountRequest(RidingMountRequest) returns(RidingMountResponse);
+ //一键培养
+ rpc oneKeyTrainingRequest(OneKeyTrainingRequest) returns(OneKeyTrainingResponse);//这条废弃
+ // 第一次选择坐骑皮肤
+ rpc chooseFirstSkinRequest(ChooseFirstSkinRequest) returns(ChooseFirstSkinResponse);
+}
+
+
+message MountFlagPush {
+  //flag 0 下马  1 上马
+  optional int32 s2c_flag = 3;
+  optional int32 s2c_usingSkinId = 4;   //
+}
+
+message MountNewSkinPush {
+    optional int32 s2c_skinId = 3;
+    optional string s2c_skinName = 4;
+}
+
+
+//角色事件推送
+service mountPush{
+  rpc mountFlagPush(MountFlagPush) returns(Void);
+  rpc mountNewSkinPush(MountNewSkinPush) returns(Void);
+}

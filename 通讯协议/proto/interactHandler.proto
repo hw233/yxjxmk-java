@@ -1,0 +1,74 @@
+//***************************************************************************
+//* 作者: 范金乔
+//* 创建时间: 2015-12-11
+//* 用途: 交互
+//***************************************************************************
+package pomelo.area;
+
+import 'common.proto';
+
+// 交互请求 (送花,...)
+message InteractRequest{
+    required int32 c2s_id = 1;  //交互类型id
+    required string c2s_playerId = 2; //目标玩家id
+    required string c2s_playerName = 3; //目标玩家名称
+}
+
+message InteractResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message InteractConfigRequest {
+}
+
+message InteractConfig {
+  required int32 id = 1;  //交互id
+  optional string name = 2; //交互名称
+  optional int32 type = 3;
+  optional int32 charm = 4;
+  optional int32 gold = 5;
+  optional int32 diamond = 6;
+  optional string show = 7; //空串表示不需要特效
+
+}
+
+message InteractConfigResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated InteractConfig s2c_data = 3;
+}
+
+message InteractTimesRequest {
+}
+
+message InteractTimes {
+    required int32 type = 1;
+    optional int32 times = 2; //剩余次数
+};
+
+message InteractTimesResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated InteractTimes s2c_data = 3;
+    optional int32 s2c_charm = 4; //魅力值
+}
+
+service interactHandler {
+  rpc interactRequest(InteractRequest) returns(InteractResponse);
+
+  rpc interactConfigRequest(InteractConfigRequest) returns(InteractConfigResponse);
+
+  rpc interactTimesRequest(InteractTimesRequest) returns(InteractTimesResponse);
+}
+
+message ReceiveInteractPush {
+  required int32 s2c_code = 1;
+  optional int32 id = 2;  // 交互类型id
+  optional string sendPlayerName = 3; // 发送的玩家名称
+  optional string show = 4; //特效
+}
+
+service interactPush {
+  rpc receiveInteractPush(ReceiveInteractPush) returns(Void);
+}

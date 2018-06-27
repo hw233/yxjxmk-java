@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>兑换码</title>
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/icon.css" />
+<script type="text/javascript" src="../../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$
+				.ajax({
+					url : "../../action/dispatcher",
+					type : "POST",
+					data : {
+						module : 0,
+						type : 4,
+						page : 0,
+						rows : 1000
+					},
+					dataType : "json",
+					success : function(data) {
+						var checkbox = "";
+						var j = 0;
+						for (var i = 0; i < data.rows.length; i++) {
+							var id = data.rows[i].id;
+							var areaId = data.rows[i].areaId;
+							if (areaId != 0) {
+								checkbox += "<input type='checkbox' value='"+id+"' name='serverCheckbox'>"
+										+ id
+										+ data.rows[i].name
+										+ "&nbsp;&nbsp;";
+								j++;
+								if (j % 8 == 0) {
+									checkbox += "<br/>";
+								}
+							}
+						}
+						$("#serverList").html(checkbox);
+					}
+				});
+	});
+	// 添加附件
+	function selectItem() {
+		var num = $("#itemNum").val();
+		var name = $("#item").combobox('getText');
+		var id = $("#item").combobox('getValue');
+		if (!id || id == name) {
+			return;
+		}
+		if (num <= 0) {
+			return;
+		}
+		// $("#item").combobox('reset');
+		//验证是否有相同的物品，有的话就累加数量
+		var rows = $("#itemDg").datagrid('getRows');
+		for (var i = 0; i < rows.length; i++) {
+			if (rows[i].id == id) {//有相同的物品
+				rows[i].num = parseInt(rows[i].num) + parseInt(num);
+				$("#itemDg").datagrid('refreshRow', i);
+				return;
+			}
+		}
+		$("#itemDg").datagrid('appendRow', {
+			id : id,
+			name : name,
+			num : num
+		});
+	}
+
+	function deleteItem() {
+		if ($("#itemDg").datagrid('getSelected') == null) {
+			return;
+		}
+		var index = $("#itemDg").datagrid('getRowIndex',
+				$("#itemDg").datagrid('getSelected'));
+		$("#itemDg").datagrid('deleteRow', index);
+	}
+
+	function changeType(v) {
+		if (v == 0) {
+			$("#cdkeycount").numberbox('enable');
+		} else {
+			$("#cdkeycount").numberbox('setValue', 1);
+			$("#cdkeycount").numberbox('disable');
+		}
+	}
+
+	function searchCdk() {
+		parent.send({
+			single : true,
+			action : "load",
+			type : "1121",
+			value : [ $("#cdk").val(), $("#code").val(),
+					$("#beginDate").datetimebox('getText'),
+					$("#endDate").datetimebox('getText') ],
+			call : function(json) {
+				if ($.isEmptyObject(json)) {
+					$("#cdkInfo").datagrid('loadData',{total:0,rows:[]});
+					$.messager.alert("提示", "未找到CDK信息！", "warning");
+				} else {
+					if ($("#cdk").val()) {
+						$("#cdkInfo").datagrid({
+							columns : [ [ {
+								field : 'isUse',
+								title : '是否使用',
+								width : 100,
+								align : 'center'
+							}, {
+								field : 'createDate',
+								title : '生成时间',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'name',
+								title : '礼包名',
+								width : 100,
+								align : 'center'
+							}, {
+								field : 'datetime',
+								title : '有效期',
+								width : 300,
+								align : 'center'
+							}, {
+								field : 'items',
+								title : '礼包内容',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'usePlayer',
+								title : '使用角色',
+								width : 200,
+								align : 'center'
+							}, {
+								field : 'useDate',
+								title : '使用时间',
+								width : 150,
+								align : 'center'
+							} ] ],
+							data : json.rows
+						});
+					} else if ($("#code").val()) {
+						$("#cdkInfo").datagrid({
+							columns : [ [ {
+								field : 'createDate',
+								title : '生成时间',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'items',
+								title : '礼包内容',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'num',
+								title : '生成数量',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'useNum',
+								title : '已使用数量',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'channel',
+								title : '渠道',
+								width : 150,
+								align : 'center'
+							} ] ],
+							data : json.rows
+						});
+					} else if ($("#beginDate").datetimebox('getText')
+							&& $("#endDate").datetimebox('getText')) {
+						$("#cdkInfo").datagrid({
+							columns : [ [ {
+								field : 'name',
+								title : '礼包名',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'items',
+								title : '礼包内容',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'createDate',
+								title : '生成时间',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'code',
+								title : 'code',
+								width : 150,
+								align : 'center'
+							}, {
+								field : 'datetime',
+								title : '有效期',
+								width : 300,
+								align : 'center'
+							} ] ],
+							data : json.rows
+						});
+					}
+				}
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div class="easyui-tabs" style="width: 100%; height: 800px;">
+		<div title="生成兑换码">
+			<form action="" id="cdkForm">
+				<table width="80%" border="0" cellspacing="10" cellpadding="5">
+					<tr>
+						<td width="150" align="center">CDK类型</td>
+						<td colspan="3"><input type="radio" name="cdkType" value="0"
+							checked="checked" onchange="changeType(this.value)" />普通CDK <input
+							type="radio" name="cdkType" value="1"
+							onchange="changeType(this.value)" />通用CDK</td>
+					</tr>
+					<tr>
+						<td width="150" align="center">服务器专用</td>
+						<td colspan="3" id="serverList"></td>
+					</tr>
+					<tr>
+						<td width="150" align="center">&nbsp; 渠道专用</td>
+						<td><select id="channel" class="easyui-combobox"
+							style="width: 200px;">
+								<option value="-1">全部</option>
+								<option value="1002">移动</option>
+								<option value="1003">91</option>
+								<option value="1004">uc</option>
+						</select></td>
+						<td align="center">最低等级</td>
+						<td><input class="easyui-numberbox" style="width: 200px;"
+							id="minLevel" data-options="required:true" value="0" /></td>
+					</tr>
+					<tr>
+						<td align="center">开始日期</td>
+						<td><input class="easyui-datetimebox" id="sdate"
+							style="width: 200px;" data-options="required:true,editable:false"></input></td>
+						<td align="center">结束日期</td>
+						<td><input class="easyui-datetimebox" id="edate"
+							style="width: 200px;" data-options="required:true,editable:false"></input></td>
+					</tr>
+					<tr>
+						<td align="center">兑换code(4个字符)</td>
+						<td><input class="easyui-textbox" id="cdkeycode"
+							style="width: 200px;" data-options="required:true"
+							validType="length[4,4]"></input></td>
+						<td align="center">礼包名</td>
+						<td><input class="easyui-textbox" style="width: 200px;"
+							data-options="required:true" id="cdkeygift" /></td>
+					</tr>
+					<tr>
+						<td align="center">兑换码数量</td>
+						<td><input type="text" id="cdkeycount" required="true"
+							style="width: 200px;" class="easyui-numberbox" /></td>
+						<td align="center">同类型兑换上限</td>
+						<td><input type="text" id="cdkeylen" required="true"
+							style="width: 200px;" class="easyui-numberbox" value="1" /></td>
+					</tr>
+					<tr>
+						<td align="center">物品</td>
+						<td colspan="3"><select class="easyui-combobox" id="item"
+							style="width: 200px;"
+							data-options="valueField:'id',textField:'text',url:'../../action/loadItemData'"></select>
+							<input class="easyui-numberbox" value="1" style="width: 100px;"
+							id="itemNum"></input> <a href="javascript:void(0)"
+							class="easyui-linkbutton" onclick="selectItem()"
+							style="width: 50px;">添加</a></td>
+					</tr>
+					<tr>
+						<td align="center">已选物品</td>
+						<td colspan="3">
+							<table id="itemDg" class="easyui-datagrid"
+								style="height: 200px; width: 80%"
+								data-options="singleSelect:true,toolbar:'#groupTb'">
+								<thead>
+									<tr>
+										<th data-options="field:'id',hidden:true">id</th>
+										<th data-options="field:'name',width:300,align:'center'">道具名</th>
+										<th data-options="field:'num',width:100,align:'center'">数量</th>
+									</tr>
+								</thead>
+							</table>
+						</td>
+					</tr>
+					<tr id="tr">
+						<td></td>
+						<td colspan="3"><a id="button2" href="javascript:generate()"
+							class="easyui-linkbutton" style="width: 80px;">生 成</a></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div title="CDK查询" style="width: 1000px; padding: 10px;">
+			<div class="easyui-panel" style="padding: 10px;">
+				兑换码：<input class="easyui-textbox" style="width: 150px;" id="cdk" />&nbsp;&nbsp;
+				code：<input class="easyui-textbox" style="width: 150px;" id="code" />&nbsp;&nbsp;
+				创建时间：<input class="easyui-datetimebox" style="width: 180px;"
+					data-options="editable:false" id="beginDate"></input>-<input
+					class="easyui-datetimebox" style="width: 180px;"
+					data-options="editable:false" id="endDate"></input>&nbsp;&nbsp; <a
+					href="#" onclick="searchCdk()" class="easyui-linkbutton"
+					data-options="iconCls:'icon-search'" style="width: 120px">查询</a>
+			</div>
+			<br />
+			<table class="easyui-datagrid" style="height: 500px;" id="cdkInfo"></table>
+		</div>
+	</div>
+	<div id="groupTb" style="height: auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-remove',plain:true"
+			onclick="deleteItem()">移除</a>
+	</div>
+	<script type="text/javascript" src="cdkey.js"></script>
+</body>
+</html>

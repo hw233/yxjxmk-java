@@ -1,0 +1,8 @@
+[
+	[ "编号", "奖励礼包名称", "礼包代码", "礼包数量", "礼包图标", "礼包角标", "礼包价格", "钻石数量" ],
+	[ "ID", "PackageName", "PackageCode", "PackageNum", "PackageIcon", "PackageScript", "PackagePrice", "DiamondNum" ],
+	[ "NUMBER", "STRING", "STRING", "NUMBER", "STRING", "NUMBER", "NUMBER", "NUMBER" ],
+	[ 301, "1元礼包", "cjlb2", 1, "", 0, 100, 10 ],
+	[ 302, "3元礼包", "cjlb1", 1, "", 0, 300, 30 ],
+	[ 303, "6元礼包", "cjlb3", 1, "", 0, 600, 60 ]
+]

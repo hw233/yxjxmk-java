@@ -1,0 +1,44 @@
+//***************************************************************************
+//* 作者= 李静
+//* 创建时间= 2015-11-25
+//* 用途= 技能快捷键处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message SkillKey {
+   required int32 keyPos = 1;
+   required int32 skillId = 2;
+}
+
+
+message SaveSkillKeysRequest {
+   repeated SkillKey s2c_skillKeys = 1;
+}
+
+
+
+message SaveSkillKeysResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+  
+//技能处理器
+service skillKeysHandler {
+ rpc saveSkillKeysRequest(SaveSkillKeysRequest) returns(SaveSkillKeysResponse);
+}
+
+
+message SkillKeyUpdatePush {
+  required int32 s2c_code = 1;
+  repeated SkillKeyStruct s2c_data = 2;
+}
+
+
+//技能快捷键消息推送
+service skillKeysPush {
+  
+ rpc skillKeyUpdatePush(SkillKeyUpdatePush) returns(Void);
+
+}

@@ -1,0 +1,7 @@
+[
+	[ "事件ID", "事件类型", "事件参数1", "事件参数2", "事件参数3" ],
+	[ "EventID", "EventType", "EventData1", "EventData2", "EventData3" ],
+	[ "STRING", "NUMBER", "STRING", "STRING", "STRING" ],
+	[ "10001", 1, "60001", "", "" ],
+	[ "10002", 1, "60002", "", "" ]
+]

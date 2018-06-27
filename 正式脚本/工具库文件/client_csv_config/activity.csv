@@ -1,0 +1,78 @@
+﻿Key,Value,
+activityTime,<f><f color='fff7ffa3'>活动时间：</f><f color='ff00d600'>{0}-{1}</f></f>,
+activityDesc,<f><f color='fff7ffa3'>活动规则：</f>{0}</f>,
+go,前往,
+get,领取,
+alreadyGot,已领取,
+leichongCondition,<f>累计充值<f color='ff00d600'>{0}</f>元<br/>进度：<f color='ff00d600'>{1}</f></f>,
+leixiaoCondition,<f>累计消费<f color='ff00d600'>{0}</f>元宝<br/>进度：<f color='ff00d600'>{1}</f></f>,
+need_zhanli,战力不够，需要战力：,
+need_lv,等级不够，需要等级：,
+alreadyreceive,已领取,
+zhanli,战力:,
+level,需等级:,
+mailbox,奖励已发放至邮箱,
+look,查看奖励,
+fundConditionUpLv,等级达到{0},
+fundCondition,等级达到{0}级,
+welfareCondition,购买人数达到{0}人,
+notreached,未达成,
+start,开始翻牌,
+jackpotreset,"<f>是否花费<h img='#static/static_pic/static001.xml,static001,88'>H</h>|1|重置奖池奖励</f>",
+again,"<f>是否花费<h img='#static/static_pic/static001.xml,static001,88'>H</h>|1|再次抽取</f>",
+rule,<f color='ff21b2ef' style = '4' >活动规则</f>,
+SevenDay_Level,等级达到%d级,
+SevenDay_Equipment,装备%d件装备,
+SevenDay_BlueEquipment,装备%d件蓝装,
+SevenDay_PurpleEquipment,装备%d件紫装,
+SevenDay_LegendEquipment,装备%d件橙装,
+SevenDay_AllStrengthen,全身装备强化到+%d,
+SevenDay_Recharge,充值%d元,
+SevenDay_Ally,拥有%d个道友,
+SevenDay_Mount,坐骑进阶到%d阶,
+SevenDay_Wings,翅膀进阶到%d阶,
+SevenDay_Friend,拥有%d个好友,
+SevenDay_Advanced,灵御%d阶达成,
+apeed_of_progress,进度,
+already_receive,已领取,
+receive,领取,
+goto,前往,
+not_reached,未达成,
+not_open,未开启,
+completed,已完成,
+no_uplevel,进阶等级不足,
+changenum,兑换次数:,
+change,兑换,
+notbuy,未购买,
+Treasures_Keyword1,"<f>1<h img='static/item/bossKey.png' img_zoom = '30,30'>H</h>1次</f>",
+Treasures_Keyword2,"<f>10<h img='static/item/bossKey.png' img_zoom = '30,30'>H</h>10次</f>",
+Treasures_Dmdword1,"<f>20<h img='#static/static_pic/static001.xml,static001,88' img_zoom = '30,30'>H</h>1次</f>",
+Treasures_Dmdword2,"<f>200<h img='#static/static_pic/static001.xml,static001,88' img_zoom = '30,30'>H</h>10次</f>",
+More_Condition,<f color='fffffd5f' style = '4'>更多详情请点击查看</f>,
+Worship,"<f bcolor='ff3c221c' border= '8' size = '18' color='ffe7e5d1'>膜拜({0}<h img='#static/static_pic/static001.xml,static001,88'>H</h>）</f>",
+forever,<f><f color='fff7ffa3'>活动时间：</f><f color='ff00d600'>永久</f></f>,
+noGetAwardTime,未达到领取时间,
+noGetAwardLJXF,累计消费进度未达成,
+confirmButGiftBag,是否花费{0}元购买{1}个{2}？,
+RecoveredConfirm1,是否免费找回【{0}】50%的资源？免费找回后无法再进行完美找回,
+RecoveredConfirm2,是否消耗{0}绑元完美找回【{1}】100%的资源？,
+richNotEnough,免费次数不足，是否使用{0}元宝代替进行掷点？
+richTurn,第{0}轮
+confirmXYCJ,探索券不足，是否使用{0}元宝代替进行探索？,
+ACT_NoLimit,不限
+ACT_OverLevel,{0}级以上
+ACT_Monday,周一
+ACT_Tuesday,周二
+ACT_Wednesday,周三
+activity_continue,连续充值
+activity_rich,大富翁
+activity_sevenDay,七日目标
+ACT_Thursday,周四
+ACT_Friday,周五
+ACT_Saturday,周六
+ACT_Sunday,周日
+ACT_NotGetPZ,没有找到配置
+ACT_NOServerData,"服务器未传入数据!"
+ACT_HaveRefsh,已刷新
+ACT_WaitRefsh,"距离下次刷新时间:{0}:{1}:{2}"
+ACT_NotOpen,"功能尚未开启!"

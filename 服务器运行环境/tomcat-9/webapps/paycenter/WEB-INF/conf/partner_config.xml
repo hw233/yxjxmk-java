@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<partners>
+	<partner id="62" name="清源"
+		callback_url="http://192.168.102.128:8099/paycenter/to/qengNotify.jsp">
+		<channels>
+			<channel id="6001" ostype="1" name="android" />
+		</channels>
+		<applications>
+			<application id="80" name="清源"
+				defkey="0j0qmksO6673y199" ioskey="" padkey="" />
+		</applications>
+		<paytypes>
+			<paytype key="1" value="0" />
+		</paytypes>
+	</partner>
+<!-- 	<partner id="61" name="互爱" -->
+<!-- 		callback_url="http://pay.wnplay.cn:8099/paycenter/to/hoolaiNotify.jsp"> -->
+<!-- 		<channels> -->
+<!-- 			<channel id="6001" ostype="1" name="android" /> -->
+<!-- 		</channels> -->
+<!-- 		<applications> -->
+<!-- 			<application id="80" name="互爱" -->
+<!-- 				defkey="0j0qmksO6673y199" ioskey="" padkey="" /> -->
+<!-- 		</applications> -->
+<!-- 		<paytypes> -->
+<!-- 			<paytype key="1" value="0" /> -->
+<!-- 		</paytypes> -->
+<!-- 	</partner> -->
+</partners>

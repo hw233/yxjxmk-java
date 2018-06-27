@@ -1,0 +1,412 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-03-30
+//* 用途= 好友结构
+//***************************************************************************/
+package pomelo.area;
+import 'common.proto';
+
+  message Position {
+    optional int32 targetX = 1;
+    optional int32 targetY = 2;
+    optional string areaName = 3;
+    optional int32 areaId = 4;
+  }
+
+  message PlayerInfo{
+    optional string id = 1;
+    optional int32 pro = 2;
+    optional string guildId = 3;
+    optional string guildName = 4;
+    optional string name = 5;
+    optional int32 level = 6;
+    optional int32 stageLevel = 7;
+    optional int32 vip = 8;
+    optional int32 friendLv = 9;
+    optional int32 isConcerned = 10;
+    optional int32 isOnline = 11;
+    optional Position currentPos = 12;
+    optional int32 fightPower = 13;
+    optional int32 hasAlly = 14;
+    optional int32 icon = 15;
+    optional int32 chouHenPoint = 16;
+    optional string createTimeStamp = 17;
+    optional string createTime = 18;
+    optional int32 addFriendShipPoint = 19;
+    optional int32 type = 20;
+    optional string time = 21;
+    optional int32 isHaveDaoYou = 22;			// 是否含有道友 0: 没有   1：有
+    repeated Avatar avatars = 23;
+ }
+
+ message ChatMsg{
+ 	optional string s2c_playerId = 1;// 发送者id
+	optional string s2c_content = 2;// 聊天内容
+	optional string s2c_time = 3;// 聊天时间
+	optional string s2c_acceptRid = 4;//接收者id
+ }
+
+  message FriendShopCondition {
+    optional int32 type = 1;// 1：需要等级，2：需要进阶等级，3：需要vip等级,4：需要阵营，5：需要阵营声望等级
+    optional int32 number = 2;//级别，点数等
+}
+
+	//货币类型
+message FriendShopMoneyInfo{
+    required int32 type = 1; //货币类型；1：金币，2：钻石，3：金票，7：友情度
+    required int32 value = 2;   //货币数量
+}
+
+ message FriendGetAllFriendsRequest {
+ }
+
+
+  message FriendApplyRequest {
+    required string c2s_toPlayerId = 1;
+ }
+
+message FriendAllApplyRequest {
+    repeated string c2s_toPlayerIds = 1;
+ }
+
+  message FriendAgreeApplyRequest {
+    required string c2s_requestId = 1;
+ }
+
+message FriendAllAgreeApplyRequest {
+    repeated string c2s_requestIds = 1;
+ }
+
+  message FriendRefuceApplyRequest {
+    required string c2s_requestId = 1;
+ }
+
+message FriendAllRefuceApplyRequest {
+    repeated string c2s_requestIds = 1;
+ }
+
+  message FriendGetFriendAwardRequest {
+    required string c2s_friendId = 1;
+    required int32 c2s_awardId = 2;
+ }
+
+
+  message FriendDeleteRequest {
+    required string c2s_friendId = 1;
+ }
+
+
+  message FriendAddFriendExpRequest {
+    required string c2s_friendId = 1;
+    required int32 c2s_point = 2;
+ }
+
+  message FriendDeleteChouRenRequest {
+    required string c2s_chouRenId = 1;
+  }
+
+  message FriendAllDeleteChouRenRequest {
+    repeated string c2s_chouRenIds = 1;
+  }
+
+  message FriendAddChouRenRequest {
+    required string c2s_chouRenId = 1;
+  }
+
+ message AddFriendInfoRequest {
+   }
+
+ message QueryPlayerNameRequest {
+   required string  c2s_strName = 1;
+ }
+
+ message ConcernFriendRequest {
+   required string c2s_friendId = 1;
+ }
+
+message ConcernAllFriendRequest {
+   repeated string c2s_friendIds = 1;
+ }
+
+message FriendMessageListRequest {
+}
+
+message DeleteAllFriendMessageRequest {
+}
+
+message DeleteBlackListRequest {
+    required string c2s_blackListId = 1;
+}
+
+message DeleteAllBlackListRequest {
+}
+
+message AddBlackListRequest {
+   required string c2s_blackListId = 1;
+}
+
+message GetSocialInfoRequest {
+}
+
+
+
+  message FriendGetAllFriendsResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated PlayerInfo friends = 3;			// 好友
+    optional int32 concernNum = 4;
+    optional int32 allConcernNum = 5;
+    optional int32 friendsNumMax = 6;           // 好友上限
+    repeated PlayerInfo chouRens = 7;   		// 仇人
+    optional int32 chouRensNumMax = 8;			// 仇人上限
+    repeated PlayerInfo blackList = 9; 			// 黑名单
+    optional int32 blackListNumMax = 10;        // 黑名单上限
+ }
+
+
+  message FriendApplyResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+ }
+
+message FriendAllApplyResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+ }
+
+  message FriendAgreeApplyResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+ }
+
+message FriendAllAgreeApplyResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+ }
+
+  message FriendRefuceApplyResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+ }
+
+message FriendAllRefuceApplyResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+ }
+
+  message FriendGetFriendAwardResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+ }
+
+
+  message FriendDeleteResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+ }
+
+  message FriendAddFriendExpResponse  {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    required int32 friendLv = 3;
+    required int32 friendExp = 4;
+    required int32 validAwardsNum = 5;
+ }
+
+  message FriendDeleteChouRenResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+  }
+
+  message FriendAllDeleteChouRenResponse {
+      required int32 s2c_code = 1;
+      optional string s2c_msg = 2;
+    }
+
+  message FriendAddChouRenResponse {
+      required int32 s2c_code = 1;
+      optional string s2c_msg = 2;
+    }
+
+ message AddFriendInfoResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated PlayerInfo data = 3;
+ }
+
+ message QueryPlayerNameResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated PlayerInfo data = 3;
+ }
+
+ message ConcernFriendResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+ }
+
+message ConcernAllFriendResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+ }
+
+message FriendMessageListResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated PlayerInfo friendMessageInfos = 3;
+   required int32 messageNumMax = 4;
+   required string friendlyCode = 5;
+}
+
+message DeleteAllFriendMessageResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message DeleteBlackListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message DeleteAllBlackListResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message AddBlackListResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message GetSocialInfoResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   required int32 addPointToday = 3;
+   required int32 friendShipPoint = 4;
+   required int32 addPointTodayMax = 5;
+}
+
+message GetShopItemListRequest {
+
+}
+
+message ExchangeFriendShopItemRequest {
+    required int32 c2s_itemId = 1;
+    required int32 c2s_num = 3;//数量
+}
+
+message FriendShopExchangeInfo{
+    optional int32 itemId = 1;//编号Id
+    optional string ItemCode = 2; //物品code
+    repeated FriendShopCondition condition = 3;//前提条件
+    repeated FriendShopMoneyInfo needMoney = 4; //需要的货币
+    optional int32 meetCondition = 5;//是否满足兑换条件
+    optional int32 maxExchangeNum = 6;//可兑换的数量
+    optional int32 state = 7; //0:保留 1:正常 2:售罄
+}
+
+message GetShopItemListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated FriendShopExchangeInfo s2c_data = 3;
+}
+
+message ExchangeFriendShopItemResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 获取联系人列表 请求
+message GetRecentChatListRequest{
+
+}
+
+// 获取联系人列表 返回
+message GetRecentChatListResponse{
+	required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+	repeated PlayerInfo s2c_ls = 3;
+}
+
+// 获取聊天消息请求
+message  GetChatMsgRequest{
+	required string c2s_friendId = 1;
+}
+
+// 获取聊天消息返回
+message  GetChatMsgResponse{
+  	required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+	repeated ChatMsg s2c_msgLs = 3;
+}
+
+// 删除好友聊天记录 请求
+message  RmChatMsgRequest{
+	required string c2s_friendId = 1;
+}
+
+message  RmChatMsgResponse{
+	required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//好友处理器
+service friendHandler {
+		// 获取好友列表
+	  rpc friendGetAllFriendsRequest(FriendGetAllFriendsRequest) returns(FriendGetAllFriendsResponse);
+	  	//添加好友
+	  rpc friendApplyRequest(FriendApplyRequest) returns(FriendApplyResponse);
+
+	  rpc friendAllApplyRequest(FriendAllApplyRequest) returns(FriendAllApplyResponse);
+
+	  rpc friendAgreeApplyRequest(FriendAgreeApplyRequest) returns(FriendAgreeApplyResponse);
+
+	  rpc friendAllAgreeApplyRequest(FriendAllAgreeApplyRequest) returns(FriendAllAgreeApplyResponse);
+
+	  rpc friendRefuceApplyRequest(FriendRefuceApplyRequest) returns(FriendRefuceApplyResponse);
+
+	  rpc friendAllRefuceApplyRequest(FriendAllRefuceApplyRequest) returns(FriendAllRefuceApplyResponse);
+		// 删除好友
+	  rpc friendDeleteRequest(FriendDeleteRequest) returns(FriendDeleteResponse);
+
+	  rpc friendDeleteChouRenRequest(FriendDeleteChouRenRequest) returns(FriendDeleteChouRenResponse);
+
+	  rpc friendAllDeleteChouRenRequest(FriendAllDeleteChouRenRequest) returns(FriendAllDeleteChouRenResponse);
+
+	  rpc friendAddChouRenRequest(FriendAddChouRenRequest) returns(FriendAddChouRenResponse);
+		// 添加好友
+	  rpc addFriendInfoRequest(AddFriendInfoRequest) returns(AddFriendInfoResponse);
+		// 查询玩家
+	  rpc queryPlayerNameRequest(QueryPlayerNameRequest) returns(QueryPlayerNameResponse);
+
+	  rpc concernFriendRequest(ConcernFriendRequest) returns(ConcernFriendResponse);
+
+	  rpc concernAllFriendRequest(ConcernAllFriendRequest) returns(ConcernAllFriendResponse);
+
+	  rpc friendMessageListRequest(FriendMessageListRequest) returns(FriendMessageListResponse);
+
+	  rpc deleteAllFriendMessageRequest(DeleteAllFriendMessageRequest) returns(DeleteAllFriendMessageResponse);
+
+	  rpc deleteBlackListRequest(DeleteBlackListRequest) returns(DeleteBlackListResponse);
+
+	  rpc deleteAllBlackListRequest(DeleteAllBlackListRequest) returns(DeleteAllBlackListResponse);
+
+	  rpc addBlackListRequest(AddBlackListRequest) returns(AddBlackListResponse);
+
+	  rpc getSocialInfoRequest(GetSocialInfoRequest) returns(GetSocialInfoResponse);
+
+	  rpc getShopItemListRequest(GetShopItemListRequest) returns(GetShopItemListResponse);
+
+	  rpc exchangeFriendShopItemRequest(ExchangeFriendShopItemRequest) returns(ExchangeFriendShopItemResponse);
+
+	  //获取联系人列表 请求
+	  rpc getRecentChatListRequest(GetRecentChatListRequest) returns(GetRecentChatListResponse);
+
+	  // 获取好友聊天记录
+	  rpc getChatMsgRequest(GetChatMsgRequest) returns(GetChatMsgResponse);
+
+	  //删除好友聊天记录
+	  rpc rmChatMsgRequest(RmChatMsgRequest) returns(RmChatMsgResponse);
+}
+
+

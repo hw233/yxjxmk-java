@@ -1,0 +1,343 @@
+//***************************************************************************
+//* 作者= wht
+//* 创建时间= 2017-04-15
+//* 用途= 5v5数据
+//***************************************************************************/
+package pomelo.five2five;
+
+import 'common.proto';
+
+//打开5v5界面请求
+message Five2FiveRequest {
+}
+
+//5v5排行信息
+message Five2FiveRankInfo {
+	optional string playerId = 1; //玩家ID
+	optional string playerName = 2; //玩家名称
+	optional int32 playerLvl = 3; //玩家等级
+	optional int32 pro = 4; //职业
+	optional int32 playerUpLvl = 5; //玩家进阶等级
+	optional int32 playerFightPower = 6; //玩家战斗力
+	optional int32 score = 7; //积分
+}
+
+//5v5匹配时间
+message Five2FiveMatchTime {
+	optional int32 avgWaitTime = 1; //平均等待时间(若没有匹配则该值与后面值为0)
+	optional int32 matchTime = 2; //开始匹配的时间
+}
+
+//打开5v5界面响应
+message Five2FiveResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+	optional Five2FiveRankInfo firstRankInfo = 3; //排名第一的玩家信息
+	optional int32 score = 4; //积分
+	optional int32 rank = 5; //排名
+	optional int32 win = 6; //胜利场数
+	optional int32 tie = 7; //平局场数
+	optional int32 fail = 8; //失败场数
+	optional int32 mvp = 9; //mvp次数
+	optional int32 totalCanReciveCount = 10; //当天战斗的次数
+	optional int32 hasRecivedCount = 11; //已经领取奖励的次数
+	optional Five2FiveMatchTime five2FiveMatchTime = 12;
+	optional int32 matchPeople = 13; //正在匹配的人数
+	optional string seasonEndTime = 14;//结束时间
+}
+
+//查看战报请求
+message Five2FiveLookBtlReportRequest {
+}
+
+//战报信息
+message Five2FiveBtlReport {
+	optional int32 status = 1; //状态(1-胜 2-负 3-平)
+	optional int32 scoreChange = 2; //积分变化
+	optional int32 killCount = 3; //击杀个数
+	optional int32 hurt = 4; //伤害
+	optional int32 treatMent = 5; //治疗
+	optional string createTime = 6; //创建时间(YYYY/MM/dd)
+}
+
+//查看战报响应
+message Five2FiveLookBtlReportResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+	repeated Five2FiveBtlReport br = 3; //战报
+}
+
+//请求匹配
+message Five2FiveMatchRequest {
+	required int32 matchOrReMatch=1;//匹配或者重新匹配(1匹配2重新匹配)
+}
+
+//匹配返回
+message Five2FiveMatchResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+	optional Five2FiveMatchTime five2FiveMatchTime = 3;
+}
+
+//拒绝5v5匹配
+message Five2FiveRefuseMatchRequest {
+}
+
+//拒绝5v5匹配响应
+message Five2FiveRefuseMatchResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+}
+
+//同意5v5匹配
+message Five2FiveAgreeMatchRequest {
+}
+
+//同意5v5响应
+message Five2FiveAgreeMatchResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+}
+
+//取消匹配
+message Five2FiveCancelMatchRequest {
+}
+
+//取消匹配响应
+message Five2FiveCancelMatchResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+}
+
+//准备就绪
+message Five2FiveReadyRequest {
+	required string tempTeamId = 1; //临时组队的ID
+}
+
+//准备就绪响应
+message Five2FiveReadyResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+}
+
+//领取奖励请求
+message Five2FiveReciveRewardRequest {
+}
+
+//领取奖励响应
+message Five2FiveReciveRewardResponse {
+	required int32 s2c_code = 1; //状态(1成功、0失败)
+	optional string s2c_msg = 2;
+}
+
+// 离开场景
+message Five2FiveLeaveAreaRequest {
+}
+
+// 离开场景响应
+message Five2FiveLeaveAreaResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//每个人的战斗信息
+message Five2FivePlayerResultInfo {
+	required string playerId = 1;
+	required int32 killCount = 3; //击杀个数
+	required int32 hurt = 4; //伤害
+	required int32 treatMent = 5; //治疗
+	required int32 isMvp = 6; //是否MVP
+	required string playerName = 7; //玩家名字
+	required int32 playerLevel = 8; //玩家等级
+	required int32 playerPro = 9; //玩家职业
+	required int32 deadCount = 10; //死亡次数
+}
+
+//请求查看比赛结果
+message Five2FiveLookMatchResultRequest {
+	required string instanceId = 1;
+}
+
+//查看比赛结果
+message Five2FiveLookMatchResultResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated Five2FivePlayerResultInfo resultInfoA = 3;
+	repeated Five2FivePlayerResultInfo resultInfoB = 4;
+	optional int32 resultA = 5; //A队胜负结果(1-胜 2-负 3-平)
+}
+
+//分享比赛战报
+message Five2FiveShardMatchResultRequest {
+	required string instanceId = 1; //比赛结果唯一ID
+}
+
+//分享比赛战报响应
+message Five2FiveShardMatchResultResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//队伍成员变化队长选择(继续队列OR重新匹配)
+message Five2FiveTeamChangeContinueRequest {
+	required int32 choice = 1; //1继续队列2重新匹配
+}
+
+//玩家匹配信息
+message Five2FiveMatchMemberInfo {
+	required string playerId = 1;
+	required int32 playerPro = 2;
+	required int32 playerLvl = 3;
+	required string playerName = 4;
+	required int32 readyStatus = 5;//1拒绝2同意
+}
+
+//推送请求进入5v5
+message Five2FiveApplyMatchPush {
+	repeated Five2FiveMatchMemberInfo five2FiveMatchMemberInfo = 1;
+	required int32 waitResponseTimeSec = 2; //等待用户回应的时间秒数
+}
+
+//推送匹配到的玩家
+message Five2FiveMatchMemberInfoPush {
+	required int32 s2c_code = 1;
+	required string tempTeamId = 2; //临时组队的ID
+	repeated Five2FiveMatchMemberInfo matchTeamInfoA = 3; //客户端根据玩家ID判断队友还是对手
+	repeated Five2FiveMatchMemberInfo matchTeamInfoB = 4; //客户端根据玩家ID判断队友还是对手
+	required int32 waitResponseTimeSec = 5; //等待用户回应的时间秒数
+}
+
+//推送队友的选择(放弃、准备就绪)
+message Five2FiveMemberChoicePush {
+	required int32 s2c_code = 1;
+	required int32 agreeOrReady=2;//同意匹配类型或者准备就绪进入1、同意匹配2、准备就绪类型
+	required string playerId = 3;
+	required int32 choice = 4; //1放弃、2准备就绪
+}
+
+//战斗结果
+message Five2FiveGameResult {
+	required int32 result = 1; // 1-胜 2-负 3-平
+	required int32 newScore = 2; // 修改 新增积分
+	required int32 currScore = 3; // 新增 当前积分
+	required int32 mvpCount = 4; //修改 mvp次数
+	required int32 rankChange = 5; //新增 排名变化
+	required string instanceId = 6; //比赛结果唯一ID
+	required int32 currRank = 7; //当前排名
+}
+
+// 全场结束
+message Five2FiveOnGameEndPush {
+	required int32 s2c_code = 1;
+	required Five2FiveGameResult s2c_gameResult = 2;
+	required int32 s2c_gameOverTime = 3; // 玩家离开场景倒计时
+	repeated Five2FivePlayerResultInfo resultInfoA = 4;
+	repeated Five2FivePlayerResultInfo resultInfoB = 5;
+}
+
+// 有新奖励
+message Five2FiveOnNewRewardPush {
+	required int32 s2c_code = 1;
+}
+
+// 无可领取奖励
+message Five2FiveOnNoRewardPush {
+	required int32 s2c_code = 1;
+}
+
+//匹配失败
+message Five2FiveMatchFailedPush {
+	required int32 s2c_code = 1; //1、重新匹配2、需要重新点击匹配
+	optional Five2FiveMatchTime five2FiveMatchTime = 2;
+}
+
+//玩家索引信息
+message Five2FiveIndexInfo {
+	optional string playerId = 1; //玩家ID
+	optional string playerName = 2; //玩家名称
+}
+
+//取消匹配推送
+message Five2FiveLeaderCancelMatchPush {
+	required int32 s2c_code = 1;
+}
+
+//队伍成员发生变化推送
+message Five2FiveTeamChangePush {
+	required int32 s2c_code = 1;
+}
+
+//匹配队列发生变化推送
+message Five2FiveMatchPoolChangePush {
+	required int32 s2c_code = 1;
+	required int32 pre_number = 2; //前方有多少人
+}
+
+//请求进入匹配队列结果推送
+message Five2FiveApplyMatchResultPush {
+	required int32 s2c_code = 1;
+	optional Five2FiveMatchTime five2FiveMatchTime = 2; //匹配时间
+}
+
+//5V5处理器
+service five2FiveHandler {
+	//请求5v5界面
+	rpc five2FiveRequest (Five2FiveRequest) returns (Five2FiveResponse);
+	//查看战报信息
+	rpc five2FiveLookBtlReportRequest (Five2FiveLookBtlReportRequest) returns
+	(Five2FiveLookBtlReportResponse);
+	//请求匹配
+	rpc five2FiveMatchRequest (Five2FiveMatchRequest) returns
+	(Five2FiveMatchResponse);
+	//拒绝进入5v5匹配
+	rpc five2FiveRefuseMatchRequest (Five2FiveRefuseMatchRequest) returns
+	(Five2FiveRefuseMatchResponse);
+	//同意进入5v5匹配
+	rpc five2FiveAgreeMatchRequest (Five2FiveAgreeMatchRequest) returns
+	(Five2FiveAgreeMatchResponse);
+	//取消匹配(废弃不用了)
+	rpc five2FiveCancelMatchRequest (Five2FiveCancelMatchRequest) returns
+	(Five2FiveCancelMatchResponse);
+	//准备就绪
+	rpc five2FiveReadyRequest (Five2FiveReadyRequest) returns
+	(Five2FiveReadyResponse);
+	//离开5v5战场
+	rpc five2FiveLeaveAreaRequest (Five2FiveLeaveAreaRequest) returns
+	(Five2FiveLeaveAreaResponse);
+	//领取奖励
+	rpc five2FiveReciveRewardRequest (Five2FiveReciveRewardRequest) returns
+	(Five2FiveReciveRewardResponse);
+	//请求查看比赛结果
+	rpc five2FiveLookMatchResultRequest (Five2FiveLookMatchResultRequest) returns
+	(Five2FiveLookMatchResultResponse);
+	//分享比赛结果
+	rpc five2FiveShardMatchResultRequest (Five2FiveShardMatchResultRequest) returns
+	(Five2FiveShardMatchResultResponse);
+}
+
+//5v5消息推送
+service five2FivePush {
+//推送请求进入5v5
+	rpc five2FiveApplyMatchPush(Five2FiveApplyMatchPush) returns (Void);
+	//推送匹配到的成员信息
+	rpc five2FiveMatchMemberInfoPush (Five2FiveMatchMemberInfoPush) returns (Void);
+	//推送队友选择
+	rpc five2FiveMemberChoicePush (Five2FiveMemberChoicePush) returns (Void);
+	// 推送全场结束
+	rpc five2FiveOnGameEndPush (Five2FiveOnGameEndPush) returns (Void);
+	// 推送有新奖励
+	rpc five2FiveOnNewRewardPush (Five2FiveOnNewRewardPush) returns (Void);
+	// 推送没有奖励
+	rpc five2FiveOnNoRewardPush (Five2FiveOnNoRewardPush) returns (Void);
+	//匹配失败
+	rpc five2FiveMatchFailedPush (Five2FiveMatchFailedPush) returns (Void);
+	//取消匹配
+	rpc five2FiveLeaderCancelMatchPush (Five2FiveLeaderCancelMatchPush) returns
+	(Void);
+	//队伍成员发送变化
+	rpc five2FiveTeamChangePush (Five2FiveTeamChangePush) returns (Void);
+	//匹配队列发生变化
+	rpc five2FiveMatchPoolChangePush (Five2FiveMatchPoolChangePush) returns (Void);
+	//推送匹配时间
+	rpc five2FiveApplyMatchResultPush (Five2FiveApplyMatchResultPush) returns (Void);
+}

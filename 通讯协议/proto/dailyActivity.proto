@@ -1,0 +1,28 @@
+//***************************************************************************
+//* 作者= jjjr
+//* 创建时间= 2017-04-11
+//* 用途= 日常活动结构体
+//***************************************************************************
+package pomelo.dailyActivity;
+
+import 'item.proto';
+
+// 日常活动信息
+message DailyInfo {
+	required int32 id = 1; // 活动id
+	optional int32 cur_num = 2; // 当前完成次数
+	optional int32 max_num = 3; // 每日可参与最大次数（0 表示不限）
+	optional int32 perDegree = 4; // 每次活跃度
+	optional int32 lvLimit = 5; // 等级限制
+	optional string openPeriod = 6; // 开始时间段
+	optional int32 isOver = 7; // 0：不在时间段 1：正在进行中 2：已结束
+	repeated item.ItemDetail awardItem = 8; // 奖励道具
+}
+
+// 活跃度奖励
+message DegreeInfo {
+	required int32 id = 1; // 活跃度id
+	optional int32 needDegree = 2; // 所需活跃度
+	optional int32 state = 3; // 领取状态 0 ：未达到  1：可领取 2：已领取
+	repeated item.ItemDetail awardItem = 4; // 奖励道具
+}

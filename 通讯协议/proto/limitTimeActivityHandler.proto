@@ -1,0 +1,36 @@
+//***************************************************************************
+//* 作者= 于洋
+//* 创建时间= 2016-10-25
+//* 用途= 限时活动
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+
+message ActivityInfo {
+	required int32 id = 1;
+	required int32 isOpen = 2;
+}
+
+message GetLimitTimeActivityInfoRequest {
+	
+}
+
+message GetLimitTimeActivityInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated ActivityInfo s2c_ltActivity = 3;
+}
+
+service limitTimeActivityHandler {
+	rpc getLimitTimeActivityInfoRequest(GetLimitTimeActivityInfoRequest) returns(GetLimitTimeActivityInfoResponse);
+}
+
+message LTActivityInfoPush {
+	required int32 s2c_code = 1;
+	repeated ActivityInfo s2c_ltActivity = 2;
+}
+
+service limitTimeActivityPush {
+	rpc ltActivityInfoPush(LTActivityInfoPush) returns(Void);
+}

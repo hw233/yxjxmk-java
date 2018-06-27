@@ -1,0 +1,6 @@
+[
+	[ "伪随机组", "初始几率", "伪随机每次增加", "伪随机后减少" ],
+	[ "GroupID", "Initial", "RamAdd", "RamRed" ],
+	[ "NUMBER", "NUMBER", "NUMBER", "NUMBER" ],
+	[ 100, 0, 1, 150 ]
+]

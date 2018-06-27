@@ -1,0 +1,55 @@
+//**************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-4-11
+//* 用途= 日常活动协议
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import "dailyActivity.proto";
+
+// 获取日常活动列表   （请求）
+message DailyActivityRequest {
+
+}
+
+// 获取日常活动列表  （返回）
+message DailyActivityResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated dailyActivity.DailyInfo s2c_dailyLs = 3;  			// 活动列表
+	optional int32 s2c_totalDegree = 4;				 			// 总活跃度
+	repeated dailyActivity.DegreeInfo s2c_degreeLs = 5;			// 活跃度奖励列表
+	optional int32 s2c_weekIndex = 6;				 			// 今天星期几
+}
+
+// 领取活跃度奖励  （请求）
+message GetDegreeRewardRequest{
+	required int32 id = 1;
+}
+
+// 领取活跃度奖励  （返回）
+message GetDegreeRewardResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 id = 3;
+    optional int32 s2c_state = 4;    // 奖励领取后状态
+}
+
+
+
+service dailyActivityHandler {
+	// 获取日常活动列表
+	rpc dailyActivityRequest (DailyActivityRequest) returns (DailyActivityResponse);
+	// 领取活跃度奖励
+	rpc getDegreeRewardRequest (GetDegreeRewardRequest) returns (GetDegreeRewardResponse);
+}
+
+message UpdateActivityPush {
+	repeated dailyActivity.DailyInfo s2c_dailyLs = 1;  			// 刷新活动列表
+	optional int32 s2c_totalDegree = 2;				 			// 总活跃度
+	repeated dailyActivity.DegreeInfo s2c_degreeLs = 3;			// 活跃度奖励列表
+}
+
+service dailyActivityPush {
+	rpc updateActivityPush(UpdateActivityPush) returns(Void);
+}

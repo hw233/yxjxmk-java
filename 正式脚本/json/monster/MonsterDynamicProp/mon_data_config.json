@@ -1,0 +1,9 @@
+[
+	[ "参数名", "参数值" ],
+	[ "ParamName", "ParamValue" ],
+	[ "STRING", "FLOAT" ],
+	[ "Mon_Hp_Ratio", 1.2 ],
+	[ "Mon_Atk_Ratio", 1.2 ],
+	[ "LevelPoint", 600 ],
+	[ "DefRatio", 1.2 ]
+]

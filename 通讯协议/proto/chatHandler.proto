@@ -1,0 +1,87 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 聊天处理器
+//***************************************************************************
+package pomelo.chat;
+
+import 'common.proto';
+
+message SendChatRequest {
+	required int32 c2s_scope = 1;
+	required string c2s_content = 2;
+	optional string c2s_serverData = 3;
+	optional string c2s_acceptRoleId = 4;
+}
+
+message SendChatResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//message GetChatServerIdRequest {
+//}
+//
+//message GetChatServerIdResponse {
+//  required int32 s2c_code = 1;
+//  required string s2c_serverId = 2;
+//  required string s2c_clientHttp = 3;
+//  optional string s2c_msg = 4;
+//}
+
+// 聊天保存消息
+message GetSaveChatMsgRequest {
+  required int32 c2s_scope = 1;  //频道
+  required int32 c2s_index = 2;  //消息index
+  optional string c2s_uid = 3;
+}
+
+message OnChatPush {
+  required string s2c_playerId = 2;
+  required string s2c_uid = 3;
+  required string s2c_content = 4;
+  required int32 s2c_scope = 5;
+  optional string s2c_time = 6;
+  optional int32 s2c_sys= 7;     //消息的种类 1-系统 2-喇叭
+  optional int32 s2c_index = 8;  //标志这一条消息
+  optional string s2c_serverData = 9;
+  optional string s2c_acceptRid = 10;// (私聊) 接受者id
+}
+
+message GetSaveChatMsgResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated OnChatPush s2c_data = 3;
+}
+
+message OnChatErrorPush  {
+  required int32 s2c_code = 1;
+  required string s2c_msg = 2;
+}
+
+// 提示信息
+message TipPush {
+  required string s2c_msg = 2;
+  required int32 s2c_type = 3;  // 0 普通飘字, 1 新增的飘字
+}
+
+//聊天处理器
+service chatHandler {
+
+  rpc sendChatRequest (SendChatRequest) returns (SendChatResponse);
+
+//  rpc getChatServerIdRequest(GetChatServerIdRequest) returns(GetChatServerIdResponse);
+
+  rpc getSaveChatMsgRequest(GetSaveChatMsgRequest) returns(GetSaveChatMsgResponse);
+
+}
+
+service chatPush{
+
+  rpc onChatPush(OnChatPush) returns(Void);
+
+  rpc onChatErrorPush(OnChatErrorPush) returns(Void);
+
+  rpc tipPush(TipPush) returns(Void);
+}
+

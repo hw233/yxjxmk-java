@@ -1,0 +1,207 @@
+//***************************************************************************
+// 作者= 卢松洁
+// 创建时间= 2015-08-27
+// 用途= 任务处理器
+//***************************************************************************
+package pomelo.area;
+import 'task.proto';
+import 'common.proto';
+
+// 接受任务请求
+message AcceptTaskRequest {
+  required int32 c2s_templateId = 1;    //任务模版id
+  required int32 c2s_kind = 2;
+  required string c2s_npcId = 3;            //不需要npc的时候发0
+}
+
+// 接受任务返回
+message AcceptTaskResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 花钱快速完成任务
+message QuickFinishRequest {
+  required int32 c2s_templateId = 1;
+  required int32 c2s_kind = 2;
+  required string c2s_npcId = 3;
+}
+
+message QuickFinishResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 放弃任务请求
+message DiscardTaskRequest {
+  required int32 c2s_templateId = 1;
+  required int32 c2s_kind = 2;
+}
+
+// 放弃任务返回
+message DiscardTaskResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 提交任务请求
+message SubmitTaskRequest {
+  required int32 c2s_templateId = 1;
+  required int32 c2s_kind = 2;
+  required int32 c2s_double = 3;  // 是否多倍提交任务
+  required string c2s_npcId = 4;
+}
+
+// 提交任务返回
+message SubmitTaskResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message UpdateTaskStatusRequest {
+  required int32 c2s_templateId = 1;
+  required int32 c2s_kind = 2;
+}
+
+message UpdateTaskStatusResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 刷新炼魂任务法器请求
+message RefreshSoulTaskRequest {
+   required int32 c2s_taskId = 1;
+}
+
+// 刷新炼魂任务法器返回
+message RefreshSoulTaskResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message GetDailySoulFinNumRequest{
+}
+
+message GetDailySoulFinNumResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  required int32 s2c_num = 3;
+}
+
+message TaskFuncDeskRequest{
+  required string c2s_ncpId = 1;
+}
+
+message TaskFuncDeskResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 接受一条龙任务请求
+message AcceptLoopTaskRequest {
+  required string c2s_npcId = 1;
+}
+
+// 接受一条龙任务返回
+message AcceptLoopTaskResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 接受师门任务请求
+message AcceptDailyTaskRequest {
+  required string c2s_npcId = 1;
+}
+
+// 接受师门任务返回
+message AcceptDailyTaskResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message CjPlayEndNotify {
+	optional string s2c_msg = 1;
+}
+
+// 挖宝达到路点请求
+message ReachTreasurePointRequest {
+  required int32 point = 1;  // 路点
+}
+
+// 挖宝达到路点返回
+message ReachTreasurePointResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//任务处理器
+service taskHandler {
+  // 接受任务
+  rpc acceptTaskRequest(AcceptTaskRequest) returns(AcceptTaskResponse);
+
+  // 快速完成任务
+  rpc quickFinishRequest(QuickFinishRequest) returns(QuickFinishResponse);
+
+  // 放弃任务
+  rpc discardTaskRequest(DiscardTaskRequest) returns(DiscardTaskResponse);
+
+  // 提交任务
+  rpc submitTaskRequest(SubmitTaskRequest) returns(SubmitTaskResponse);
+
+  rpc updateTaskStatusRequest(UpdateTaskStatusRequest) returns(UpdateTaskStatusResponse);
+
+   // 练魂刷法器
+  rpc refreshSoulTaskRequest(RefreshSoulTaskRequest) returns(RefreshSoulTaskResponse);
+
+  //今日炼魂完成次数
+  rpc getDailySoulFinNumRequest(GetDailySoulFinNumRequest) returns(GetDailySoulFinNumResponse);
+
+  rpc taskFuncDeskRequest(TaskFuncDeskRequest) returns(TaskFuncDeskResponse);
+
+  // 接受一条龙任务
+  rpc acceptLoopTaskRequest(AcceptLoopTaskRequest) returns(AcceptLoopTaskResponse);
+
+  // 接受师门任务
+  rpc acceptDailyTaskRequest(AcceptDailyTaskRequest) returns(AcceptDailyTaskResponse);
+  
+  // 演绎播放完毕, 通知服务器,转发给战斗服
+  rpc cjPlayEndNotify(CjPlayEndNotify) returns(Void);
+
+  // 挖宝达到路点
+  rpc reachTreasurePointRequest(ReachTreasurePointRequest) returns(ReachTreasurePointResponse);
+}
+
+// 任务更新push
+message TaskUpdatePush {
+  optional task.Tasks s2c_data = 2;
+}
+
+message TaskAutoPush {
+  required int32 auto = 1; // 0:手动, 1:自动
+}
+
+message TreasureScenePointPush {
+  required int32 sceneId = 1; // 场景ID
+  required int32 point = 2;  // 路点
+  required int32 taskId = 3;  // 任务ID
+}
+
+message LoopResultPush {
+  required int32 times = 1; // 当日完成次数
+  required int32 exp = 2; // 本轮经验收益
+  required int32 gold = 3; // 本轮银两收益
+  required int32 upexp = 4; // 本轮修为收益
+  required int32 xianyuan = 5; // 本轮仙缘值收益
+  required int32 chest_count = 6; // 本轮获得宝箱数量
+}
+
+//任务消息推送
+service taskPush {
+  rpc taskUpdatePush(TaskUpdatePush) returns(Void);
+  // 任务自动流程变更通知
+  rpc taskAutoPush(TaskAutoPush) returns (Void);
+  // 挖宝场景路点推送
+  rpc treasureScenePointPush(TreasureScenePointPush) returns(Void);
+  // 皓月镜结算推送
+  rpc loopResultPush(LoopResultPush) returns(Void);
+}

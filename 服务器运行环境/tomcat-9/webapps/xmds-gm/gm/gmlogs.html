@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>玩家反馈</title>
+<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css" />
+<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	$(function(){
+		logs();
+	})
+	function logs() {
+		$('#gmlogs').datagrid({
+			iconCls:'icon-edit',
+			nowrap: false,
+            title: "GM日志",
+			striped: true,
+			fit: true,
+			singleSelect:true,
+			url : '../action/gmlogs',
+			queryParams:{ type : '1141'},
+			columns:[[
+	            {field:'uname',title:'GM',width:80, align:"center"},
+				{field:'ip',title:'IP',width:130, align:"center"},
+				{field:'content',title:'内容',width:500, align:"center"},
+				{field:'result',title:'操作结果',width:80, align:"center"},
+				{field : 'createTime',title : '操作时间',width : 130,align : "center"}, 
+				{field : 'op', title : '操作码', width : 80, align : "center" }, 
+				{field : 'type', title : '操作类型', width : 80, align : "center",
+	                 formatter: function(a) {
+	                	switch(a) {
+							case 1: return "LOGIN";
+							case 2: return "LOGOUT";
+							case 3: return "LOAD";
+							case 4: return "EXECUTE";
+							case 5: return "TABLE";
+							case 6: return "CDKEY";
+							case 7: return "IP";
+							return "UNKNOWN";
+						}
+					}
+				}
+			]],
+			pagination : true,
+			pageSize : 20,
+			pageList : [ 20, 30, 40, 50, 80 ],
+			rownumbers : true
+		});
+	}
+</script>
+</head>
+<body>
+  <table id="gmlogs"></table>
+</body>
+</html>

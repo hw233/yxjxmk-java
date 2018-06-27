@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>IP白名单</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css" />
+	<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript">
+		var __data = "";
+		function cancel() {
+			$("#ips").attr('value', __data);
+	    	$("#ips")[0].focus();
+		}
+		function ok() {
+			$.ajax({
+				url: "../action/ips?data="+encodeURI($("#ips").val()),
+			    type: "POST",
+			    timeout: 5000,
+			    success: function(data) {
+			    	__data = data;
+					parent.showTip("保存", "白名单已重置！");
+					cancel();
+			    }
+			});
+		}
+		function loadIps(){
+			$.ajax({
+				url: "../action/loadIps",
+			    type: "POST",
+			    timeout: 5000,
+			    success: function(data) {
+			    	__data = data;
+			    	if(__data) {
+			    		cancel();
+			    	} else {
+			    		parent.showTip("白名单", "暂未定义白名单！");
+			    	}
+			    }
+			});
+		}
+		function reloadServers(){
+			$.ajax({
+				url: "../action/reloadServers",
+			    type: "POST",
+			    timeout: 5000,
+			    success: function(data) {
+			    	parent.showTip("服务列表", "已重新加载 -> " + data + "个服务器");
+			    	parent.servers.buildTree();
+			    }
+			});
+		}
+	</script>
+</head>
+<body style="width:500px;" class="container">
+		<div style="float: right; margin-right: 50px; padding-top: 15px;">
+			<input class="btn btn-primary" type="button" value="重新加载服务器列表" style="width:200px;height:30px;"onclick="javascript:reloadServers()"></input>
+		</div>
+		<div style="margin-left:15px;padding-top: 60px;">
+			<textarea id="ips" style="width: 450px; height: 300px;"></textarea>
+		</div>
+		<div style="float: right; margin-right: 50px">
+			<input class="btn btn-primary" type="button" value="载入IP白名单" style="width:111px;height:30px;"onclick="javascript:loadIps()"></input>
+			<input class="btn btn-success" type="button" value="更 新" style="width: 100px; height: 30px;" onclick="javascript:ok()"></input>
+			<input class="btn btn-danger" type="button" value="重 置" style="width: 100px; height: 30px;" onclick="javascript:cancel()"></input>
+		</div>
+</body>
+</html>

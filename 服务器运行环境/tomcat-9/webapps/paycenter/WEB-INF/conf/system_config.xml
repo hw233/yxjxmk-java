@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="GB2312"?>
+<urls>	<!-- 是否同步给BI服务器 Y就是通知，N及其他不通知 -->
+	<is_sync_bi>Y</is_sync_bi>	<!-- BI服务器地址 -->	<bi_url>http://127.0.0.1:8034/syscenter/sys/notify.jsp</bi_url>	<!-- 验证ios订单地址 -->
+	<ios_chenck_url>https://buy.itunes.apple.com/verifyReceipt</ios_chenck_url>
+</urls>

@@ -1,0 +1,54 @@
+//***************************************************************************
+//* 用途= 积分商城
+//***************************************************************************
+package pomelo.area;
+
+message IntergalMallItem{
+    required int32 id = 1;
+    required string code = 2;
+    optional int32 lastcount = 3;  // 剩余数量: -1:无限制
+    optional int64 countdown = 4; // 倒计时
+}
+
+message IntergalMallTab {
+    required int32 tabId = 1; // 商城标签ID
+    repeated IntergalMallItem items = 2; // 商城物品
+    optional int32 currencyNum = 3;// 货币数量
+}
+
+
+message GetIntergalMallListRequest {
+    optional int32 c2s_type = 1; // 商店类型, -1表示全部
+}
+
+message GetIntergalMallListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated IntergalMallTab s2c_tabitems = 3;
+}
+
+message BuyIntergalItemRequest {
+    optional int32 c2s_type = 1; // 商店类型, -1表示全部
+    required int32 c2s_itemId = 2;
+    optional int32 c2s_num = 3; // 购买数量
+}
+
+message BuyIntergalItemResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 lastcount = 3;   // 限购商品剩余数量 -1无限制
+    optional int32 currencyNum = 4; // 货币数量
+    optional int32 total_num = 5;   // 当前物品总数量
+}
+
+//时装处理器
+service intergalMallHandler {
+
+    // 获取商城积分道具
+    rpc getMallScoreItemListRequest(GetIntergalMallListRequest) returns(GetIntergalMallListResponse);
+
+    // 购买积分商城道具
+    rpc buyIntergalItemRequest(BuyIntergalItemRequest) returns(BuyIntergalItemResponse);
+
+}
+

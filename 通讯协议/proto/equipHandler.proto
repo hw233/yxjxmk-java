@@ -1,0 +1,564 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 装备处理器
+//***************************************************************************/
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+message EquipPos {
+  required int32 bagOrBody = 1;     //身上还是背包里
+  required int32 posOrGrid = 2;     //位置
+}
+
+message UnEquipRequest {
+  required int32 c2s_gridIndex = 1;
+}
+
+message EquipRequest {
+  required int32 c2s_gridIndex = 1;
+}
+
+message EquipPreStrengthenRequest {
+	required int32 c2s_pos = 1;
+}
+
+message EquipStrengthenRequest {
+	required int32 c2s_pos = 1;
+  optional int32 c2s_useZuan = 2; // @Deprecated
+}
+
+
+message OpenEquipHandlerRequest {
+      required int32 code = 1; 
+ }
+
+ message OpenEquipHandlerResponse {
+     required int32 s2c_code = 1;  
+     optional string s2c_msg = 2;
+ }
+
+
+message EquipStrengthenData {
+  repeated item.MiniItem costItem = 1;
+  optional int32 zuanPerCost = 2; // @Deprecated
+  optional int32 needGoldNum = 3;
+  optional int32 currentLuckyExp = 4;// @Deprecated
+  optional int32 totalLuckyExp = 5;// @Deprecated
+  optional int32 rate = 6;// @Deprecated
+  repeated AttributeSimple simpleAtts = 7;//基础属性
+}
+
+message UnEquipResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message EquipResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message EquipPreStrengthenResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional EquipStrengthenData s2c_strengthenData = 3;
+}
+
+message EquipStrengthenResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional EquipStrengthenData s2c_strengthenData = 3;
+  optional int32 s2c_success = 4; //强化是否成功 1 成功 0 失败
+}
+
+
+//请求附魔
+message EnchantEquipRequest {
+  required int32 c2s_pos = 1;
+  required int32 c2s_gridIndex = 2; //图纸模版id
+  required int32 c2s_diamond = 3;  //是否钻石补足,1-补足,0-不补足
+}
+
+message EnchantEquipResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated AttributeBase s2c_magicAtts = 3;
+}
+
+//确认附魔
+message ConfirmEnchantEquipRequest {
+  required int32 c2s_pos = 1;
+}
+
+message ConfirmEnchantEquipResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message IdentifyEquipRequest {
+  required int32 c2s_gridIndex = 1;
+}
+
+message IdentifyEquipResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//精炼
+message RefineEquipRequest {
+    required int32 c2s_pos = 1; //装备穿着位置
+    required string c2s_itemCode = 2; //选择材料
+}
+
+message RefineEquipResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//一键精炼
+message RefineOneKeyRequest {
+     required int32 c2s_pos = 1; //装备穿着位置
+     required string c2s_itemCode = 2; //选择材料
+ }
+
+ message RefineOneKeyResponse {
+     required int32 s2c_code = 1;
+     optional string s2c_msg = 2;
+ }
+
+ //重置精炼属性
+ message RefineResetRequest {
+    required int32 c2s_pos = 1; //装备穿着位置
+    required int32 c2s_propIndex = 2; //精炼属性下标索引
+ }
+
+ message RefineResetResponse {
+     required int32 s2c_code = 1;
+     optional string s2c_msg = 2;
+ }
+
+//装备制作
+message EquipMakeRequest {
+    required string c2s_targetCode = 1; //打造的目标代码
+}
+
+message EquipMakeResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//装备升级
+message EquipLevelUpRequest{
+    required EquipPos c2s_equipPos = 1; //装备位置
+    required int32 c2s_mateType = 2; //使用材料类型 1:使用装备升级 2:使用材料升级
+}
+
+message EquipLevelUpResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+//装备提升品质等级
+message EquipColorUpRequest{
+    required EquipPos c2s_equipPos = 1;
+}
+
+message EquipColorUpResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 镶嵌宝石
+message FillGemRequest {
+  required int32 c2s_pos = 1;       // 装备pos
+  required int32 c2s_index = 2;     // 宝石孔pos
+  required int32 c2s_gridIndex = 3;     // 宝石在背包中中的index
+}
+
+message FillGemResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_index = 3; // 当前镶嵌的位置
+}
+
+// 一键镶嵌宝石
+message FillAllGemRequest {
+  required int32 c2s_pos = 1;       // 装备pos
+}
+
+message FillAllGemResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 卸载某个孔的宝石
+message UnFillGemRequest {
+   required int32 c2s_pos = 1;       // 装备pos
+   required int32 c2s_index = 2;     // 宝石孔pos
+}
+
+message UnFillGemResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 卸载所有宝石
+message UnFillAllGemRequest {
+   required int32 c2s_pos = 1;       // 装备pos
+}
+
+message UnFillAllGemResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message SuitAttr {
+  optional int32 level = 1;         //等级
+  optional int32 advanced = 2;      //进阶
+  required int32 qColor = 3;
+  repeated AttributeBase attrs = 4;
+}
+
+message SuitTypeAttr {
+  required int32 type = 1;
+  optional SuitAttr attr = 2;
+}
+
+message SuitAttrSort {
+  optional int32 level = 1;
+  optional int32 advanced = 2;
+  repeated SuitAttr attr = 3;
+}
+
+// 玩家套装属性界面
+message GetSuitAttrRequest {
+}
+
+message GetSuitAttrResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated SuitTypeAttr s2c_data = 3;
+}
+
+message GetSuitDetailRequest {
+  required int32 c2s_suitType = 1;
+}
+
+message GetSuitDetailResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated SuitAttrSort s2c_data = 3;
+}
+
+// 获取传承的信息,这里主要是能否附魔
+message GetInheritInfoRequest {
+  required EquipPos c2s_inheritEquip = 1;          //可传承的装备
+  required EquipPos c2s_beiInheritEquip = 2;       //被传承的装备
+}
+
+message GetInheritInfoResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_magical = 3;  //能否传承附魔 1 可以 0 不可以
+  optional int32 s2c_gold = 4;     //金币消耗
+}
+
+// 装备传承请求
+message EquipInheritRequest {
+  required EquipPos c2s_inheritEquip = 1;          //可传承的装备
+  required EquipPos c2s_beiInheritEquip = 2;       //被传承的装备
+  optional int32 c2s_magical = 3;                  //是否传承附魔
+  optional int32 c2s_jewel = 4;                    //是否传承宝石
+  optional int32 c2s_refine = 5;                   //是否传承精炼属性
+  optional int32 c2s_isAuto = 6;                   //是否是自动传承 0：手动传承 1：自动传承
+}
+
+message EquipInheritResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+// 装备熔炼
+message EquipMeltRequest {
+    repeated int32 c2s_indexs = 1;  //  需要熔炼的装备indexs
+}
+
+message EquipMeltResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_exp = 3;
+    repeated item.MiniItem s2c_item = 4;
+}
+
+//聊天装备详情查看
+message ChatEquipDetailRequest {
+    required string c2s_id = 1;
+}
+
+message ChatEquipDetailResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   optional item.ItemDetail s2c_data = 3;
+}
+
+// 洗练请求
+message EquipRebornRequest {
+  required string equipId = 1;
+}
+
+// 洗练响应
+message EquipRebornResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 重铸请求
+message EquipRebuildRequest {
+  required string equipId = 1;
+  repeated int32 lockedAttId = 2;
+}
+
+// 重铸响应
+message EquipRebuildResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 高级重铸请求
+message EquipSeniorRebuildRequest {
+  required string equipId = 1;
+}
+
+// 高级重铸响应
+message EquipSeniorRebuildResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 精炼请求
+message EquipRefineRequest {
+  required string equipId = 1;
+  required string attrkey = 2; // 精炼的属性名
+}
+
+// 精炼响应
+message EquipRefineResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 精炼请求
+message EquipRefineLegendRequest {
+  required string equipId = 1;
+  optional string attrkey = 2; // 精炼的属性名
+}
+
+// 精炼响应
+message EquipRefineLegendResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 保存洗练请求
+message SaveRebornRequest {
+  required string equipId = 1;
+}
+
+// 保存洗练响应
+message SaveRebornResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 保存重铸请求
+message SaveRebuildRequest {
+  required string equipId = 1;
+}
+
+// 保存重铸响应
+message SaveRebuildResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+// 传承重铸装备请求
+message SmritiRequest {
+  required string letf_equipId = 1;
+  required string right_equipId = 2;
+}
+
+// 传承重铸装备响应
+message SmritiResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+// 保存高级重铸请求
+message SaveSeniorRebuildRequest {
+  required string equipId = 1;
+}
+
+// 保存高级重铸响应
+message SaveSeniorRebuildResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+// 保存精炼请求
+message SaveRefineRequest {
+  required string equipId = 1;
+  required string attrkey = 2; // 精炼的属性名
+}
+
+// 保存精炼响应
+message SaveRefineResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 保存开光请求
+message SaveRefineLegendRequest {
+  required string equipId = 1;
+  optional string attrkey = 2; // 精炼的属性名
+}
+
+// 保存开光响应
+message SaveRefineLegendResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 获取装备可能会精炼出来的随机属性集合
+message GetRefineExtPropRequest {
+  required string equipId = 1;
+}
+
+// 返回装备可能会精炼出来的随机属性集合
+message GetRefineExtPropResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated AttributeBase extAtts = 3;
+}
+
+
+//装备处理器
+service equipHandler {
+  rpc unEquipRequest(UnEquipRequest) returns(UnEquipResponse);
+
+  rpc equipRequest(EquipRequest) returns(EquipResponse);
+  
+  rpc equipPreStrengthenRequest(EquipPreStrengthenRequest) returns(EquipPreStrengthenResponse);
+
+  rpc openEquipHandlerRequest(OpenEquipHandlerRequest) returns(OpenEquipHandlerResponse);
+  
+  rpc equipStrengthenRequest(EquipStrengthenRequest) returns(EquipStrengthenResponse);
+
+  rpc enchantEquipRequest(EnchantEquipRequest) returns(EnchantEquipResponse);
+
+  rpc confirmEnchantEquipRequest(ConfirmEnchantEquipRequest) returns(ConfirmEnchantEquipResponse);
+
+  rpc identifyEquipRequest(IdentifyEquipRequest) returns(IdentifyEquipResponse);
+
+  //精炼
+  rpc refineEquipRequest(RefineEquipRequest) returns(RefineEquipResponse);
+  //一键精炼
+  rpc refineOneKeyRequest(RefineOneKeyRequest) returns(RefineOneKeyResponse);
+  //精炼属性重置
+  rpc refineResetRequest(RefineResetRequest) returns(RefineResetResponse);
+  //装备制作
+  rpc equipMakeRequest(EquipMakeRequest) returns(EquipMakeResponse);
+  //装备升级
+  rpc equipLevelUpRequest(EquipLevelUpRequest) returns(EquipLevelUpResponse);
+  //装备品质升阶
+  rpc equipColorUpRequest(EquipColorUpRequest) returns(EquipColorUpResponse);
+
+  rpc fillGemRequest(FillGemRequest) returns(FillGemResponse);
+
+  rpc fillAllGemRequest(FillAllGemRequest) returns(FillAllGemResponse);
+
+  rpc unFillGemRequest(UnFillGemRequest) returns(UnFillGemResponse);
+
+  rpc unFillAllGemRequest(UnFillAllGemRequest) returns(UnFillAllGemResponse);
+
+  rpc getSuitAttrRequest(GetSuitAttrRequest) returns(GetSuitAttrResponse);
+
+  rpc getSuitDetailRequest(GetSuitDetailRequest) returns(GetSuitDetailResponse);
+
+  rpc getInheritInfoRequest(GetInheritInfoRequest) returns(GetInheritInfoResponse);
+
+  rpc equipInheritRequest(EquipInheritRequest) returns(EquipInheritResponse);
+
+  rpc equipMeltRequest(EquipMeltRequest) returns(EquipMeltResponse);
+
+  rpc chatEquipDetailRequest(ChatEquipDetailRequest) returns(ChatEquipDetailResponse);
+
+  // 洗练
+  rpc equipRebornRequest(EquipRebornRequest) returns(EquipRebornResponse);
+
+  // 重铸
+  rpc equipRebuildRequest(EquipRebuildRequest) returns(EquipRebuildResponse);
+  
+  // 高级重铸
+  rpc equipSeniorRebuildRequest(EquipSeniorRebuildRequest) returns(EquipSeniorRebuildResponse);
+
+  // 精炼
+  rpc equipRefineRequest(EquipRefineRequest) returns(EquipRefineResponse);
+
+  // 开光（精炼传奇属性)
+  rpc equipRefineLegendRequest(EquipRefineLegendRequest) returns(EquipRefineLegendResponse);
+  
+
+  // 保存洗练属性
+  rpc saveRebornRequest(SaveRebornRequest) returns(SaveRebornResponse);
+
+  // 保存重铸属性
+  rpc saveRebuildRequest(SaveRebuildRequest) returns(SaveRebuildResponse);
+
+  // 继承重铸装备
+  rpc smritiRequest(SmritiRequest) returns(SmritiResponse);
+  
+  // 保存高级重铸属性
+  rpc saveSeniorRebuildRequest(SaveSeniorRebuildRequest) returns(SaveSeniorRebuildResponse);
+
+  // 保存精炼属性
+  rpc saveRefineRequest(SaveRefineRequest) returns(SaveRefineResponse);
+
+  // 保存开光属性
+  rpc saveRefineLegendRequest(SaveRefineLegendRequest) returns(SaveRefineLegendResponse);
+
+  // 获取某件装备可能精炼出来的随机属性
+  rpc getRefineExtPropRequest(GetRefineExtPropRequest) returns(GetRefineExtPropResponse);
+}
+
+// 装备格子信息
+message EquipmentSimplePush  {
+  required int32 s2c_code = 1;
+  repeated item.Grid s2c_data = 2;
+}
+
+// 格子强化信息
+message StrengthPosPush {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated item.EquipGridStrengthInfo strengthInfos = 3;
+}
+
+message EquipInheritPush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional EquipPos s2c_sourceEquip = 3;     //可传承的源装备
+    optional EquipPos s2c_destEquip = 4;       //被传承的目标装备
+    optional int32 s2c_gold = 5;              //需要金币
+}
+  
+//装备消息推送
+service equipPush {
+  rpc equipmentSimplePush(EquipmentSimplePush) returns(Void);
+  rpc equipInheritPush(EquipInheritPush) returns(Void);
+  rpc equipStrengthPosPush(StrengthPosPush) returns(Void);
+}

@@ -1,0 +1,128 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 邮件处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+
+message MailGetAllRequest {
+}
+
+message MailReadNotify {
+  repeated string c2s_id = 1;
+}
+
+message MailSendMailRequest {
+  required string toPlayerId = 1;
+  required string mailTitle = 2;
+  required string mailText = 3;
+  required int32 mailRead = 4;
+  optional string toPlayerName = 5;
+}
+
+
+message MailGetAttachmentRequest {
+  required string c2s_id = 1;
+}
+
+message MailGetAttachmentOneKeyRequest {
+}
+
+message MailDeleteRequest {
+  required string c2s_id = 1;
+}
+
+message MailDeleteOneKeyRequest {
+}
+
+message MailSendTestNotify {
+   required int32 c2s_mailId = 1;
+   required string c2s_tcCode = 2;
+}
+
+
+message Mail {
+  required string id = 1;
+  required int32 mailId = 2;
+  required int32 mailType = 3;
+  required int32 mailIcon = 4;
+  required string mailSender = 5;
+  required string mailTitle = 6;
+  required string mailText = 7;
+  required string createTime = 8;
+  required int32 status = 9;
+  required int32 mailRead = 10;
+  required int32 hadAttach = 11;
+  repeated item.MiniItem attachment= 12;
+  optional string mailSenderId = 13;
+  repeated item.EarItemDetail itemEar = 14;
+  repeated item.ItemDetail newAttachment= 15;//新版本附件
+}
+  
+message MailGetAllResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated Mail mails = 3;
+  required int32 s2c_maxMailNum = 4;
+  required int32 s2c_maxWordNum = 5;
+}
+
+message OnGetMailPush {
+    required int32 s2c_code = 1;
+    repeated Mail mails = 2;
+}
+
+message MailSendMailResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+
+message MailDeleteResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message MailDeleteOneKeyResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated string s2c_ids = 3;
+}
+
+message MailGetAttachmentResponse  {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+  
+message MailGetAttachmentOneKeyResponse  {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated string s2c_ids = 3;
+}
+
+//邮件处理器
+service mailHandler {
+  
+  rpc mailGetAllRequest(MailGetAllRequest) returns(MailGetAllResponse);
+
+  rpc mailReadNotify(MailReadNotify) returns(Void);
+
+  rpc mailSendMailRequest(MailSendMailRequest) returns(MailSendMailResponse);
+
+  rpc mailDeleteRequest(MailDeleteRequest) returns(MailDeleteResponse);
+
+  rpc mailDeleteOneKeyRequest(MailDeleteOneKeyRequest) returns(MailDeleteOneKeyResponse);
+
+  rpc mailGetAttachmentRequest(MailGetAttachmentRequest) returns(MailGetAttachmentResponse);
+
+  rpc mailGetAttachmentOneKeyRequest(MailGetAttachmentOneKeyRequest) returns(MailGetAttachmentOneKeyResponse);
+
+  rpc mailSendTestNotify(MailSendTestNotify) returns(Void);
+}
+
+service mailPush {
+    rpc onGetMailPush(OnGetMailPush) returns(Void);
+}

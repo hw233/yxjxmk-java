@@ -1,0 +1,65 @@
+//***************************************************************************
+//* 作者= 马章勇
+//* 创建时间= 2016-6-14
+//* 用途= 功能开放处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'player.proto';
+
+message GetFunctionListRequest{
+}
+
+message GetFunctionListResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated player.FunctionInfo s2c_list = 3;
+}
+
+message SetFunctionPlayedRequest{
+    required string functionName = 1; //openLv表格Fun字段
+}
+
+message SetFunctionPlayedResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 领取功能奖励
+message ReceiveFunctionAwardRequest {
+    required int32 guide_id = 1; // Guide表里的 功能ID
+}
+
+message ReceiveFunctionAwardResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+service functionOpenHandler{
+    //请求功能列表开放情况
+    rpc getFunctionListRequest(GetFunctionListRequest) returns(GetFunctionListResponse);
+    //设置某个功能为玩过状态
+    rpc setFunctionPlayedRequest(SetFunctionPlayedRequest) returns(SetFunctionPlayedResponse);
+    // 领取功能奖励
+    rpc receiveFunctionAwardRequest(ReceiveFunctionAwardRequest) returns(ReceiveFunctionAwardResponse);
+}
+
+//推送开始
+message FunctionOpenListPush{//功能开放列表推送
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated player.FunctionInfo s2c_list = 3;
+    optional int32 s2c_isAll = 4; //0:部分更新  1:所有列表
+}
+
+// 功能开放奖励未领取的推送
+message FunctionAwardListPush{
+    repeated int32 guideIds = 1; // 未领取的奖励-功能ID
+}
+
+service functionOpenPush{
+    //功能开放列表推送
+    rpc functionOpenListPush(FunctionOpenListPush) returns(Void);
+    // 推送未领取的GuideID
+    rpc functionAwardListPush(FunctionAwardListPush) returns (Void);
+}

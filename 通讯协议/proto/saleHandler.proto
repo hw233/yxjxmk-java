@@ -1,0 +1,94 @@
+//***************************************************************************
+//* 作者= 张君俊
+//* 创建时间= 2016-01-22
+//* 用途= 购买和回购处理器
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+
+message BuyItem {
+  optional int32         typeId = 1;        // 分类ID
+  optional int32         itemId = 2;        // 编号ID
+  optional string        itemShowName = 3;  // 物品显示名称
+  optional item.MiniItem item = 4;          // 物品信息
+  optional int32         moneyType = 5;     // 货币类型 1.金币 2.金票 3.钻石
+  optional int32         needMoney = 6;     // 需要货币
+  optional int32         maxGroupCount = 7; // 最大堆叠数量 =1.不可叠加 >1.可以叠加
+}
+
+message SellGrid {
+  required int32 index = 1; // 格子索引
+  required int32 num = 2;   // 出售数量
+}
+
+// 购买界面
+message BuyPageRequest {
+  repeated int32 c2s_sellIndex = 1;
+}
+
+message BuyPageResponse {
+  required int32   s2c_code = 1;
+  optional string  s2c_msg = 2;
+  repeated BuyItem s2c_buyItems = 3; // 购买物品列表
+}
+
+// 购买
+message BuyItemRequest {
+  required int32 c2s_typeId = 1; // 分类ID
+  required int32 c2s_itemId = 2; // 编号ID
+  required int32 c2s_num = 3;    // 数量
+}
+
+message BuyItemResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 使用金币通过itemCode自动购买
+message AutoBuyItemByCodeRequest {
+  repeated int32 c2s_typeId = 1; // 分类ID
+  required string c2s_itemCode = 2; // 编号ID
+  required int32 c2s_num = 3;    // 数量
+}
+
+message AutoBuyItemByCodeResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_notEnoughGold = 3; // 是否金币不足 1:不足 0：足
+  optional int32 s2c_needGold = 4; //需要金币
+}
+
+
+// 出售
+message SellItemsRequest {
+  repeated SellGrid c2s_sellGrids = 1; // 出售列表
+}
+
+message SellItemsResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 回购
+message RebuyItemRequest {
+  required int32 c2s_gridIndex = 1; // 格子索引
+  required int32 c2s_num = 2;       // 数量
+}
+
+message RebuyItemResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+service saleHandler {
+  // 请求购买界面
+  rpc buyPageRequest(BuyPageRequest) returns(BuyPageResponse);
+  // 请求购买
+  rpc buyItemRequest(BuyItemRequest) returns(BuyItemResponse);
+  //使用金币通过itemCode自动购买
+  rpc autoBuyItemByCodeRequest(AutoBuyItemByCodeRequest) returns(AutoBuyItemByCodeResponse);
+  // 请求出售
+  rpc sellItemsRequest(SellItemsRequest) returns(SellItemsResponse);
+  // 请求回购
+  rpc rebuyItemRequest(RebuyItemRequest) returns(RebuyItemResponse);
+}

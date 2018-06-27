@@ -1,0 +1,17 @@
+//***************************************************************************
+//* 作者: 卢松洁
+//* 创建时间: 2015-08-27
+//* 用途: 任务数据
+//***************************************************************************
+package pomelo.task;
+
+message Task {
+  required int32 templateId = 1;   //模版id
+  repeated int32 progress = 2;     //任务进度(师门任务进度 / 主线第二个怪物目标数量)
+  required int32 state = 3;        //任务状态
+  required int32 leftTime = 4;     //剩余时间
+}
+
+message Tasks {
+  repeated Task taskList =  1;
+}

@@ -1,0 +1,69 @@
+//***************************************************************************
+//* 作者= liyue
+//* 创建时间= 2018-03-08
+//* 用途= 大富翁
+//***************************************************************************
+package pomelo.rich;
+
+//奖励
+message Reward{
+	required string code = 1;//奖励code
+	required int32 groupCount = 2;//奖励个数
+}
+
+//奖励轮数
+message TurnReward{
+	required int32 turnId = 1;//回合id
+	repeated Reward reward = 2;//奖励
+	required int32 state = 3;//状态 0未完成 1已完成 2已领取
+}
+
+//任务信息
+message TaskInfo{
+	required string schName = 1;//活跃任务名称
+	required int32 finishedCount = 2;//当前已完成次数
+	required int32 maxCount = 3;//总次数
+}
+
+//获取大富翁信息
+message GetRichInfoRequest{
+}
+message GetRichInfoResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated TurnReward turnReward = 3;//所有轮数的奖励信息预览
+	repeated TaskInfo taskInfo = 4;//任务信息
+	optional int32 currentStep = 5;//当前步数
+	optional int32 freeCount = 6;//免费次数
+	optional string startTimestamp = 7;//活动开始时间
+	optional string endTimestamp = 8;//活动结束时间
+}
+
+//掷骰子
+message DiceRequest{
+}
+message DiceResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional int32 step = 3;//步数
+	optional Reward reward = 4;//普通奖励
+}
+
+//领取轮回奖励
+message FetchTurnAwardRequest{
+	required int32 id = 1;//轮数
+}
+message FetchTurnAwardResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated Reward reward = 3;//轮回奖励
+}
+
+service  richHandler {
+    //获取大富翁信息
+    rpc getRichInfoRequest(GetRichInfoRequest) returns (GetRichInfoResponse);
+    //掷骰子
+    rpc diceRequest(DiceRequest) returns (DiceResponse);
+	//领取轮回奖励
+    rpc fetchTurnAwardRequest(FetchTurnAwardRequest) returns (FetchTurnAwardResponse);
+}

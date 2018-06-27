@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>GM登录</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css" rel="stylesheet" title="pink">
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
+    <style type="text/css">
+    	td{height: 40px}
+    	table input{ width: 200px; height: 25px; font-size: 15px;}
+    	body{margin:0 auto;}
+    </style>
+	<script type="text/javascript" src="js/easyui/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="js/cookie.js"> </script>
+	<script type="text/javascript" src="js/ext/user.js"> </script>
+  </head>
+  
+  <body>
+	
+	<div id="login" title=" GM登录 " style="width:500px;height:300px;">
+		<form id="loginForm" action="login"  method="post" style="display: none;padding-top: 77px;">
+			<table align="center" >
+				<tr>
+					<td align="right">账号：</td>
+					<td><input class="easyui-textbox" required="true" validType="length[1,12]" id="uname" name="uname"/> </td>
+				</tr>
+				<tr>
+					<td align="right">密码：</td>
+					<td><input class="easyui-textbox" required="true" validType="length[6,20]" id="pwd" type="password" name="pwd"/> </td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+  </body>
+</html>

@@ -1,0 +1,9 @@
+[
+	[ "ID", "充值目标", "奖励物品1", "物品数量1", "奖励物品2", "物品数量2", "奖励物品3", "物品数量3" ],
+	[ "ID", "Target", "RewardCode1", "RewardNum1", "RewardCode2", "RewardNum2", "RewardCode3", "RewardNum3" ],
+	[ "NUMBER", "NUMBER", "STRING", "NUMBER", "STRING", "NUMBER", "STRING", "NUMBER" ],
+	[ 1, 10000, "gold10w", 3, "ylwqlb", 1, "chsj5", 1 ],
+	[ 2, 30000, "gold10w", 5, "wslb-1", 1, "chsj5", 2 ],
+	[ 3, 60000, "gold10w", 10, "bslb-1", 1, "chsj5", 3 ],
+	[ 4, 100000, "gold10w", 15, "ridesk03", 1, "chsj5", 4 ]
+]

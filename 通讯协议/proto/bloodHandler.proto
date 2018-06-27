@@ -1,0 +1,71 @@
+//***************************************************************************
+//* 作者= liyue
+//* 创建时间= 2018-2-1
+//* 用途= 血脉
+//***************************************************************************/
+package pomelo.area;
+
+
+//获取某个玩家装备的血脉信息
+message GetEquipedBloodsRequest{
+	required string playerId = 1;
+}
+message GetEquipedBloodsResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated int32 bloodIds = 3;
+
+}
+
+//装备血脉，相同位置已有血脉，则替换
+message EquipBloodRequest{
+	required string itemId = 1;
+}
+message EquipBloodResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//卸载血脉
+message UnequipBloodRequest{
+	required int32 sortId = 1;
+}
+message UnequipBloodResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+//血脉属性
+message BloodAttr{
+	required int32 id = 1;
+	required int32 value = 2;
+}
+
+//获取血脉属性
+message GetBloodAttrsRequest{
+}
+message GetBloodAttrsResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated BloodAttr bloodAttrs = 3;
+}
+
+
+//活动处理器
+service bloodHandler {
+	
+   	
+   	//获取血脉信息
+   	rpc getEquipedBloodsRequest(GetEquipedBloodsRequest) returns (GetEquipedBloodsResponse);
+
+   	//装备血脉
+   	rpc equipBloodRequest(EquipBloodRequest) returns (EquipBloodResponse);
+
+   	//卸载血脉
+   	rpc unequipBloodRequest(UnequipBloodRequest) returns (UnequipBloodResponse);
+
+   	//获取血脉属性
+   	rpc getBloodAttrsRequest(GetBloodAttrsRequest) returns (GetBloodAttrsResponse);
+}
+
+

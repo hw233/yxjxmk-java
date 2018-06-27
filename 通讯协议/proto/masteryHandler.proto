@@ -1,0 +1,103 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途：精炼处理
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+message Mastery  {
+  required int32 pos =  1;
+  optional string name =  2;
+  optional string icon =  3;
+  optional int32 level =  4;                // 当前等级
+  optional int32 maxLevel = 5;              // 最大等级
+  optional AttributeBase attributes =  6;   // 属性,只有一种
+  optional item.MiniItem material = 7;      // 材料,只有一种
+  optional int32 isActive = 8;              // 是否激活 1-激活
+  optional int32 magicNum = 9;              // 魔界威望
+  optional int32 id = 10;                   // 唯一id
+}
+
+message AllMastery {
+  repeated Mastery masterys = 1;
+  optional item.MiniItem ring = 2;
+  optional string needRingName = 3;
+  optional int32 needPlayerLevel = 4;
+  optional int32 needPlayerUpLevel = 5;
+  optional int32 costMagicNum = 6;
+  optional int32 curMagicNum = 7;
+  optional int32 ringLevel = 8;
+  optional int32 canGet = 9;  //1-可以领取 0-不可以领取 2-已领取表示最后一个戒指
+}
+
+message GetMasteryInfoRequest {
+}
+
+message GetMasteryInfoResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional AllMastery s2c_mastery = 3;
+}
+
+message ActiveMasteryRequest {
+  required int32 c2s_pos = 1;  // 专精部位
+}
+
+message ActiveMasteryResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional AllMastery s2c_data = 3;
+}
+
+message GetRingRequest {
+  required string c2s_ringId = 1;  // 要领取的魔戒ID
+}
+
+message GetRingResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional AllMastery s2c_data = 3;
+}
+
+message MasteryRing {
+  required item.MiniItem ring = 1;
+  optional int32 needPlayerLevel = 2;   // 需要的玩家等级
+  optional int32 needPlayerUpLevel = 3;
+  optional int32 costMagicNum = 4;      // 需要的魔界威望
+  optional string needRingName = 5;     // 需要穿戴的魔戒
+  optional int32 isGet = 6;             // 1-已经领取了 0-没有领取
+}
+
+message MasteryRingRequest {
+}
+
+message MasteryRingResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated MasteryRing  s2c_ring = 3;
+}
+
+// 专精传送
+message MasteryDeliverRequest{
+    required int32 c2s_pos = 1;
+}
+
+message MasteryDeliverResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+service masteryHandler {
+  // 获取专精界面信息
+  rpc getMasteryInfoRequest(GetMasteryInfoRequest) returns(GetMasteryInfoResponse);
+  // 激活某个专精
+  rpc activeMasteryRequest(ActiveMasteryRequest) returns(ActiveMasteryResponse);
+  // 领取戒指
+  rpc getRingRequest(GetRingRequest) returns(GetRingResponse);
+  // 戒指详情
+  rpc masteryRingRequest(MasteryRingRequest) returns(MasteryRingResponse);
+  //请求专精传送
+  rpc masteryDeliverRequest(MasteryDeliverRequest) returns(MasteryDeliverResponse);
+}

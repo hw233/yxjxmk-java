@@ -1,0 +1,17 @@
+[
+	[ "参数名称", "参数类型", "参数值" ],
+	[ "ParamName", "ParamType", "ParamValue" ],
+	[ "STRING", "STRING", "STRING" ],
+	[ "RefreshTime", "STRING", "0.208333333333" ],
+	[ "MaxPlayer", "NUMBER", "5" ],
+	[ "MaxMessage", "NUMBER", "40" ],
+	[ "ItemCode", "STRING", "ally01" ],
+	[ "FreeAllyPoint", "NUMBER", "2" ],
+	[ "MaxItemCount", "NUMBER", "20" ],
+	[ "MaxFreeCount", "NUMBER", "20" ],
+	[ "MinCostDiamond", "NUMBER", "9" ],
+	[ "FeeBackRate", "NUMBER", "10" ],
+	[ "MaxFeeBack", "NUMBER", "10000" ],
+	[ "ApplyPointToProp", "NUMBER", "100" ],
+	[ "MAXIntimacy", "NUMBER", "31000" ]
+]

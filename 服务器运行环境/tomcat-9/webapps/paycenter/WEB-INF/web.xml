@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  
+  <listener>
+		<listener-class>com.wanniu.paycenter.listener.Loader</listener-class>
+  </listener>
+
+  <!-- 快用回调地址
+  <servlet>
+     <servlet-name>kuaiYongNotify</servlet-name>
+     <servlet-class>com.wanniu.paycenter.servlet.KuaiYongRecv</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>kuaiYongNotify</servlet-name> 
+	<url-pattern>/ky/notify</url-pattern>
+  </servlet-mapping>
+   -->
+   
+  <!-- 应用汇回调地址
+  <servlet>
+     <servlet-name>YyhNotify</servlet-name>
+     <servlet-class>com.wanniu.paycenter.servlet.YyhNotify</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>YyhNotify</servlet-name> 
+	<url-pattern>/yyh/notify</url-pattern>
+  </servlet-mapping>
+   -->
+  <!-- 华为回调地址 
+  <servlet>
+     <servlet-name>HuaweiNotify</servlet-name>
+     <servlet-class>com.wanniu.paycenter.servlet.HuaweiNotify</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>HuaweiNotify</servlet-name> 
+	<url-pattern>/huawei/notify</url-pattern>
+  </servlet-mapping>
+  -->
+   <!-- HTC回调地址 
+  <servlet>
+     <servlet-name>HtcNotify</servlet-name>
+     <servlet-class>com.wanniu.paycenter.servlet.HtcNotify</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>HtcNotify</servlet-name> 
+	<url-pattern>/htc/notify</url-pattern>
+  </servlet-mapping>
+  -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>仙盟查询</title>
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/icon.css" />
+<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	var guildId;
+	function searchGuild() {
+		var guildName = $("#guildName").val();
+		if (!guildName) {
+			return;
+		}
+		parent.send({
+			single : true,
+			action : "load",
+			type : "3031",
+			value : [ guildName, 0 ],
+			call : function(json) {
+				if ($.isEmptyObject(json)) {
+					$.messager.alert("提示", "仙盟不存在！", "warning");
+					guildId = "";
+				} else {
+					guildId = json.id;
+					$("#level").html(json.level);
+					$("#notice").textbox("setText",json.notice);
+					$("#guildDg").datagrid('loadData', json);
+					parent.showTip("信息提示", "查询成功！", 1000);
+				}
+			}
+		});
+	}
+
+	// 模糊查询
+	function searchGuildDim() {
+		var dimName = $("#dimName").val();
+		if (!dimName) {
+			return;
+		}
+		parent.send({
+			single : true,
+			action : "load",
+			type : "3031",
+			value : [ dimName, 1 ],
+			call : function(json) {
+				if ($.isEmptyObject(json)) {
+					$('#dg').datagrid('loadData', {
+						total : 0,
+						rows : []
+					});
+				} else {
+					$("#dimDg").datagrid('loadData', json);
+				}
+			}
+		});
+	}
+	
+	// 更新公告
+	function updateNotice(){
+		if(guildId){
+			parent.send({
+				single : true,
+				action : "execute",
+				type : "3032",
+				value : [ guildId,  $("#notice").textbox("getText")],
+				call : function(json) {
+					$.messager.alert('提示', '操作成功');
+				}
+			});
+		}
+	}
+</script>
+</head>
+<body>
+	<div class="easyui-tabs" style="width: 100%; height: auto;">
+		<div style="width: 100%; height: auto; padding: 10px;" title="精确查找">
+			<div id="tb" style="padding: 10px;">
+				仙盟名：<input class="easyui-textbox" style="width: 300px;"
+					id="guildName" /> <a href="#" onclick="searchGuild()"
+					class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+					style="width: 120px">查询</a>
+			</div>
+			<div class="easyui-panel" style="padding: 20px; width: 100%">
+				<table width="1000" border="0" cellspacing="10" cellpadding="5">
+					<tr>
+						<td width="100">仙盟等级：</td>
+						<td align="left" id="level">1</td>
+					</tr>
+					<tr>
+						<td>仙盟公告：</td>
+						<td align="left"><input class="easyui-textbox" id="notice"
+							data-options="multiline:true,validType:{length:[0,100]}" style="width: 50%; height: 100px" />
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td align="left"><a href="#" onclick="updateNotice()"
+							class="easyui-linkbutton"
+							style="width: 120px; margin-left: 150px;">保存公告</a></td>
+					</tr>
+				</table>
+			</div>
+			<br />
+			<table style="width: 100%; height: 500px;" class="easyui-datagrid"
+				title="仙盟成员" id="guildDg" data-options="singleSelect:true">
+				<thead>
+					<tr>
+						<th data-options="field:'duty',align:'center',width:120">职务</th>
+						<th data-options="field:'roleName',align:'center',width:200">角色名</th>
+						<th data-options="field:'level',align:'center',width:120">等级</th>
+						<th data-options="field:'power',align:'center',width:120">战斗力</th>
+						<th data-options="field:'contribute',align:'center',width:100">仙盟贡献</th>
+						<th data-options="field:'state',align:'center',width:100">状态</th>
+						<th data-options="field:'pro',align:'center',width:150">职业</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div style="width: 100%; height: auto; padding: 10px;" title="模糊查询">
+			<table style="width: 100%; height: 800px;" class="easyui-datagrid"
+				id="dimDg" data-options="singleSelect:true,toolbar:'#dimTb'">
+				<thead>
+					<tr>
+						<th data-options="field:'name',align:'center',width:200">仙盟名称</th>
+						<th data-options="field:'level',align:'center',width:200">等级</th>
+						<th data-options="field:'leader',align:'center',width:200">盟主</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+	<div id="dimTb" style="padding: 10px;">
+		仙盟名关键字：<input class="easyui-textbox" style="width: 300px;"
+			id="dimName" /> <a href="#" onclick="searchGuildDim()"
+			class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+			style="width: 120px">查询</a>
+	</div>
+</body>
+</html>
+

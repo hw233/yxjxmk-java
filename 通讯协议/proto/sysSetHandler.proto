@@ -1,0 +1,31 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-03-15
+//* 用途= 系统设置处理器
+//***************************************************************************/
+package pomelo.area;
+
+message SetData {
+  required int32 recvMailSet = 1;        // 接收邮件
+  required int32 teamInviteSet = 2;      // 允许组队邀请
+  required int32 recvStrangerMsgSet = 3; // 允许接收陌生人消息
+  required int32 recvAddFriendSet = 4;   // 允许接收好友申请
+  // 其它待定
+}
+
+message ChangeSysSetRequest {
+  required SetData c2s_setData = 1;
+}
+
+
+ message ChangeSysSetResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+  
+//系统设置处理器
+service sysSetHandler {
+   rpc changeSysSetRequest(ChangeSysSetRequest) returns(ChangeSysSetResponse);
+}
+
+

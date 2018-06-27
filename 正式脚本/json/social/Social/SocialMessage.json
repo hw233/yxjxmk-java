@@ -1,0 +1,23 @@
+[
+	[ "ID", "消息类型", "消息有效期", "HUD显示时长", "发送上限", "保存上限", "提示ICON", "消息内容" ],
+	[ "ID", "MessageType", "MessageTime", "HUDTime", "SendLimite", "ReceiveLimite", "HudICON", "MessageText" ],
+	[ "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "STRING", "STRING" ],
+	[ 1, 1, -1, 60, 0, 100, "hud1_mail", "您收到了一份新邮件" ],
+	[ 2, 2, 86400, 86400, 5, 5, "hud2_team", "<font> <font size='22' color='ff73b857'>{playerName}</font> 邀请你加入TA的队伍，是否同意？</font>" ],
+	[ 3, 3, 86400, 86400, 5, 5, "hud2_team", "<font> <font size='22' color='ff73b857'>{playerName}</font> 申请加入你的队伍</font>" ],
+	[ 4, 4, 86400, 86400, 0, 0, "hud3_friend", "<font> <font size='22' color='ff73b857'>{playerName}</font> 申请加你为好友</font>" ],
+	[ 5, 5, 60, 60, 0, 5, "hud2_team", "<font>你的好友<font size='22' color='ff73b857'>{playerName}</font>邀请你组队挑战副本【<font size='22' color='ffef880e'>{dungeonName}</font>】（{hardModel}），是否接受？</font>" ],
+	[ 6, 6, 60, 60, 1, 1, "hud4_guild", "<font> <font size='22' color='ff73b857'>{playerName}</font> 向你请求交易</font>" ],
+	[ 7, 7, 86400, 86400, 0, 5, "hud3_friend", "<font> <font size='22' color='ff73b857'>{playerName}</font>邀请你组成道友</font>" ],
+	[ 8, 8, 86400, 86400, 0, 1, "hud3_friend", "<font> <font size='22' color='ff73b857'>{playerName}</font>加入道友</font>" ],
+	[ 9, 9, 60, 60, 0, 1, "hud3_friend", "<font> <font size='22' color='ff73b857'>{playerName}</font>离开道友</font>" ],
+	[ 10, 10, 300, 300, 1, 1, "hud2_team", "尊敬的道友，今日您已完成{times}次师门日常，接下来师门收益将衰减到正常收益的{rate}%，是否继续领取？" ],
+	[ 11, 11, 300, 300, 1, 1, "hud2_team", "队长带队很辛苦，是否将其加为好友？" ],
+	[ 12, 12, 86400, 86400, 1, 1, "hud2_team", "队伍人员不足，是否开启自动匹配？" ],
+	[ 13, 13, 300, 300, 1, 1, "hud2_team", "今日您已完成{times}次皓月镜日常，是否继续领取？" ],
+	[ 14, 14, 300, 300, 1, 1, "hud4_guild", "您可以突破了" ],
+	[ 15, 15, -1, 86400, 1, 1, "hud4_guild", "<font> <font size='22' color='ff73b857'>{playerName}</font> 申请加入仙盟</font>" ],
+	[ 16, 16, 86400, 86400, 1, 1, "hud4_guild", "<font> <font size='22' color='ff73b857'>{playerName}</font> 邀请你加入仙盟【<font size='22' color='ffef880e'>{guildName}</font>】</font>" ],
+	[ 17, 17, 300, 300, 1, 1, "hud4_guild", "" ],
+	[ 200, 200, 86400, 86400, 1, 1, "hud1_mail", "{content}" ]
+]

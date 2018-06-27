@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>排行榜</title>
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="../js/easyui/themes/icon.css" />
+<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	function loadRankData(type, index) {
+		parent.send({
+			single : true,
+			action : "load",
+			type : "5010",
+			value : [ type, index ],
+			call : function(json) {
+				var dg = $('#' + type + index);
+				if ($.isEmptyObject(json)) {
+					dg.datagrid('loadData', {
+						total : 0,
+						rows : []
+					});
+				} else {
+					dg.datagrid({
+						data : json.data
+					})
+				}
+			}
+		});
+	}
+
+	var rankType;
+	// 排行榜大类目切换
+	function parentSelect(title, index) {
+		rankType = index;
+		loadRankData(rankType, 0);
+	}
+
+	// 类目下不同类型切换
+	function childSelect(title, index) {
+		loadRankData(rankType, index);
+	}
+</script>
+</head>
+<body>
+	<div class="easyui-tabs" style="width: 100%; height: 800px;"
+		data-options="onSelect:parentSelect">
+		<div title="&nbsp;综 合&nbsp;" style="padding: 5px">
+			<div class="easyui-tabs" style="width: 100%; height: 99%;"
+				data-options="onSelect:childSelect">
+				<div title="人物战力榜" style="padding: 10px">
+					<table class="easyui-datagrid" id="00">
+						<thead>
+							<tr>
+								<th data-options="field:'0',align:'center',width:120">排名</th>
+								<th data-options="field:'3',align:'center',width:200">角色名</th>
+								<th data-options="field:'5',align:'center',width:120">战力</th>
+								<th data-options="field:'2',align:'center',width:150">职业</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div title="人物等级榜" style="padding: 10px">
+					<table class="easyui-datagrid" id="01">
+						<thead>
+							<tr>
+								<th data-options="field:'0',align:'center',width:120">排名</th>
+								<th data-options="field:'3',align:'center',width:200">角色名</th>
+								<th data-options="field:'4',align:'center',width:120">等级</th>
+								<th data-options="field:'2',align:'center',width:150">职业</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div title="坐骑榜" style="padding: 10px">
+					<table class="easyui-datagrid" id="02">
+						<thead>
+							<tr>
+								<th data-options="field:'0',align:'center',width:120">排名</th>
+								<th data-options="field:'3',align:'center',width:200">角色名</th>
+								<th data-options="field:'6',align:'center',width:120">坐骑名</th>
+								<th data-options="field:'5',align:'center',width:150">坐骑战力</th>
+								<th data-options="field:'2',align:'center',width:150">职业</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div title="宠物榜" style="padding: 10px">
+					<table class="easyui-datagrid" id="03">
+						<thead>
+							<tr>
+								<th data-options="field:'0',align:'center',width:120">排名</th>
+								<th data-options="field:'3',align:'center',width:200">角色名</th>
+								<th data-options="field:'4',align:'center',width:120">宠物名</th>
+								<th data-options="field:'5',align:'center',width:150">宠物战力</th>
+								<th data-options="field:'2',align:'center',width:150">职业</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div title="&nbsp;仙 盟&nbsp;" style="padding: 5px">
+			<div class="easyui-tabs" style="width: 100%; height: auto;"
+				data-options="onSelect:childSelect">
+				<div title="仙盟榜" style="padding: 10px">
+					<table class="easyui-datagrid" id="10">
+						<thead>
+							<tr>
+								<th data-options="field:'0',align:'center',width:120">排名</th>
+								<th data-options="field:'3',align:'center',width:200">仙盟名</th>
+								<th data-options="field:'4',align:'center',width:150">仙盟等级</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div title="盟战榜" style="padding: 10px">
+					<table class="easyui-datagrid" id="11">
+						<thead>
+							<tr>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div title="&nbsp;竞 技&nbsp;" style="padding: 5px">
+			<div class="easyui-tabs" style="width: 100%; height: auto;"
+				data-options="onSelect:childSelect">
+				<div title="问道大会" style="padding: 10px">
+					<table class="easyui-datagrid" id="20">
+						<thead>
+							<tr>
+								<th data-options="field:'0',align:'center',width:120">排名</th>
+								<th data-options="field:'3',align:'center',width:200">角色名</th>
+								<th data-options="field:'4',align:'center',width:120">等级</th>
+								<th data-options="field:'5',align:'center',width:150">战力</th>
+								<th data-options="field:'6',align:'center',width:150">积分</th>
+								<th data-options="field:'2',align:'center',width:150">职业</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div title="试炼大赛" style="padding: 10px">
+					<table class="easyui-datagrid" id="21">
+						<thead>
+							<tr>
+								<th data-options="field:'0',align:'center',width:120">排名</th>
+								<th data-options="field:'3',align:'center',width:200">角色名</th>
+								<th data-options="field:'4',align:'center',width:120">等级</th>
+								<th data-options="field:'5',align:'center',width:150">战力</th>
+								<th data-options="field:'6',align:'center',width:150">积分</th>
+								<th data-options="field:'2',align:'center',width:150">职业</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<div title="五岳一战" style="padding: 10px">
+					<table class="easyui-datagrid" id="22">
+						<thead>
+							<tr>
+								<th data-options="field:'0',align:'center',width:120">排名</th>
+								<th data-options="field:'3',align:'center',width:200">角色名</th>
+								<th data-options="field:'4',align:'center',width:120">等级</th>
+								<th data-options="field:'5',align:'center',width:150">战力</th>
+								<th data-options="field:'6',align:'center',width:150">积分</th>
+								<th data-options="field:'2',align:'center',width:150">职业</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

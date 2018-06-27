@@ -1,0 +1,148 @@
+//***************************************************************************
+//* 作者= 刘羿君
+//* 创建时间= 2015-10-17
+//* 用途= 道具数据
+//***************************************************************************
+package pomelo.item;
+import 'common.proto';
+
+enum BindType{ //绑定枚举
+    UN_BIND = 0; //未绑定（商店和身上均显示未绑定)
+    BIND = 1; //已绑定
+    EQUIP_BIND = 2;//装备后绑定
+    BIND_AFTER_GET = 3;   //获取后绑定
+    EQUIP_BIND_AFTER_GET = 4; //获取后装绑
+}
+
+message Item  {
+  required string id = 1;
+  required string code = 2;
+  required int32 itemType = 3;
+  required int32 itemSecondType = 4;
+  required int32 qColor = 5;
+  required int32 maxGroupCount = 6;
+  required int32 groupCount = 7;
+  required int32 isNew = 8;
+  required string icon = 9;
+  optional int32 enLevel = 10;      //强化等级 @Deprecated
+  optional int32 star = 11;         //星级
+  optional string cdTime = 12;
+  optional int32 bindType = 13;    // 是否绑定
+}
+
+// 格子信息
+message Grid{
+   required int32 gridIndex = 1;
+   optional Item item = 2;
+   optional int32 source = 4;// 来源
+}
+
+//迷你道具
+message MiniItem {
+  required string code =  1;
+  required int32 groupCount =  2;
+  required string icon =  3;
+  required int32 qColor =  4;
+  optional string name = 5;
+  optional int32 star = 6;
+  optional int32 bindType = 7;    // 是否绑定
+}
+
+
+// 合成公式
+message Combine {
+    optional MiniItem product = 1;    //合成产出
+    repeated MiniItem materials = 2;  //材料
+    optional int32 gold = 3;          //需要的金币
+}
+
+// 计数道具
+message CountItem {
+    required string code = 1;
+    required int32 num = 2;
+}
+
+message CountItems {
+    repeated CountItem items = 1;
+}
+
+// 宝石属性
+message EquipmentJewelAtt {
+  required int32 index = 1;         //孔的位置, 1表示第一个
+  optional int32 id = 2;            //属性id
+  optional int32 value = 3;         //属性值
+  optional MiniItem gem = 4;        //宝石
+
+}
+
+message EquipmentDetail {
+  optional int32 isIdentfied = 1;            // 是否鉴定过 1-鉴定过 0-没有鉴定
+  optional int32 enLevel = 2;                // 强化等级 @Deprecated
+  optional int32 score = 3;                  // 装备独有评分
+  repeated AttributeBase randomAtts = 4;     // 扩展属性
+  repeated EquipmentJewelAtt jewelAtts = 5;  // 宝石属性  @Deprecated
+  repeated AttributeBase magicAtts = 6;              // 附魔属性描述
+  optional int32 luckyExp = 7;               // 已有的幸运值 @Deprecated
+  optional int32 baseScore = 9;           // 基础评分
+  repeated AttributeBase baseAtts = 10;   // 基础属性
+  repeated AttributeBase uniqueAtts = 11;   // 独有属性
+  repeated AttributeBase tempBaseAtts = 12;   // 未保存的洗练属性
+  repeated AttributeBase tempExtAtts = 13;   // 未保存的重铸属性
+  repeated AttributeBase tempExtAtts_senior = 14;   // 未保存的重铸属性
+  repeated AttributeBase tempUniqueAtts = 15;   // 未保存的精炼属性
+  optional int32 refineAttrId = 16;   // 精炼过的属性名称
+  optional AttributeBase tempRefineAttr = 17; // 未保存的精炼属性
+  optional int32 remakeScore = 18;           // 重铸评分
+  optional int32 tempRemakeScore = 19;           // 未保存的重铸评分
+  repeated AttributeBase starAttr = 20; // 重铸星级属性
+  repeated AttributeBase tempstarAttr = 21; // 未保存重铸星级属性
+  optional int32 seniorTempRemakeScore = 22;           // 未保存的高级重铸评分
+}
+
+message EarItemDetail {
+    optional string id = 1;
+    optional string ownId = 2;
+    optional string ownName = 3;
+    optional string time = 4;
+}
+
+// 道具详情
+message ItemDetail  {
+  optional string id = 1;                    // uuid
+  optional string code = 2;                  // 模版id 区分是否是装备
+  optional int32 bindType = 3;               // 0 没有绑定 1 绑定 2 装备绑定
+  optional int32 canTrade = 4;               // 1 可以 0 不可以
+  optional int32 canAuction = 5;             // 同上
+  optional int32 canDepotRole = 6;           // 同上
+  optional int32 canDepotGuild = 7;          // 同上
+  optional EquipmentDetail equipDetail = 8;  // 装备才有的详情
+  optional EarItemDetail earDetail = 9;
+}
+
+// 寄卖道具的信息
+message ConsignmentItem {
+  optional ItemDetail detail = 1;
+  optional int32 groupCount = 2;
+  optional int32 publishTimes = 3;              // 已经宣传的次数
+  optional int32 consignmentPrice = 4;          // 寄卖价格
+  optional string consignmentTime = 5;          // 寄卖到期时间(24h + lateMinutes分钟)  单位:ms
+  optional string consignmentPlayerName = 6;    // 寄卖玩家名称
+  optional int32 consignmentPlayerPro = 7;      // 寄卖玩家职业
+  optional string consignmentPlayerId = 8;      // 寄卖玩家的id
+  optional int64 lateTime = 9;                 // 寄卖上架延迟时间 单位:ms
+}
+
+// 单个格子的索引和强化等级信息
+message EquipGridStrengthInfo {
+  required int32 pos = 1;       // EquipType：格子索引
+  optional int32 enSection = 2; // 强化段位
+  optional int32 enLevel = 3;   // 强化等级
+  repeated EquipmentJewelAtt jewelAtts = 4;  // 宝石属性
+  optional int32 socks = 5;   // 开放的宝石孔数量
+}
+
+//  已穿戴的时装信息
+message EquipFashionInfo {
+  required int32 pos = 1;       // 1: 武饰  2:衣服   3:背饰
+  optional string itemcode = 2; // 穿戴的时装物品模板ID
+}

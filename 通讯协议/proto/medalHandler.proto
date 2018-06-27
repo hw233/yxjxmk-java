@@ -1,0 +1,94 @@
+//***************************************************************************
+//* 作者= 李静
+//* 创建时间= 2015-10-12
+//* 用途= 勋章处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+message MedalData{
+    optional item.MiniItem medal = 1;
+    optional int32 ifMax = 2;           // 是否满级
+    optional int32 needPrestige = 3;    // 需要的声望
+    optional int32 needGold = 4;        // 消耗金币
+    optional int32 needDiamond = 5;     // 需要的钻石
+    optional string nextTitleName = 6;  // 下一级爵位
+    repeated AttributeBase attrs = 7;   // 勋章属性
+    optional int32 flag = 8;            // 1-获得过 0-没有
+}
+
+// 获取爵位界面信息
+message GetMedalInfoRequest {
+}
+
+message GetMedalInfoResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional MedalData s2c_data = 3;
+}
+
+
+// 领取勋章
+message GainMedalRequest {
+ required string c2s_id = 1;
+}
+
+message GainMedalResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//　勋章列表
+message MedalListRequest {
+}
+
+message MedalListInfo {
+    required item.MiniItem medal = 1;
+    required int32 isGet = 2;  // 2 已获得 1 可以领取 0 没有获得
+}
+message MedalListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated MedalListInfo s2c_data = 3;
+}
+
+message GetMedalInfoByCodeRequest {
+    required string c2s_code = 1;
+}
+
+message GetMedalInfoByCodeResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional MedalData s2c_data = 3;
+}
+
+  
+//勋章处理器
+service medalHandler {
+ // 获取勋章界面信息
+ rpc getMedalInfoRequest(GetMedalInfoRequest) returns(GetMedalInfoResponse);
+
+ // 领取勋章
+ rpc gainMedalRequest(GainMedalRequest) returns(GainMedalResponse);
+
+ // 所有勋章列表
+ rpc medalListRequest(MedalListRequest) returns(MedalListResponse);
+
+ // 获得某个勋章的信息
+ rpc getMedalInfoByCodeRequest(GetMedalInfoByCodeRequest) returns(GetMedalInfoByCodeResponse);
+}
+
+message MedalTitleData {
+    optional int32 titleId = 1;
+    optional item.MiniItem medal = 2;
+}
+
+message MedalTitleChangePush{
+    required int32 s2c_code = 1;
+    repeated MedalTitleData s2c_data = 2;
+}
+
+service medalPush {
+    rpc medalTitleChangePush(MedalTitleChangePush) returns(Void);
+}

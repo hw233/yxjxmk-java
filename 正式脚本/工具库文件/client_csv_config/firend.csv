@@ -1,0 +1,27 @@
+﻿Key,Value,
+enemy_forhelp,<font>我当前正位于|1|（|2|)，求火力支援！<font color='ffd35b47' link='|3|'>传送</font></font>,
+reward_confirm,<font>您确定要对<font size='22' color='ff73b857'>|1|</font>发起悬赏击杀吗？悬赏的金额越高，击杀成功率也越高。</font> ,
+time_later,小时后,
+reward_finished,已完成悬赏:,
+reward_opensuccess,<font>对<font size='22' color='ff73b857'>|1|</font>的悬赏发布成功！该悬赏将持续一天。成功击杀目标者将获得赏金。</font>,
+transfer_confirm,传送到该地点需要消耗一张传送卷轴，是否使用？,
+already_concerned,已关注,
+information_confirmation,信息确认,
+whether_clear,是否将劲敌列表全部清除，清除后所有追杀值不保留,
+track,追踪,
+selected_mode,<font size= '20'>你所追踪的玩家<font color='|1|'>|2|</font>在<font  color='ffffff00'>|3|</font>位置，是否需要追踪目标？</font>,
+pathfinding,寻路,
+cost_complement,"<font size= '20'>传送卷轴不足，是否花费<h img='#static/static_pic/static001.xml,static001,88'>H</h><font color='ff548bd4'>*|1|</font>补足</font>",
+follow,关注,
+whetherdelivery,是否消耗一张传送卷轴传送至该目标？,
+delivery,传送确认,
+friend_offline,该玩家已下线,
+addfriend_refresh,请不要频繁刷新，等候|1|秒再试,
+uplv0,灵御零阶,
+friend_Glv,问道{0}阶,
+addfriend_lv,问道{0}阶({1}级),
+applyfriend_Num,您有{0}条好友请求未处理
+friendViewName_1,我的好友
+friendViewName_2,我的劲敌
+friendViewName_3,黑名单
+blackListChatTips,无法与黑名单内的玩家进行对话

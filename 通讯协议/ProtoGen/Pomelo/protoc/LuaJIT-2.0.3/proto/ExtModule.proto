@@ -1,0 +1,22 @@
+option java_package = "com.morefun.proto";
+option optimize_for = LITE_RUNTIME;
+
+// 支付数据
+message PayData {
+	required int32 id = 1;
+	required string name = 2;
+	required int32 type = 3;
+	required bool isDouble = 4;
+	required int32 currPrice = 5;
+	required int32 oldPrice = 6;
+	required int32 gold = 7;
+	required int32 icon = 8;
+	optional string productId = 9;
+	optional string productNname = 10;
+	optional int32 chargeType = 11; //0：普通商品 1.短代商品（会在充值界面显示） 2.短代其他商品（不会在充值界面显示）
+}
+
+//初始化支付数据
+message InitPayData {
+	repeated PayData paydata = 1;
+}

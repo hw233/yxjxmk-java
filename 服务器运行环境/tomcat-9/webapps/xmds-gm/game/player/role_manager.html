@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>用户管理</title>
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/color.css">
+<script type="text/javascript" src="../../js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+	function searchRole() {
+		var roleName = $("#roleName").val();
+		if (!roleName) {
+			return;
+		}
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3001",
+			value : [ roleName ],
+			call : function(json) {
+				if ($.isEmptyObject(json)) {
+					$('#dg').datagrid('loadData', {
+						total : 0,
+						rows : []
+					});
+					$.messager.alert("提示", "未找到该玩家信息!", "warning");
+				} else {
+					$('#dg').datagrid('loadData', json);
+				}
+			}
+		});
+	}
+
+	function handle(t) {
+		var rows = $('#dg').datagrid('getRows');
+		if (rows.length <= 0) {
+			$.messager.alert('提示', '请先查询出玩家', 'warning');
+			return;
+		}
+		$.messager.confirm('提示', '确定操作吗?', function(r) {
+			if (r) {
+				var rows = $('#dg').datagrid('getRows');
+				var row = rows[0];
+				var id = row.id;
+				var time = "";
+				var reason = "";
+				if (t == 0) {// 冻结
+					time = $("#datetime1").datetimebox("getText");
+					reason = $("#reason1").val();
+					if (!time || !reason || reason.length > 20) {
+						$.messager.alert('提示', '请输入结束时间和原因', 'warning');
+						return;
+					}
+				} else if (t == 2) {// 禁言
+					time = $("#datetime2").datetimebox("getText");
+					reason = $("#reason2").val();
+					if (!time || !reason || reason.length > 20) {
+						$.messager.alert('提示', '请输入结束时间和原因', 'warning');
+						return;
+					}
+				}
+				parent.parent.send({
+					single : true,
+					action : "execute",
+					type : "3002",
+					value : [ id, t, time, reason ],
+					call : function(json) {
+						$("#d1").dialog("close");
+						$("#d2").dialog("close");
+						searchRole();
+					}
+				});
+			}
+		});
+	}
+
+	function showMove() {
+		var rows = $('#dg').datagrid('getRows');
+		if (rows.length <= 0) {
+			$.messager.alert('提示', '请先查询出玩家', 'warning');
+			return;
+		}
+		parent.parent.send({
+			single : true,
+			action : "load",
+			type : "3003",
+			value : [],
+			call : function(json) {
+				$("#area").combobox('loadData', json.data);
+			}
+		});
+		$("#moveDialog").dialog("open");
+	}
+
+	function doMove() {
+		var areaId = $("#area").combobox('getValue');
+		if (!areaId) {
+			return;
+		}
+		var rows = $('#dg').datagrid('getRows');
+		parent.parent.send({
+			single : true,
+			action : "execute",
+			type : "3004",
+			value : [ rows[0].id, areaId ],
+			call : function(json) {
+				$.messager.alert('提示', '操作成功');
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div class="easyui-panel" style="width: 100%; height: 600px;"
+		title="用户管理">
+		<div style="padding: 20px">
+			<table class="easyui-datagrid" id="dg" data-options="toolbar:'#tb'"
+				style="height: 350px; width: 100%; margin: 20px;">
+				<thead>
+					<tr>
+						<th data-options="field:'id',align:'center',width:300">角色ID</th>
+						<th data-options="field:'roleName',align:'center',width:150">角色名</th>
+						<th data-options="field:'freezeTime',align:'center',width:150">冻结结束时间</th>
+						<th data-options="field:'forbidTime',align:'center',width:150">禁言结束时间</th>
+						<th data-options="field:'freezeReason',align:'center',width:300">冻结原因</th>
+						<th
+							data-options="field:'forbidTalkReason',align:'center',width:300">禁言原因</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+
+	<div id="tb" style="padding: 20px;">
+		角色名：<input class="easyui-textbox" name="name" style="width: 300px;"
+			id="roleName"> <a href="#" onclick="searchRole()"
+			class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+			style="width: 120px">查询</a> <a href="#" class="easyui-linkbutton c3"
+			style="width: 120px" onclick="$('#d1').dialog('open')">冻结</a> <a
+			href="#" class="easyui-linkbutton c3" style="width: 120px"
+			onclick="handle(1)">解封</a> <a href="#" class="easyui-linkbutton c3"
+			style="width: 120px" onclick="$('#d2').dialog('open')">禁言</a> <a
+			href="#" class="easyui-linkbutton c3" style="width: 120px"
+			onclick="handle(3)">解禁</a> <a href="#" class="easyui-linkbutton c3"
+			style="width: 120px" onclick="handle(4)">T下线</a> <a href="#"
+			class="easyui-linkbutton c3" style="width: 120px"
+			onclick="showMove()">移动</a>
+	</div>
+
+	<div class="easyui-dialog" title="冻结玩家"
+		data-options="modal:true,closed:true" id="d1"
+		style="width: 450px; height: 250px;">
+		<div style="padding: 40px">
+			<div style="margin-bottom: 20px">
+				<input class="easyui-datetimebox" id="datetime1"
+					data-options="required:true,editable:false,width:300,label:'结束时间：'" />
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" id="reason1"
+					data-options="required:true,width:300,label:'原因：',validType:{length:[2,20]}"
+					style="margin-bottom: 20px" />
+			</div>
+			<div style="margin-left: 80px;">
+				<a href="#" class="easyui-linkbutton" style="width: 50px"
+					onclick="handle(0)">确定</a>
+			</div>
+		</div>
+	</div>
+	<div class="easyui-dialog" title="禁言玩家"
+		data-options="modal:true,closed:true" id="d2"
+		style="width: 450px; height: 250px;">
+		<div style="padding: 40px">
+			<div style="margin-bottom: 20px">
+				<input class="easyui-datetimebox" id="datetime2"
+					data-options="required:true,editable:false,width:300,label:'结束时间：'" />
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" id="reason2"
+					data-options="required:true,width:300,label:'原因：',validType:{length:[2,20]}"
+					style="margin-bottom: 20px" />
+			</div>
+			<div style="margin-left: 80px;">
+				<a href="#" class="easyui-linkbutton" style="width: 50px"
+					onclick="handle(2)">确定</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="easyui-dialog" title="移动玩家"
+		data-options="modal:true,closed:true" id="moveDialog"
+		style="width: 350px; height: 200px;">
+		<div style="padding: 40px">
+			<div style="margin-bottom: 20px">
+				地图： <select class="easyui-combobox"
+					data-options="valueField:'id',textField:'text',editable:false"
+					style="width: 200px;" id="area">
+				</select>
+			</div>
+			<div style="margin-left: 80px;">
+				<a href="#" class="easyui-linkbutton" style="width: 50px"
+					onclick="doMove()">确定</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

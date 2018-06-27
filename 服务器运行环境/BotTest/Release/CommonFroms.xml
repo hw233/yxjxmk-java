@@ -1,0 +1,623 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CommonFroms</name>
+    </assembly>
+    <members>
+        <member name="F:CommonFroms.DescAttributeEdit.ValuePanel.components">
+            <summary> 
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.DescAttributeEdit.ValuePanel.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:CommonFroms.DescAttributeEdit.ValuePanel.InitializeComponent">
+            <summary> 
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="T:CommonFroms.DescAttributeEdit.ValueTypeDialog">
+            <summary>
+            用于选择或创建，所有对应其子类的实例
+            该选择界面先对注释为 [DescAttribute] 的 Catgory 分类，再进行子类划分
+            </summary>
+        </member>
+        <member name="F:CommonFroms.DescAttributeEdit.ValueTypeDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.DescAttributeEdit.ValueTypeDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.DescAttributeEdit.ValueTypeDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Drawing.DrawingUtils.DrawLineRect(System.Drawing.Graphics,System.Drawing.Pen,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            画粗线条
+            </summary>
+            <param name="sx"></param>
+            <param name="sy"></param>
+            <param name="dx"></param>
+            <param name="dy"></param>
+            <param name="width"></param>
+        </member>
+        <member name="M:CommonFroms.Drawing.DrawingUtils.DrawLineRoundRect(System.Drawing.Graphics,System.Drawing.Pen,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            画圆角粗线条
+            </summary>
+            <param name="g"></param>
+            <param name="pen"></param>
+            <param name="sx"></param>
+            <param name="sy"></param>
+            <param name="dx"></param>
+            <param name="dy"></param>
+            <param name="size"></param>
+        </member>
+        <member name="M:CommonFroms.FormUtils.SwithToThisForm(System.Windows.Forms.Form,System.Boolean)">
+            <summary>
+            切换到当前窗口
+            </summary>
+            <param name="form"></param>
+            <param name="turnOn"></param>
+        </member>
+        <member name="M:CommonFroms.FormUtils.ListViewItemTagEquals``1(System.Windows.Forms.ListView,System.Collections.Generic.ICollection{``0})">
+            <summary>
+            判断ListView里面的所有Tag是否和list一致，通常用于数据层刷新
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="view"></param>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFroms.FormUtils.ListViewItemTagEquals(System.Windows.Forms.ListView,System.Collections.IList,System.Collections.IComparer)">
+            <summary>
+            判断ListView里面的所有Tag是否和list一致，通常用于数据层刷新
+            </summary>
+            <param name="view"></param>
+            <param name="list"></param>
+            <param name="compare">参数1表示list中的单位，参数2表示ListView里的Tag</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DPropertyGrid.#ctor">
+            <summary>
+            Initializes a new instance of the CustomPropertyGrid class.
+            </summary>
+        </member>
+        <member name="E:CommonFroms.G2D.DataGrid.G2DPropertyGrid.ProcessKeyDown_CtrlC">
+            <summary>
+            键盘Ctrl+C触发
+            </summary>
+        </member>
+        <member name="E:CommonFroms.G2D.DataGrid.G2DPropertyGrid.ProcessKeyDown_CtrlV">
+            <summary>
+            键盘Ctrl+V触发
+            </summary>
+        </member>
+        <member name="E:CommonFroms.G2D.DataGrid.G2DPropertyGrid.ProcessKeyDown_CtrlX">
+            <summary>
+            键盘Ctrl+X触发
+            </summary>
+        </member>
+        <member name="E:CommonFroms.G2D.DataGrid.G2DPropertyGrid.ProcessKeyDown_Delete">
+            <summary>
+            键盘Del触发
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DPropertyGrid.OnRefreshHistoryValiable(System.Windows.Forms.GridItem)">
+            <summary>
+            刷新粘贴可用项目
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="E:CommonFroms.G2D.DataGrid.G2DPropertyGrid.UserChangedDescriptionAreaSize">
+            <summary>
+            Occurs when the description area size is changed by the user.
+            </summary>
+        </member>
+        <member name="P:CommonFroms.G2D.DataGrid.G2DPropertyGrid.MinDescriptionAreaLineCount">
+            <summary>
+            设置最小默认注释行数量
+            </summary>
+        </member>
+        <member name="P:CommonFroms.G2D.DataGrid.G2DPropertyGrid.DescriptionAreaLineCount">
+            <summary>
+            Gets or sets the description area line count.
+            </summary>
+            <value>The description area line count.</value>
+            <exception cref="T:System.ArgumentException"> If value is less than zero.</exception>
+            <exception cref="T:System.TypeLoadException"> If not of the all objects required to set the field were found.</exception>
+        </member>
+        <member name="P:CommonFroms.G2D.DataGrid.G2DPropertyGrid.DescriptionAreaHeight">
+            <summary>
+            Gets or sets the height of the description area.
+            </summary>
+            <value>The height of the description area.</value>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DPropertyGrid.OnUserChangedDescriptionAreaSize(System.EventArgs)">
+            <summary>
+            Raises the UserChangedDescriptionAreaSize event.
+            </summary>
+            <param name="e">The System.EventArgs instance containing the event data.</param>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DPropertyGrid.HandleDocCommentSizeChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles this.docComment.SizeChanged.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The System.EventArgs instance containing the event data.</param>
+        </member>
+        <member name="F:CommonFroms.G2D.DataGrid.G2DCollectionEditor.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DCollectionEditor.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DCollectionEditor.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:CommonFroms.G2D.DataGrid.G2DDataGrid.components">
+            <summary> 
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DDataGrid.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DDataGrid.InitializeComponent">
+            <summary> 
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="F:CommonFroms.G2D.DataGrid.G2DDataGridEditor.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DDataGridEditor.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DDataGridEditor.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:CommonFroms.G2D.DataGrid.G2DFieldEditor.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DFieldEditor.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DFieldEditor.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:CommonFroms.G2D.DataGrid.InternalDataAdapters">
+            <summary>
+            内部DataAdapters
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DFieldMemberEditor.GetEditStyle(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            编辑属性值时，在右侧显示...更多按钮 
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFroms.G2D.DataGrid.G2DCollectionItemEditor.GetEditStyle(System.ComponentModel.ITypeDescriptorContext)">
+            <summary>
+            编辑属性值时，在右侧显示...更多按钮 
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="F:CommonFroms.G2D.G2DPropertyDialog`1.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DPropertyDialog`1.Dispose(System.Boolean)">
+            <summary>
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DPropertyDialog`1.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DTimer.QueueTask(System.Action)">
+            <summary>
+            保证在Task内部执行的代码线程安全
+            </summary>
+            <param name="task"></param>
+        </member>
+        <member name="F:CommonFroms.G2D.G2DSearchDialog.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DSearchDialog.Dispose(System.Boolean)">
+            <summary>
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DSearchDialog.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="F:CommonFroms.G2D.G2DListSelectEditor`1.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DListSelectEditor`1.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DListSelectEditor`1.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:CommonFroms.G2D.G2DProgressDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DProgressDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DProgressDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:CommonFroms.G2D.G2DTextDialog.components">
+            <summary>
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DTextDialog.Dispose(System.Boolean)">
+            <summary>
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:CommonFroms.G2D.G2DTextDialog.InitializeComponent">
+            <summary>
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.QueryKey.Update">
+            <summary>
+            用收集到的按键替换查询的按键,并清理收集到的按键,重新监测下一帧的情况
+            </summary>
+        </member>
+        <member name="F:CommonFroms.Net.FormSessionTracer.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Net.FormSessionTracer.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.Net.FormSessionTracer.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:CommonFroms.Net.FormNetSession.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Net.FormNetSession.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.Net.FormNetSession.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:CommonFroms.Properties.Resources">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.canvasBg">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.canvasBg2">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icon_men">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icons_copy">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icons_cut">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icons_delete">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icons_paste">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icons_paste_plus">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icons_tool_bar1">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icons_tool_bar2">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.icons_tool_bar3">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="P:CommonFroms.Properties.Resources.Image34">
+            <summary>
+              查找 System.Drawing.Bitmap 类型的本地化资源。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.RegistUtils.TryGetAppRegistry``1(System.String,``0@)">
+            <summary>
+            从注册表里读取信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFroms.RegistUtils.PutAppRegistry``1(System.String,``0)">
+            <summary>
+            在注册表里写入信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:CommonFroms.RegistUtils.TryGetAppRegistry``1(System.String,System.String,``0@)">
+            <summary>
+            从注册表里读取信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path">应用子目录</param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonFroms.RegistUtils.PutAppRegistry``1(System.String,System.String,``0)">
+            <summary>
+            在注册表里写入信息
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="path">应用子目录</param>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:CommonFroms.SceneGraph2D.Edit.EditorNode.CurrentScreenScale">
+            <summary>
+            相对屏幕的缩放比
+            </summary>
+        </member>
+        <member name="P:CommonFroms.SceneGraph2D.Edit.EditorNode.CurrentScreenPoint">
+            <summary>
+            相对屏幕的坐标
+            </summary>
+        </member>
+        <member name="F:CommonFroms.SceneGraph2D.Edit.SceneEditPanel.DRAG_MOVE_START_DISTANCE">
+            <summary>
+            开始拖拽时距离
+            </summary>
+        </member>
+        <member name="F:CommonFroms.SceneGraph2D.Win32ScenePanel.components">
+            <summary> 
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.SceneGraph2D.Win32ScenePanel.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:CommonFroms.SceneGraph2D.Win32ScenePanel.InitializeComponent">
+            <summary> 
+            设计器支持所需的方法 - 不要修改
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="F:CommonFroms.Utils.ConsoleOutput.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Utils.ConsoleOutput.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CommonFroms.Utils.ConsoleOutput.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:CommonFroms.Utils.TreeGrid.G2DTreeDataGrid.components">
+            <summary> 
+            必需的设计器变量。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Utils.TreeGrid.G2DTreeDataGrid.Dispose(System.Boolean)">
+            <summary> 
+            清理所有正在使用的资源。
+            </summary>
+            <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        </member>
+        <member name="M:CommonFroms.Utils.TreeGrid.G2DTreeDataGrid.InitializeComponent">
+            <summary> 
+            设计器支持所需的方法 - 不要
+            使用代码编辑器修改此方法的内容。
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Utils.TreeGrid.G2DTreeGridDocument.CreateValueNode(System.String,System.Type,System.Object)">
+            <summary>
+            创建节点
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CommonFroms.Utils.TreeGrid.G2DTreeGridValueNode">
+            <summary>
+            值类型节点基类
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Utils.TreeGrid.G2DTreeGridValueNode.GenChilds">
+            <summary>
+            如果是复合类，产生子节点
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Utils.TreeGrid.G2DTreeGridValueNode.SetFieldValue(CommonFroms.Utils.TreeGrid.G2DTreeGridValueNode,System.Object)">
+            <summary>
+            设置当前节点值（此操作 将改变当前节点结构）
+            </summary>
+        </member>
+        <member name="M:CommonFroms.Utils.TreeGrid.G2DTreeGridValueNode.SetValue(System.Object)">
+            <summary>
+            设置当前节点值（此操作 将改变当前节点结构）
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:CommonFroms.Utils.TreeGrid.G2DTreeGridLeafValueNode">
+            <summary>
+            表示基础类型
+            </summary>
+        </member>
+        <member name="T:CommonFroms.Utils.TreeGrid.G2DTreeGridFieldsValueNode">
+            <summary>
+            表示类
+            </summary>
+        </member>
+        <member name="T:CommonFroms.Utils.TreeGrid.G2DTreeGridArrayNode">
+            <summary>
+            表示数组
+            </summary>
+        </member>
+        <member name="T:CommonFroms.Utils.TreeGrid.G2DTreeGridListNode">
+            <summary>
+            表示列表
+            </summary>
+        </member>
+        <member name="T:CommonFroms.Utils.TreeGrid.G2DTreeGridMapNode">
+            <summary>
+            表示字典
+            </summary>
+        </member>
+        <member name="T:AdvancedDataGridView.TreeGridCell">
+            <summary>
+            Summary description for TreeGridCell.
+            </summary>
+        </member>
+        <member name="T:AdvancedDataGridView.TreeGridView">
+            <summary>
+            Summary description for TreeGridView.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,8 @@
+﻿Key,Value,
+enemyCancelTransaction,对方已取消交易,
+putBag,取回,
+putTransaction,放入交易,
+itemNumInputTitle,请输入添加数据,
+itemNumAddTip,可再添加:{0},
+transactionRequestTip,已发起交易请求，等待对方应答,
+noTransactionInBattle,战斗中不能交易,

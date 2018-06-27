@@ -1,0 +1,8 @@
+[
+	[ "套餐ID", "名称", "货币类型", "货币金额", "购买获得元宝", "每日赠送绑元", "持续时间", "解锁绑元商店", "杀怪经验加成", "银两收益加成", "寄卖行摊位增加", "仓库栏位增加", "背包栏位增加", "限购物品的上限增加", "每日发放免费喇叭", "特权称号", "每日免费复活次数" ],
+	[ "ID", "Name", "PayMoneyType", "PayMoneyAmount", "PayDiamond", "DailyDW", "LastTime", "Prv1", "Prv2", "Prv3", "Prv4", "Prv5", "Prv6", "Prv7", "Prv8", "Prv9", "Prv10" ],
+	[ "NUMBER", "STRING", "STRING", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "NUMBER", "STRING", "NUMBER" ],
+	[ 1, "月卡", "RMB", 3000, 300, 100, 30, 1, 500, 1500, 3, 10, 0, 2, 5, "rank39", 2 ],
+	[ 2, "尊享卡", "RMB", 6800, 680, 100, 0, 1, 500, 1000, 2, 10, 5, 2, 5, "rank40", 2 ],
+	[ 3, "双卡", "", 0, 0, 0, 0, 1, 1000, 2500, 5, 20, 5, 4, 10, "", 4 ]
+]

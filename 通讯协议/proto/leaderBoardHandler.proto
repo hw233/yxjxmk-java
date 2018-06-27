@@ -1,0 +1,100 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-03-27
+//* 用途= 排行榜
+//***************************************************************************/
+package pomelo.area;
+import 'common.proto';
+
+//
+message LeaderBoardData {
+   repeated string contents = 1;		// 客户端显示字段需和客户端相对应，约定数组第一个传rank排名
+   repeated Avatar avatars = 2;     // 人物avatar 除公会,宠物,坐骑都有 本人排名信息没有
+}
+
+// 排行榜公会信息结构
+message RankGuildInfo {
+  optional string guildId = 1;
+  optional string guildIcon = 2;
+  optional string guildMaster = 3;
+  optional int32 guildLevel = 4;
+  optional int32 curMember = 5;
+  optional int32 maxMember = 6;
+  optional int32 fund = 7;
+  optional string notice = 8;
+  optional int32 guildMasterPro = 9;
+}
+
+// 获取排行榜  (请求)
+message LeaderBoardRequest{
+    required int32 c2s_kind = 1;        //排行榜类型
+    optional int32 c2s_season = 2; 		// 赛季类型  -1：没有赛季概念  0 上一赛季  1 当前赛季
+}
+
+// 获取排行榜 (返回)
+message LeaderBoardResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated LeaderBoardData s2c_lists = 3;
+   optional LeaderBoardData s2c_myData = 4;
+}
+
+// 获取公会信息 (请求)
+message GuildInfoRequest {
+    required string c2s_guildId = 1;
+}
+
+// 获取公会信息 (返回)
+message GuildInfoResponse {
+  	required int32 s2c_code = 1;
+ 	optional string s2c_msg = 2;
+ 	optional RankGuildInfo s2c_data = 3;
+}
+
+message WorShipRequest {
+    required int32 c2s_type = 1;
+}
+
+message WorShipResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated string s2c_awards = 3;
+}
+
+message WorldLevelInfoRequest {
+}
+
+message WorldLevelInfo {
+    required string worldLevelId = 1;
+    required string worldLevelName = 2;
+    required int32 worldLevel = 3;
+    required int32 worldUpLevel = 4;
+    repeated Avatar avatars = 5;
+    required int32 addExp = 6;
+    required int32 worShipTimes = 7;
+    required int32 maxWorShipTimes = 8;
+    required int32 worldLevelPro = 9;
+    optional string rank1stGuildName = 10;       // 第一名玩家的公会名
+    optional int32 rank1stFight = 11;			 // 第一名玩家的战力
+}
+
+message WorldLevelInfoResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    required WorldLevelInfo s2c_data = 3;
+}
+
+// 排行榜处理器
+service leaderBoardHandler {
+  //  排行榜请求
+  rpc leaderBoardRequest(LeaderBoardRequest) returns(LeaderBoardResponse);
+
+  // 查看公会信息
+  rpc guildInfoRequest(GuildInfoRequest) returns(GuildInfoResponse);
+
+  // 世界等级膜拜
+  rpc worShipRequest(WorShipRequest) returns(WorShipResponse);
+  // 世界等级信息
+  rpc worldLevelInfoRequest(WorldLevelInfoRequest) returns(WorldLevelInfoResponse);
+
+}

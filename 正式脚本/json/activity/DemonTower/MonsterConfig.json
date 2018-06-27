@@ -1,0 +1,11 @@
+[
+	[ "参数名称", "参数值" ],
+	[ "Param", "ParamValue" ],
+	[ "STRING", "FLOAT" ],
+	[ "LevelRatio", 2 ],
+	[ "FloorRatio", 1.05 ],
+	[ "PropRatio", 1.0226 ],
+	[ "ResetNum", 1 ],
+	[ "SweepTime", 60 ],
+	[ "SweepPrice", 20 ]
+]

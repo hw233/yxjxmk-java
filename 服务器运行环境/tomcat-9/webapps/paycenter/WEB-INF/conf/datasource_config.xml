@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ds-config>
+	<pool>
+		<name>paycenter</name>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<url>jdbc:mysql://192.168.102.84:3306/paycenter?useUnicode=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull&amp;characterEncoding=utf8</url>
+		<username>root</username>
+		<password>root(</password>
+		<minconn>1</minconn>
+		<maxconn>5</maxconn>
+		<freetimeout>3600000</freetimeout>
+		<waittime>30000</waittime>
+	</pool>
+	<pool>
+		<name>order</name>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<url>jdbc:mysql://192.168.102.84:3306/querydb?useUnicode=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull&amp;characterEncoding=utf8</url>
+		<username>root</username>
+		<password>root(</password>
+		<minconn>1</minconn>
+		<maxconn>5</maxconn>
+		<freetimeout>3600000</freetimeout>
+		<waittime>30000</waittime>
+	</pool>
+</ds-config>

@@ -1,0 +1,6 @@
+[
+	[ "图片编号", "活动图片", "点击跳转" ],
+	[ "ID", "Route", "Goto" ],
+	[ "NUMBER", "STRING", "STRING" ],
+	[ 1, "static_n/activity/scxc.png", "FirstCharge" ]
+]

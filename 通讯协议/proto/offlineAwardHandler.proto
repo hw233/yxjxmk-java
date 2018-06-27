@@ -1,0 +1,126 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 离线奖励处理器
+//***************************************************************************
+package pomelo.area;
+
+message OfflineAwardItem {
+  required int32 templateId =  1;
+  required int32 picId =  2;
+  required string name =  3;
+  required int32 num =  4;
+  required int32 quality =  5;
+}
+
+message OfflineAward  {
+  required int32 flag = 1;
+  required int32 areaId = 2;
+  required int32 gold = 3;
+  required int32 exp  = 4;
+  repeated OfflineAwardItem offlineAwardItems  = 5;
+  required int32 offlineTime  = 6;
+  required int32 v1Cost  = 7;
+  required int32 v1BoxNum = 8;
+  required int32 v5Cost  = 9;
+  required int32 v5BoxNum  = 10;
+}
+  
+
+message OfflineAwardDetail {
+  required string areaName =  1;
+  required int32 offlineTime =  2;
+  required int32 gold =  3;
+  required int32 exp =  4;
+  required int32 goldPerHour =  5;
+  required int32 expPerHour =  6;
+  repeated OfflineAwardItem offlineAwardItems =  7;
+  required int32 v1Cost =  8;
+  required int32 v1BoxNum =  9;
+  required int32 v5Cost =  10;
+  required int32 v5BoxNum =  11;
+}
+
+message OfflineAreaDetail{
+  required string name =  1;
+  required int32 id =  2;
+  required int32 minLevel =  3;
+  required int32 maxLevel =  4;
+  required int32 minFightPower =  5;
+  required int32 goldPerHour =  6;
+  required int32 expPerHour =  7;
+  repeated OfflineAwardItem offlineAwardItems =  8 ;
+}
+
+message SetOfflineAreaIdRequest {
+  required int32 c2s_areaId = 1;
+}
+
+
+message QueryOfflineAwardRequest {
+}
+
+
+message GetOfflineAwardRequest {
+  required string c2s_type = 1;
+}
+
+message GetCurrentOfflineAreaRequest {
+}
+
+message SetOfflineAreaIdResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+
+message QueryOfflineAwardResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional OfflineAward offlineAward = 3;
+}
+
+
+message GetOfflineAwardResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message GetCurrentOfflineAreaResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional string name = 3;
+  optional int32 minLevel = 4;
+  optional int32 maxLevel = 5;
+}
+  
+  
+message QueryAllAreasRequest{
+
+}
+
+
+message QueryAllAreasResponse  {
+   required int32 s2c_code =  1;
+   optional string s2c_msg =  2;
+   repeated OfflineAreaDetail s2c_areasDetail =  3;
+}
+  
+  
+//离线奖励理器
+service offlineAwardHandler {
+
+  //查询
+  rpc queryAllAreasRequest(QueryAllAreasRequest) returns (QueryAllAreasResponse);  
+  
+  rpc setOfflineAreaIdRequest(SetOfflineAreaIdRequest) returns (SetOfflineAreaIdResponse);  
+
+  rpc queryOfflineAwardRequest(QueryOfflineAwardRequest) returns (QueryOfflineAwardResponse);  
+
+  rpc getOfflineAwardRequest(GetOfflineAwardRequest) returns (GetOfflineAwardResponse);  
+
+  rpc getCurrentOfflineAreaRequest(GetCurrentOfflineAreaRequest) returns (GetCurrentOfflineAreaResponse);
+ 
+}
+
+

@@ -1,0 +1,72 @@
+//***************************************************************************
+//* 作者= 于洋
+//* 创建时间= 2016-09-08
+//* 用途= 君王宝藏系统
+//***************************************************************************
+package pomelo.area;
+
+message TreasureItem {
+	required string itemCode = 1;
+	required int32 itemNum = 2;
+	optional int32 isBind = 3; // 不给按配置来 给了就是绑定的类型
+	optional int32 score = 4; 	// 基础评分
+}
+
+// 打开宝藏界面信息请求
+message GetTreasureInfoRequest {
+	required int32 c2s_treasureMsg = 1;		// 1所有消息 2自己消息
+}
+
+message GetTreasureInfoResponse {
+  	required int32 s2c_code = 1;
+  	optional string s2c_msg = 2;
+  	required int32 s2c_treasureBagSize = 3;
+	repeated string s2c_treasureMsg = 4;
+}
+
+// 获取宝藏背包信息
+message GetTreasureBagInfoRequest {
+	
+}
+
+message GetTreasureBagInfoResponse {
+  	required int32 s2c_code = 1;
+  	optional string s2c_msg = 2;
+	repeated TreasureItem s2c_treasureBag = 3;
+}
+
+enum OpenType {
+	OPEN_ONE = 1;
+	OPEN_TEN = 2;
+}
+
+// 开启宝藏
+message OpenTreasureRequest {
+	required OpenType c2s_openType = 1;
+	required int32 c2s_useDiamond = 2;		// 0为不使用 1为使用
+}
+
+message OpenTreasureResponse {
+  	required int32 s2c_code = 1;
+  	optional string s2c_msg = 2;
+	repeated TreasureItem s2c_treasureItem = 3;
+}
+
+// 提取宝藏背包
+message ReceiveTreasureBagRequest {
+	
+}
+
+message ReceiveTreasureBagResponse {
+  	required int32 s2c_code = 1;
+  	optional string s2c_msg = 2;
+}
+
+
+// 君王宝藏处理器
+service treasureHandler {
+	rpc getTreasureInfoRequest(GetTreasureInfoRequest) returns(GetTreasureInfoResponse);
+	rpc getTreasureBagInfoRequest(GetTreasureBagInfoRequest) returns(GetTreasureBagInfoResponse);
+	rpc openTreasureRequest(OpenTreasureRequest) returns(OpenTreasureResponse);
+	rpc receiveTreasureBagRequest(ReceiveTreasureBagRequest) returns(ReceiveTreasureBagResponse);
+}

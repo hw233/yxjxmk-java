@@ -1,0 +1,122 @@
+//***************************************************************************
+//* 作者= 卢松洁
+//* 创建时间= 2015-08-27
+//* 用途= 交易处理器
+//***************************************************************************
+package pomelo.area;
+
+import 'common.proto';
+import 'item.proto';
+
+// 交易邀请
+message InviteRequest{
+    required string c2s_playerId = 1;  // 目标玩家
+}
+
+message InviteResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message TradeItem {
+  required int32 index = 1;  //  交易格子index
+  required string id = 2;    //  物品uuid
+  required int32 num = 3;    //  物品数量
+}
+
+// 添加物品/钻石
+message AddItemRequest {
+   optional int32 c2s_diamond = 1;
+   repeated TradeItem c2s_items = 2;
+}
+
+message AddItemResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+// 移除物品
+message RemoveItemRequest {
+  repeated int32 c2s_indexs = 1;
+}
+
+message RemoveItemResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+// 交易操作
+message TradeOperateRequest {
+   required int32 c2s_operate = 1;  // 1 取消 2 锁定 3 交易
+   optional int32 c2s_diamond = 2;  // 锁定的时候校验
+   repeated TradeItem c2s_items = 3;
+}
+
+message TradeOperateResponse{
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+
+
+//交易处理器
+service tradeHandler {
+  // 交易邀请
+  rpc inviteRequest(InviteRequest) returns(InviteResponse);
+
+  // 添加物品/钻石
+  rpc addItemRequest(AddItemRequest) returns(AddItemResponse);
+
+  // 移除物品
+  rpc removeItemRequest(RemoveItemRequest) returns(RemoveItemResponse);
+
+  // 交易操作
+  rpc tradeOperateRequest(TradeOperateRequest) returns(TradeOperateResponse);
+}
+
+message TradePlayer{
+  required string id = 1;
+  required string name = 2;
+  required int32 level = 3;
+  required int32 upLevel = 4;
+  required int32 pro = 5;
+  required int32 relation = 6;  //关系 好友 1 同公会 2 陌生人 3
+}
+
+// 交易开始的push
+message TradeBeginPush {
+  required int32 s2c_code = 1;
+  required TradePlayer tradePlayer = 2;
+}
+
+message TradeGrid {
+  required item.Grid  grid = 1;    // Gird 里面的item不存在就是移除操作
+  optional item.ItemDetail detail = 2;  // 当Gird里面的item存在时，detail也存在
+}
+
+message TradeData {
+  optional int32 diamond = 1;
+  repeated TradeGrid grids = 2;
+}
+
+message TradeItemChangePush {
+  required int32 s2c_code = 1;
+  required TradeData data = 2;
+}
+
+message TradeOperatePush {
+  required int32 s2c_code = 1;
+  required int32 operate = 2;  // 0 结束(包括取消和交易完成)  2 锁定 3 交易(就是点了确认按钮)
+}
+
+
+service tradePush{
+  // 交易开始的push
+  rpc tradeBeginPush(TradeBeginPush) returns(Void);
+
+  // 道具改变的push，包括添加和移除及钻石币的改变
+  rpc tradeItemChangePush(TradeItemChangePush) returns(Void);
+
+  // 交易操作的push(锁定和交易)
+  rpc tradeOperatePush(TradeOperatePush) returns(Void);
+}

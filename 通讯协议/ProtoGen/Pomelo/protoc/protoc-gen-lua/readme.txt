@@ -1,0 +1,3 @@
+使用环境：安装python27
+第一使用前需要执行setup.bat
+每次更新proto文件后，需要进入proto目录执行make_proto.bat

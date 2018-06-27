@@ -1,0 +1,69 @@
+//***************************************************************************
+//* 作者= 陈高烨
+//* 创建时间= 2016-03-08
+//* 用途= 护符处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+message GetAllAmuletDetailReq{
+}
+
+message GetAllAmuletDetailRes{
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   optional int32 s2c_totalCount = 3;
+   optional int32 s2c_maxCount = 4;
+   repeated item.ItemDetail s2c_data = 5;
+}
+
+message EquipAmuletReq {
+  required int32 c2s_gridIndex = 1;
+}
+
+message UnEquipAmuletReq {
+  required string c2s_gridIndex = 1;
+}
+
+message UnAllEquipAmuletReq {
+}
+
+message EquipAmuletRes {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_totalCount = 3;
+  optional int32 s2c_maxCount = 4;
+}
+
+message UnEquipAmuletRes {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_totalCount = 3;
+  optional int32 s2c_maxCount = 4;
+}
+
+message UnAllEquipAmuletRes {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_totalCount = 3;
+  optional int32 s2c_maxCount = 4;
+}
+
+message AmuletEquipNewPush{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_totalCount = 3;
+  optional int32 s2c_maxCount = 4;
+  repeated item.ItemDetail s2c_data = 5;
+}
+
+service amuletHandler{
+  rpc getAllAmuletRequest(GetAllAmuletDetailReq) returns(GetAllAmuletDetailRes);
+  rpc equipAmuletRequest(EquipAmuletReq) returns(EquipAmuletRes);
+  rpc unEquipAmuletRequest(UnEquipAmuletReq) returns(UnEquipAmuletRes);
+  rpc unAllEquipAmuletRequest(UnAllEquipAmuletReq) returns(UnAllEquipAmuletRes);
+}
+service amuletPush{
+  rpc amuletEquipNewPush(AmuletEquipNewPush) returns(Void);
+}

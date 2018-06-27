@@ -1,0 +1,127 @@
+//***************************************************************************
+//* 大逃杀
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+// 大逃杀主界面请求
+message FleeInfoRequest {
+}
+
+//段位奖励
+message GradeReward {
+	required int32 gradeId = 1; // 段位ID
+	required int32 status = 2; // 领取状态 0-不可领取 1-可领取 2-已领取
+}
+
+// 大逃杀主界面返回
+message FleeInfoResponse {
+  required int32    s2c_code = 1;
+  optional string   s2c_msg = 2;
+  optional int32    currentRank = 3;  // 当前排名为0表示没有排名
+  optional int32    maxRank = 4;   //历史最高排名为0表示没有排名
+  optional int32	grade = 5; // 段位
+  optional int32	maxGrade = 6; // 历史最高段位
+  optional int64	seasonEndTime = 7;// 赛季结束时间
+  optional int32	score = 8;
+  repeated GradeReward gradeRewards = 9;// 段位奖励信息
+  optional int32  joinTime = 10; // 报名时间 0-没有报名
+  optional int32  avgMatchTime = 11;  // 平均等待时间
+}
+
+// 领取段位奖励请求
+message GetRewardRequest{
+  required int32 gradeId = 1; // 段位ID
+}
+
+// 领取段位奖励返回
+message GetRewardResponse{
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 查看战报请求
+message FleeLookBtlReportRequest {
+}
+
+// 战报信息
+message FleeBtlReport {
+	optional int32 rank = 1; // 排名
+	optional int32 scoreChange = 2; // 积分变化
+	optional string createTime = 3; // 创建时间
+}
+
+// 查看战报返回
+message FleeLookBtlReportResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	repeated FleeBtlReport br = 3; //战报
+}
+
+// 请求进入大逃杀
+message EnterFleeRequest {
+}
+
+// 进入大逃杀返回
+message EnterFleeResponse {
+	required int32  s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional int32  avgMatchTime = 3;  // 平均等待时间
+	optional int32  joinTime = 4; // 报名时间
+}
+
+// 取消匹配
+message CancelMatchRequest {
+}
+
+// 取消匹配返回
+message CancelMatchResponse {
+	required int32  s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+// 大逃杀玩家信息
+message FleeMatchMemberInfo {
+	required string playerId = 1;
+	required int32 playerPro = 2;
+	required int32 playerLvl = 3;
+	required string playerName = 4;
+	required int32 scoreChange = 5;
+	required int32 killCount = 6;// 击杀数量
+}
+
+// 自己被击杀推送
+message OnFleeDeathPush {
+  required int32  s2c_code = 1;
+  required int32 outtime = 2;// 强制退出时间
+  required int32  rank = 3;
+  required int32  scoreChange = 4;
+}
+
+// 全场结束推送
+message OnFleeEndPush {
+	required int32 s2c_code = 1;
+	required int32 outtime = 2;// 强制退出时间
+	repeated FleeMatchMemberInfo ranks = 3;
+}
+
+service fleeHandler {
+  // 请求大逃杀界面
+  rpc fleeInfoRequest(FleeInfoRequest) returns (FleeInfoResponse);
+  // 领取段位奖励
+  rpc getRewardRequest(GetRewardRequest) returns (GetRewardResponse);
+  // 查看战报
+  rpc fleeLookBtlReportRequest(FleeLookBtlReportRequest) returns (FleeLookBtlReportResponse);
+  // 请求进入大逃杀
+  rpc enterFleeRequest(EnterFleeRequest) returns (EnterFleeResponse);
+  // 取消匹配
+  rpc cancelMatchRequest (CancelMatchRequest) returns (CancelMatchResponse);
+}
+
+// 大逃杀消息推送
+service fleePush {
+  // 自己被击杀推送
+  rpc onFleeDeathPush(OnFleeDeathPush) returns (Void);
+  // 全场结束推送
+  rpc onFleeEndPush(OnFleeEndPush) returns (Void);
+}

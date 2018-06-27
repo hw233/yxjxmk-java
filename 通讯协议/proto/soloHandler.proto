@@ -1,0 +1,303 @@
+//***************************************************************************
+//* 作者= 王方月
+//* 创建时间= 2017-04-10
+//* 用途= 问道大会系统
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+
+message RankItem {
+  required int32  rank = 1;      // 排名
+  required string playerId = 2;  // 玩家ID
+  required string name = 3;      // 玩家名字
+  required int32  pro  = 4;      // 玩家职业
+  required int32  level = 5;     // 玩家等级
+  optional int32  score = 6;    // 新增 资历（积分）
+}
+
+
+message MyInfo {
+  required int32 rank = 1;          // 排名
+  required int32 score = 2;         // 修改（改为资历用来查段位) 积分
+  required int32 maxContWinTimes = 3;      // 历史最高连胜次数
+  required int32 maxContLoseTimes = 4;	//历史最高连败次数
+  required int32 battleTimes = 5;   // 新增 当前赛季单挑总场次
+  required int32 winTotalTimes = 6;      // 新增 胜利场次
+  required int32 loseTotalTimes = 7;     // 新增 失败场次
+  required string seasonEndTime = 8;      // 新增 赛季结束时间
+  required int32 myToken = 9;      // 新增 当前宗师币
+  required int32 todayToken = 10;   // 新增 今日收益宗师币
+  required int32 maxToken = 11;     // 新增 今日宗师币最大收益
+  optional int32  avgMatchTime = 12;  // 平均等待时间
+  optional int32  startJoinTime = 13; // 开始报名时间 0-没有报名
+}
+
+message RankReward {
+  required int32 rankId = 1; // 段位ID
+  required int32 status = 2; // 领取状态 0-不可领取 1-可领取 2-已领取
+}
+
+// 单挑界面
+message SoloInfoRequest {
+}
+
+message SoloInfoResponse {
+  required int32    s2c_code = 1;
+  optional string   s2c_msg = 2;
+  optional MyInfo   s2c_myInfo = 3;          // 我的信息
+}
+
+//新增协议 传闻数据结构
+message NewsInfo {
+  required string date = 1; // 传闻日期
+  repeated string message = 2; // 传闻内容
+}
+
+//新增协议request 传闻界面
+message NewsInfoRequest {
+}
+//新增协议 response
+message NewsInfoResponse {
+  required int32    s2c_code = 1;
+  optional string   s2c_msg = 2;
+  repeated NewsInfo   s2c_soloMessages = 3;    // 单挑传闻
+}
+
+
+// 新增协议request 战斗记录
+message BattleRecordRequest {
+}
+// 新增协议数据结构
+message BattleRecord {
+  required int32 result = 1;   //战斗结果 1-胜 2-负 3-平
+  required string battleTime = 2; //战斗时间
+  required int32 score=3; 	//当时资历
+  required int32  scoreChange = 4; //资历变化 
+  required string vsName = 5;     // 对方名字
+  required string vsGuildName= 6; //对方公会名称
+  required int32  vsPro = 7;      // 对方职业
+  required int32  vsScore = 8;      // 对方资历
+}
+// 新增协议response
+message BattleRecordResponse {
+  required int32    s2c_code = 1;
+  optional string   s2c_msg = 2;
+  optional int32    s2c_canglang = 3; //对苍狼胜率
+  optional int32    s2c_yixian = 4; //对逸仙胜率
+  optional int32    s2c_yujian = 5; //对御剑胜率
+  optional int32    s2c_linghu = 6; //对灵狐胜率
+  optional int32    s2c_shenjian = 7; //对神箭胜率
+  repeated BattleRecord s2c_batttleList =8;//战斗记录列表
+}
+
+// 奖励界面
+message RewardInfoRequest {
+}
+
+message DailyRewardItem {
+  required string itemCode = 1; // 奖励物品id
+  required int32 itemNum = 2; // 物品数量
+}
+
+// 每日奖励
+message SoloDailyReward {
+  required int32 rankId = 1; // 奖励对应的段位ID，未来可以为不同段位配置不同宝箱奖励
+  required int32 status = 2; // 领取状态  0-领取条件不够  1-可领取 2-已经领取
+  repeated DailyRewardItem items = 3;//TC产生的奖励物品
+}
+
+message RewardInfoResponse {
+  required int32      s2c_code = 1;
+  optional string     s2c_msg = 2;
+  repeated RankReward s2c_rankRewards = 3;        // 段位奖励
+  optional int32      s2c_currRank = 4;           // 当前排名
+  repeated SoloDailyReward      s2c_dailyRewards = 5; // 每日刷新的宝箱奖励
+  optional int32      s2c_dailyBattleTimes = 6;   //当前参与场次 (每达成一个宝箱开启条件会重置，超过当日宝箱上限的时候不再累积)
+}
+
+// 领取段位奖励
+message DrawRankRewardRequest {
+  required int32 c2s_rankId = 1; // 段位ID
+}
+
+message DrawRankRewardResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//领取每日奖励
+message DrawDailyRewardRequest {
+  required int32 c2s_index = 1; // 索引从1开始
+}
+
+message DrawDailyRewardResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated DailyRewardItem s2c_dailyRewardItems = 3;//TC产生的奖励物品 
+}
+
+
+// 报名参战
+message JoinSoloRequest {
+}
+
+message JoinSoloResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32  s2c_avgMatchTime = 3;  // 平均等待时间
+  optional int32  s2c_startJoinTime = 4; // 开始报名时间
+}
+
+// 匹配成功，确认参战请求
+message JoinSoloBattleRequest {
+}
+
+message JoinSoloBattleResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 退出报名
+message QuitSoloRequest {
+}
+
+message QuitSoloResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 查询奖励
+message QueryRewardRequest {
+}
+
+message QueryRewardResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32  s2c_hasReward = 3; // 0-无奖励 1-有奖励
+}
+
+// 离开单挑场景
+message LeaveSoloAreaRequest {
+}
+
+message LeaveSoloAreaResponse {
+  required int32  s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 单挑匹配到的对手信息
+message OnSoloMatchedPush {
+  required int32  	s2c_code = 1;
+  required string 	s2c_vsPlayerName = 2;     // 对手姓名
+  required int32 	s2c_vsPlayerPro = 3; // 对手职业
+  required int32 	s2c_vsPlayerLevel = 4; // 对手等级
+  repeated Avatar 	s2c_vsPlayerAvatars = 5;   // 对手时装
+  required int32 	s2c_waitResponseTimeSec = 6;//等待用户回应的时间秒数
+  optional int32 s2c_isRobot = 7; // 是否机器人
+}
+
+// 单挑对手信息
+message GetRivalInfoResponse {
+  required int32  	s2c_code = 1;
+  required string 	s2c_vsPlayerName = 2;     // 对手姓名
+  required int32 	s2c_vsPlayerPro = 3; // 对手职业
+  required int32 	s2c_vsPlayerLevel = 4; // 对手等级
+  optional string   s2c_msg = 5;
+}
+
+// 有新奖励
+message OnNewRewardPush {
+  required int32 s2c_code = 1;
+}
+
+// 战点更新
+message OnFightPointPush {
+  required int32 s2c_code = 1;
+  required int32 s2c_fightPoint = 2; // 战点
+}
+
+message RoundResult {
+  required int32 result = 1;     // 1-胜 2-负 3-平
+  required int32 myWinTimes = 2; // 己方胜利次数
+  required int32 vsWinTimes = 3; // 对方胜利次数
+  required int32 leftTime = 4;   // 倒计时时间
+}
+
+// 单局结束
+message OnRoundEndPush {
+  required int32       s2c_code = 1;
+  required RoundResult s2c_roundResult = 2;
+}
+
+message GameResult {
+  required int32  result = 1;     // 1-胜 2-负 3-平
+  required int32  newScore = 2;   // 修改 新增资历积分
+  required int32  currScore = 3;  // 新增 当前资历
+  required int32  tokenChange =4;  //新增 宗师币增加数量
+  required int32  rankChange = 5;  //新增 排名变化
+  required int32  currentRank = 6;  //当前排名
+}
+
+// 全场结束
+message OnGameEndPush {
+  required int32      s2c_code = 1;
+  required GameResult s2c_gameResult = 2;
+  required int32      s2c_gameOverTime = 3; // 玩家离开场景倒计时
+  optional int32      dailyBattleTimes = 4; // 当日战斗次数
+}
+
+message LeftSoloTimePush{
+    required int32 s2c_code = 1;
+    repeated OpenTimeInfo openList = 2;
+}
+
+message CancelMatchPush{
+	required int32 s2c_code = 1;
+}
+
+// 单挑王处理器
+service soloHandler {
+  // 请求单挑界面
+  rpc soloInfoRequest(SoloInfoRequest) returns(SoloInfoResponse);
+  // 请求奖励界面
+  rpc rewardInfoRequest(RewardInfoRequest) returns(RewardInfoResponse);
+  // 请求领取段位奖励
+  rpc drawRankRewardRequest(DrawRankRewardRequest) returns(DrawRankRewardResponse);
+  // 请求领取每日奖励
+  rpc drawDailyRewardRequest(DrawDailyRewardRequest) returns(DrawDailyRewardResponse);
+  // 请求报名参战
+  rpc joinSoloRequest(JoinSoloRequest) returns(JoinSoloResponse);
+  // 匹配成功，确认参战请求
+  rpc joinSoloBattleRequest(JoinSoloBattleRequest) returns(JoinSoloBattleResponse);
+  // 请求退出报名
+  rpc quitSoloRequest(QuitSoloRequest) returns(QuitSoloResponse);
+  // 请求查询奖励
+  rpc queryRewardRequest(QueryRewardRequest) returns(QueryRewardResponse);
+  // 请求离开单挑场景
+  rpc leaveSoloAreaRequest(LeaveSoloAreaRequest) returns(LeaveSoloAreaResponse);
+  //新增 传闻界面
+  rpc newsInfoRequest(NewsInfoRequest) returns(NewsInfoResponse);
+  //新增 请求战斗记录
+  rpc battleRecordRequest(BattleRecordRequest) returns(BattleRecordResponse);
+  
+  //获取对手信息
+  rpc getRivalInfoRequest(Void) returns(GetRivalInfoResponse);
+}
+
+// 单挑王消息推送
+service soloPush {
+  //推送匹配成功的对手信息
+  rpc onSoloMatchedPush(OnSoloMatchedPush) returns(Void);
+  // 推送有新奖励
+  rpc onNewRewardPush(OnNewRewardPush) returns(Void);
+  // 推送战点更新
+  rpc onFightPointPush(OnFightPointPush) returns(Void);
+  // 推送单局结束
+  rpc onRoundEndPush(OnRoundEndPush) returns(Void);
+  // 推送全场结束
+  rpc onGameEndPush(OnGameEndPush) returns(Void);
+  //匹配次数推送
+  rpc leftSoloTimePush(LeftSoloTimePush) returns(Void);
+  //取消匹配推送
+  rpc cancelMatchPush(CancelMatchPush) returns(Void);
+}

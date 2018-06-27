@@ -1,0 +1,37 @@
+//***************************************************************************
+//* 作者: XXX
+//* 创建时间: 2015-08-27
+//* 用途: 在线奖励处理器
+//* 维护人员: XXX
+//***************************************************************************
+package pomelo.area;
+
+message GetOnLineGiftRequest{
+  
+}
+  
+message GiftOnLineStruct  {
+  required int32 templateId = 1;
+  required int32 count = 2;
+  required int32 quality = 3;
+  required int32 picId = 4;
+  required string name = 5;
+}
+
+message GiftOnlineData {
+  required int32 s2c_time = 1;
+  repeated GiftOnLineStruct s2c_items = 2;
+}
+
+message GetOnLineGiftResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional GiftOnlineData s2c_data = 3;
+}
+
+//在线奖励处理器
+service giftOnlineHandler {
+  rpc getOnLineGiftRequest(GetOnLineGiftRequest) returns(GetOnLineGiftResponse);  
+}
+
+ 

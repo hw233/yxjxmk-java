@@ -1,0 +1,134 @@
+//***************************************************************************
+//* 作者= 刘羿君
+//* 创建时间= 2015-10-17
+//* 用途= 背包处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'item.proto';
+
+
+message PackUpBagRequest  {
+    required int32 c2s_type = 1;        //类型
+}
+
+message PackUpBagResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_type = 3;
+  repeated item.Grid s2c_bagGrids = 4;
+}
+
+message OpenBagGridRequest  {
+   required int32  c2s_type = 1;
+   required int32 c2s_number  = 2;  // 开的格子数量
+}
+
+message OpenBagGridResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional int32 s2c_type = 3;
+  optional int32 s2c_bagGridCount = 4;
+}
+
+message AddBagItemTestNotify  {
+}
+
+
+message TransferItemRequest {
+  required int32 c2s_fromType = 1;
+  required int32 c2s_fromIndex = 2;
+  required int32 c2s_toType = 3;
+  required int32 c2s_num = 4;   //存储的数量
+}
+
+message TransferItemResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message SellItemRequest {
+  required int32 c2s_gridIndex = 1;
+  required int32 c2s_num = 2;
+}
+
+message SellItemResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+message UseItemRequest {
+  required int32 c2s_gridIndex = 1;
+  required int32 c2s_num = 2;
+}
+
+message UseItemResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  repeated item.MiniItem s2c_chest = 3;   //宝箱
+  optional int32 is_gain = 4; // 1:药剂 2:改名卡
+}
+
+//背包理处理器
+service bagHandler {
+    //添加测试物品
+    rpc addBagItemTestNotify(AddBagItemTestNotify) returns (Void);
+
+    //整理背包
+    rpc packUpBagRequest(PackUpBagRequest) returns(PackUpBagResponse);
+
+    //背包开格子
+    rpc openBagGridRequest(OpenBagGridRequest) returns(OpenBagGridResponse);
+
+    // 转移物品
+    rpc transferItemRequest(TransferItemRequest) returns(TransferItemResponse);
+
+    // 出售物品
+    rpc sellItemRequest(SellItemRequest) returns(SellItemResponse);
+
+    // 使用物品
+    rpc useItemRequest(UseItemRequest) returns(UseItemResponse);
+}
+
+// 背包格子更新
+message BagItemUpdatePush {
+  required int32 s2c_type = 2;
+  repeated item.Grid s2c_data = 3;
+}
+
+message BagNewItemPush {
+  repeated item.MiniItem s2c_data = 2;
+}
+
+message BagNewEquipPush {
+  repeated string s2c_data = 2;  // 装备ids
+}
+
+message BagGridFullPush {
+  required int32 s2c_code = 1;
+}
+
+message BagGridNumPush {
+  required int32 s2c_type = 1; // 1背包 2仓库 3账号仓库 4出售物品回收站
+  required int32 grid_num = 2; // 新的格子数量
+}
+
+message BagNewItemFromResFubenPush {
+  repeated item.MiniItem s2c_data = 2;
+}
+
+//背包消息推送
+service bagPush {
+    //背包格子动态更新
+    rpc bagItemUpdatePush(BagItemUpdatePush) returns (Void);
+
+    rpc bagNewItemPush(BagNewItemPush) returns(Void);
+
+    rpc bagNewEquipPush(BagNewEquipPush) returns(Void);
+
+    rpc bagGridFullPush(BagGridFullPush) returns(Void);
+
+    rpc bagGridNumPush(BagGridNumPush) returns(Void);
+
+    rpc bagNewItemFromResFubenPush(BagNewItemFromResFubenPush) returns(Void);
+}

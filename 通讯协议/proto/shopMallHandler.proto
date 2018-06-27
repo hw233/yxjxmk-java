@@ -1,0 +1,112 @@
+//***************************************************************************
+//* 作者= 刘羿君
+//* 创建时间= 2015-05-05
+//* 用途= 商城处理器
+//***************************************************************************
+package pomelo.area;
+
+message MallItem{
+	required string id = 1;
+    required string code = 2;
+    required int32 groupCount = 3;
+    required int32 originPrice = 4; //原价
+    required int32 nowPrice = 5; //现价
+    required int32 disCount = 6; //折扣 -2.新品 -1.热销 0.无标签 >0.折扣
+    required int32 endTime = 7; //结束时间 非限时道具时间为0
+    required int32 remainNum = 8; //限购次数 -1.不限购 >=0.剩余次数
+    required int32 consumeScore = 9; //消费积分
+    required int32 bindType = 10;    // 0.不绑定 1.获得即绑定 2.装备后绑定
+    required int32 canSend = 11;    // 1可以赠送 0不可以
+}
+
+message MallScoreItem{
+	required string id = 1;
+    required string code = 2;
+    required int32 groupCount = 3;
+    required int32 consumeScore = 4; //消费积分
+	required int32 isSellOut = 5;  // 是否卖完 1.卖完 0.没卖完
+	required int32 bindType = 6;    // 0.不绑定 1.获得即绑定 2.装备后绑定
+}
+
+message GetMallItemListRequest {
+    optional int32 c2s_moneyType = 1; // 废弃，不需要传
+    required int32 c2s_itemType = 2;
+}
+
+message GetMallItemListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_endTime = 3; //结束时间 -1.限时标签关闭 0.限时活动时间未到 >0.限时活动开启
+    repeated MallItem s2c_items = 4;
+}
+
+message BuyMallItemRequest {
+    required string c2s_itemId = 1;
+    required int32 c2s_count = 2;     // 购买组数
+    required string c2s_playerId = 3; // 物品归属, 如果空字符串则为自己
+    required int32 c2s_bDiamond = 4;  // 1：钻石购买，0：普通购买
+}
+
+message BuyMallItemResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 total_num = 3; // 该物品当前总数量
+}
+
+message GetMallScoreItemListRequest {
+}
+
+message GetMallScoreItemListResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated MallScoreItem s2c_items = 3;
+}
+
+message BuyMallScoreItemRequest {
+    required string c2s_itemId = 1;
+}
+
+message BuyMallScoreItemResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message MallTab {
+    required int32 moneyType = 1; // 1.钻石 2.金票
+    required int32 itemType = 2; // 1.限时 2.时装 3.坐骑 4.材料 5.消耗品 6.其他
+    required int32 isOpen = 3; // 1.开放 0.关闭
+    required string name = 4;
+    required int32 scriptNum = 5; //红点信息
+    required int32 isLimit = 6; //是否是限時 1.是限時 0.不是限時
+    optional string lastNumText = 7; // 道具剩余数量
+}
+
+message GetMallTabsRequest {
+}
+
+message GetMallTabsResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    repeated MallTab s2c_tabs = 3;
+}
+
+//时装处理器
+service shopMallHandler {
+
+    // 获取商城页签信息
+    rpc getMallTabsRequest(GetMallTabsRequest) returns(GetMallTabsResponse);
+
+    // 获取商城积分道具
+    rpc getMallScoreItemListRequest(GetMallScoreItemListRequest) returns(GetMallScoreItemListResponse);
+
+    // 购买商城道具
+    rpc buyMallItemRequest(BuyMallItemRequest) returns(BuyMallItemResponse);
+
+    // 获取商城道具
+    rpc getMallItemListRequest(GetMallItemListRequest) returns(GetMallItemListResponse);
+	
+	// 购买积分商城道具
+    rpc buyMallScoreItemRequest(BuyMallScoreItemRequest) returns(BuyMallScoreItemResponse);
+
+}
+

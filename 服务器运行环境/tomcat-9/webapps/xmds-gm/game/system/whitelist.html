@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>白名单</title>
+</head>
+	<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css" />
+	<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css" />
+	<style type="text/css">
+    	body{margin:0 auto;}
+    </style>
+	<script type="text/javascript" src="../../js/easyui/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="../../js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			 $("#listdialog").dialog("move",{left:110});
+			 $("#whitedialog").dialog("move",{left:800});
+			loadList();
+		})
+		
+		function addWhite(type) {
+			if (!$('#white').form('validate')) {
+				return;
+			}
+			$("#type").val(type);
+			var time = parseInt($("#time").val());
+			$.messager.confirm('提示', (time >=0 ? '确定添加' : '确定删除')
+					+'(<font color="blue">'+(type==1?"白名单":"黑名单")+'</font>)' 
+					+'【<font color="red">'+$("#ip").val()+'</font>】?', function(r) {
+				if (r) {
+					$("#white").form("submit",{
+						success : function(data) {
+							//parent.showTip("反馈", "设置成功");
+							loadList();
+						}
+					});
+				}
+			});
+		}
+
+		function loadList() {
+			$('#list').datagrid({
+				iconCls:'icon-search',
+				nowrap: false,
+				striped: true,
+				fit: true,
+				singleSelect:true,
+				url : '../../action/loadList',
+				columns:[[
+					{field:'white',title:'名单类型',width:100,align:'center',formatter: function(value, row, index){
+					  return value == 1 ? "白名单" : "黑名单";
+					}},
+		            {field:'type',title:'类型',width:80,align:'center', formatter: function(value, row, index){
+					  return value == 1 ? "IP" : "UID";
+					}},
+					{field:'ip',title:'名单',width:120,align:'center'},
+					{field:'time',title:'终止时间',width:150,align:'center',formatter: function(value, row, index){
+					  return !value ? "永久生效" : value;
+					}},
+					{field:'desc',title:'描述',width:150,align:'center'}
+				]],
+				onClickRow:function(index, row){
+					$("#ip").textbox('setValue',row.ip);
+					$("#type").val(row.type || 2);
+					$("#desc").textbox('setValue',row.desc);
+					if(!row.time) {
+						$("#time").numberbox('setValue', 0);
+					} else {
+						var date = new Date();
+						var time = date.getTime();
+						date = new Date(row.time.replace(/-/g, "/"));
+						$("#time").numberbox('setValue', ((date.getTime() - time) / 3600000).toFixed(2));
+					}
+					$("#isUid").attr("checked", row.type != 1);
+				},
+				rownumbers:true
+			});
+		}
+	</script>
+</head>
+<body>
+	<div id="listdialog" class="easyui-dialog" title="名单列表" draggable="true" closable="false" style="width: 660px; height: 700px;">
+		<table id="list"></table> 
+	</div>
+	<div id="whitedialog" class="easyui-dialog" title="白名单" draggable="true" closable="false" style="width: 400px; height: 310px; padding: 30px;">
+		<form id="white" method="post" action="../../action/addWhiteList">
+			<input name="type" id="type" type="hidden">
+			<div style="margin-bottom: 20px; text-align: center;">
+				<input class="easyui-textbox" name="ip" id="ip" style="width: 80%;" data-options="label:'IP或账号ID:',required:true"/>
+			</div>
+			<div style="margin-bottom: 20px; text-align: center;">
+				<input class="easyui-numberbox" name="time" id="time" style="width: 80%;" data-options="precision:1,label:'(0-永久)小时:',required:true" value="0"/>
+			</div>
+			<div style="margin-bottom: 20px; text-align: center;">
+				<input class="easyui-textbox" name="desc" id="desc" style="width: 80%;" data-options="label:'备注:'"/>
+			</div>
+			<div style="text-align: center; padding: 5px 0">
+				是否是玩家ID:<input type="checkbox" name="isUid" id="isUid"><br/><br/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="addWhite(1)" style="width: 80px">设置白名单</a> 
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="addWhite(2)" style="width: 80px">设置黑名单</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="loadList()" style="width: 80px">加载名单</a>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

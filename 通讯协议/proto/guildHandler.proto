@@ -1,0 +1,512 @@
+//***************************************************************************
+//* 作者= jjr
+//* 创建时间= 2017-04-26
+//* 用途= 公会处理器
+//***************************************************************************
+package pomelo.area;
+import 'item.proto';
+import 'common.proto';
+
+enum GuildMode{
+    AUTO_MODE = 1; //自动审核
+    CHECK_MODE = 2;  //手动审核
+}
+
+enum GuildJob{
+    PRESIDENT = 1;  //会长
+    VICE_PRESIDENT = 2; //副会长
+    ELDER = 3;  //长老
+    ELITE = 4;  //精英
+    MEMBER = 5; //成员
+}
+
+message CreateGuildRequest {
+    optional string c2s_icon = 1;
+    optional string c2s_name = 2;
+    optional string c2s_qqGroup = 3;    //qq群
+}
+
+message GetGuildListRequest {
+    optional string c2s_name = 1;
+}
+
+//申请加入公会
+message JoinGuildRequest{
+    optional string c2s_guildId = 1;
+}
+
+message JoinGuildOfPlayerRequest{
+    optional string c2s_playerId = 1;//玩家ID
+}
+
+//邀请加入公会
+message InvitePlayerJoinMyGuildRequest{
+    optional string c2s_playerId = 1; //玩家ID
+};
+
+//同意或拒绝邀请
+message AgreeOrRefuseInviteRequest{
+    required int32 c2s_isAgree = 1; //0:拒绝 1:同意
+    required string c2s_inviteId = 2; //邀请者ID
+    required string c2s_guildId = 3;  //邀请加入的公会Id
+}
+
+//处理申请
+message DealApplyRequest{
+    optional string c2s_applyId = 1; //全部一键处理可不填
+    optional int32 c2s_operate = 2;//审核结果 0:拒绝 1:同意 2:全部拒绝 3:全部同意
+}
+
+//我的公会信息
+message GetMyGuildInfoRequest{
+}
+
+//成员列表
+message GetMyGuildMembersRequest{
+}
+
+//申请列表
+message GetApplyListRequest{
+
+}
+
+//设置公会
+message SetGuildInfoRequest{
+    optional int32 entryLevel = 1;  //进入等级
+    optional int32 guildMode = 2;   //审核模式 参考枚举GuildMode
+    optional int32 entryUpLevel = 4; //进入阶级
+}
+
+message SetGuildQQGroupRequest{
+    optional string qqGroup = 3;    //qq群
+}
+
+//退出公会
+message ExitGuildRequest{
+
+}
+
+//踢人
+message KickMemberRequest {
+    optional string memberId = 1; //成员id
+}
+
+//升级
+message UpgradeGuildLevelRequest{
+}
+
+//修改公告
+message ChangeGuildNoticeRequest{
+    optional string notice = 1;
+};
+
+//修改公会名字
+message ChangeGuildNameRequest{
+    optional string name = 1;
+};
+
+message OfficeName{
+    optional int32 job = 1; // 官职 参考GuildJob枚举
+    optional string name = 2;//官职名称
+}
+
+//修改官职名称
+message ChangeOfficeNameRequest{
+    repeated OfficeName officeNames = 1;
+}
+
+//捐献
+message ContributeToGuildRequest{
+    optional int32 type = 1;//捐献类型
+    optional int32 times = 2;//捐献次数
+}
+
+//设置官职
+message SetMemberJobRequest{
+    optional string memberId = 1; //成员id
+    optional int32 job = 2; //参考GuildJob
+}
+
+//转让会长
+message TransferPresidentRequest{
+    optional string memberId = 1; //新会长的id
+}
+
+message GetGuildRecordRequest{
+    optional int32 page = 1; //页数
+}
+
+message ImpeachGuildPresidentRequest{
+}
+
+message GetGuildMoneyRequest{
+}
+
+//*****************客户端请求结束***********************
+//结构定义
+message GuildBaseInfo{
+    optional string guildId = 1;    //公会id
+    optional string name = 2;   //公会名字
+    optional int32 level = 3;   //公会等级
+    optional string presidentId = 4;   //会长id
+    optional string presidentName = 5;  //会长名字
+    optional int32 memberNum = 6;   //成员数量
+    optional int32 memberMax = 7;   //成员最大数量
+    optional int32 entryLevel = 8;  //加入等级条件
+    optional int32 guildMode = 9;//公会审核模式 参考枚举GuildMode
+    optional string guildIcon = 10; //公会图标
+    optional int32 presidentPro = 11; //会长职业
+    optional int32 presidentLevel = 12; //会长等级
+    optional int32 entryUpLevel = 13;//加入阶级条件
+    optional string createTime = 14; //创建时间
+
+}
+
+message GuildInfo{
+    optional GuildBaseInfo baseInfo = 1;//基础信息
+    optional int32 applyState = 2; //0:未申请 1:已申请
+}
+
+message ContributeTimesInfo{
+    optional int32 type = 1;    //捐献类型（参考配置）1:金币捐献 2:宝箱捐献
+    optional int32 times = 2;   //今日捐献次数
+    optional int32 maxTimes = 3; //最大捐献次数
+}
+
+message MyContributeInfo{
+    optional int32 currentContribute = 1; //当前贡献值
+    optional int32 totalContribute = 2; //当前公会总贡献值
+    repeated ContributeTimesInfo timesList = 3; //捐献次数
+}
+
+message MyGuildInfo{
+    optional GuildBaseInfo baseInfo = 1;//公会基础信息
+    optional string notice = 2; //公会公告
+    optional int32 fund = 3;    //工会资金
+    optional string qqGroup = 4;   //qq群
+    optional MyContributeInfo myInfo = 5; //我的捐献信息
+    optional int32 changeNamePassedDay = 6;//上次更名几天前
+    repeated OfficeName officeNames = 7; //官职名称
+    optional int32 exp = 8; //公会威望
+}
+
+message MemberInfo{
+    optional string playerId = 1;   //成员id
+    optional int32 pro = 2;     //职业
+    optional string name = 3;   //名字
+    optional int32 level = 4 ;   //等级
+    optional int32 upLevel = 5; //进阶等级
+    optional int32 job = 6;     //职务 参考枚举GuildJob
+    optional string jobName = 7;    //职务名称
+    optional string joinTime = 8;   //入会时间
+    optional int32 currentContribute = 9;   //当前贡献
+    optional int32 totalContribute = 10; //历史贡献
+    optional int32 onlineState = 11;   //在线状态 0: 离线    1:在线
+    optional int32 lastActiveTime = 12; //上次离线时间
+    optional string guildName = 13; // 仙盟名称
+}
+
+message ApplyInfo{
+    optional string applyId = 1;     //申请id
+    optional string playerId = 2;    //申请人id
+    optional int32 pro = 3;     //职业
+    optional string name = 4;   //名字
+    optional int32 level = 5;   //等级
+    optional int32 fightPower = 6; //战力
+    optional int32 upLevel = 7; //进阶等级
+    optional string createTime = 8; //申请创建时间
+}
+
+message CreateGuildResponse{
+    required int32  s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional MyGuildInfo s2c_guildInfo = 3;
+}
+
+message GetGuildListResponse {
+    required int32  s2c_code = 1;
+    optional string s2c_msg= 2;
+    repeated GuildInfo s2c_guildList = 3;
+}
+
+message JoinGuildResponse{
+    required int32  s2c_code = 1;
+    optional string s2c_msg= 2;
+}
+
+message JoinGuildOfPlayerResponse{
+    required int32  s2c_code = 1;
+    optional string s2c_msg= 2;
+}
+
+//邀请加入公会
+message InvitePlayerJoinMyGuildResponse{
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+};
+
+//同意和拒绝邀请
+message AgreeOrRefuseInviteResponse{
+    required int32  s2c_code = 1;
+    optional string s2c_msg = 2;
+};
+
+message DealApplyResponse{
+    required int32  s2c_code = 1;
+    optional string s2c_msg= 2;
+}
+
+message GetMyGuildInfoResponse{
+    required int32  s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional MyGuildInfo s2c_guildInfo = 3;
+}
+
+message GetMyGuildMembersResponse{
+    required int32  s2c_code = 1;
+    optional string s2c_msg= 2;
+    repeated MemberInfo s2c_memberList = 3;
+    optional int32 s2c_leftKickNum = 4; //今日剩余踢人次数
+}
+
+message GetApplyListResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    repeated ApplyInfo s2c_applyList = 3;
+}
+
+message SetGuildInfoResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+}
+
+message SetGuildQQGroupResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+}
+
+message ExitGuildResponse{//退出公会
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+}
+
+message KickMemberResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional int32 s2c_leftKickNum = 3;//今日剩余踢人次数
+}
+
+message UpgradeGuildLevelResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional MyGuildInfo s2c_guildInfo = 3;
+}
+
+message ChangeGuildNoticeResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional string s2c_notice = 3;
+};
+
+message ChangeGuildNameResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+};
+
+message ChangeOfficeNameResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+}
+
+message ContributeToGuildResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional MyGuildInfo s2c_guildInfo = 3;
+}
+
+message SetMemberJobResponse{
+     required int32 s2c_code = 1;
+     optional string s2c_msg= 2;
+}
+
+message TransferPresidentResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    repeated MemberInfo s2c_memberList = 3;
+    optional MyGuildInfo s2c_guildInfo = 4;
+}
+
+message RoleInfo{
+    optional int32 pro = 1;
+    optional string name = 2;
+}
+
+message RecordInfo{
+    optional RoleInfo role1 = 1;//主动角色1
+    optional RoleInfo role2 = 2;//被动角色2
+    optional int32 resultNum = 3;//结果值
+    optional string resultStr = 4;//结果字符串
+    optional string time = 5; //时间
+    optional int32 recordType = 6; //动态类型
+    optional string build = 7; //建筑名称
+}
+
+message GetGuildRecordResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional int32 s2c_page = 3;
+    repeated RecordInfo s2c_recordList = 4;
+}
+
+message ImpeachGuildPresidentResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional int32 isNew = 3;//如果成功，是否是发起人，0：投票人 1：发起人
+}
+
+message GetGuildMoneyResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional int32 depositCount = 3; //存入次数
+    optional int32 depositCountMax = 4;
+}
+
+message JoinGuildDungeonRequest {
+    required int32 c2s_type = 1;  //1：重试，0：不重试
+}
+
+message JoinGuildDungeonResponse {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_type = 3;  //1：重试，0：不重试
+}
+
+message LeaveGuildDungeonRequest {
+}
+
+message LeaveGuildDungeonResponse {
+    required int32                  s2c_code = 1;
+    optional string                 s2c_msg = 2;
+}
+
+service guildHandler{
+    //创建公会
+    rpc createGuildRequest(CreateGuildRequest) returns(CreateGuildResponse);
+    //公会列表
+    rpc getGuildListRequest(GetGuildListRequest) returns(GetGuildListResponse);
+    //加入工会（申请）
+    rpc joinGuildRequest(JoinGuildRequest) returns(JoinGuildResponse);
+    //通过玩家ID,申请对方所在公会
+    rpc joinGuildOfPlayerRequest(JoinGuildOfPlayerRequest) returns(JoinGuildOfPlayerResponse);
+    //通过玩家ID，邀请对方加入自己所在公会
+    rpc invitePlayerJoinMyGuildRequest(InvitePlayerJoinMyGuildRequest) returns(InvitePlayerJoinMyGuildResponse);
+    //同意或拒绝邀请
+    rpc agreeOrRefuseInviteRequest(AgreeOrRefuseInviteRequest) returns(AgreeOrRefuseInviteResponse);
+    //审核申请
+    rpc dealApplyRequest(DealApplyRequest) returns(DealApplyResponse);
+    //我的公会信息
+    rpc getMyGuildInfoRequest(GetMyGuildInfoRequest) returns(GetMyGuildInfoResponse);
+    //我的公会成员列表
+    rpc getMyGuildMembersRequest(GetMyGuildMembersRequest) returns(GetMyGuildMembersResponse);
+    //申请列表
+    rpc getApplyListRequest(GetApplyListRequest) returns(GetApplyListResponse);
+    //设置公会信息(入会条件，审核方式，qq群）
+    rpc setGuildInfoRequest(SetGuildInfoRequest) returns(SetGuildInfoResponse);
+    //设置公会qq群
+    rpc setGuildQQGroupRequest(SetGuildQQGroupRequest) returns(SetGuildQQGroupResponse);
+    //退出公会
+    rpc exitGuildRequest(ExitGuildRequest) returns(ExitGuildResponse);
+    //踢人
+    rpc kickMemberRequest(KickMemberRequest) returns(KickMemberResponse);
+    //公会升级
+    rpc upgradeGuildLevelRequest(UpgradeGuildLevelRequest) returns(UpgradeGuildLevelResponse);
+    //修改公告
+    rpc changeGuildNoticeRequest(ChangeGuildNoticeRequest) returns(ChangeGuildNoticeResponse);
+    //修改公会名字
+    rpc changeGuildNameRequest(ChangeGuildNameRequest) returns(ChangeGuildNameResponse);
+    //修改官职名称
+    rpc changeOfficeNameRequest(ChangeOfficeNameRequest) returns(ChangeOfficeNameResponse);
+    //捐献
+    rpc contributeToGuildRequest(ContributeToGuildRequest) returns(ContributeToGuildResponse);
+    //设置官职
+    rpc setMemberJobRequest(SetMemberJobRequest) returns(SetMemberJobResponse);
+    //会长转让
+    rpc transferPresidentRequest(TransferPresidentRequest) returns(TransferPresidentResponse);
+    //公会动态
+    rpc getGuildRecordRequest(GetGuildRecordRequest) returns(GetGuildRecordResponse);
+    //弹劾会长
+    rpc impeachGuildPresidentRequest(ImpeachGuildPresidentRequest) returns(ImpeachGuildPresidentResponse);
+    //公会相关货币信息
+    rpc getGuildMoneyRequest(GetGuildMoneyRequest) returns(GetGuildMoneyResponse);
+    //公会参加副本
+    rpc joinGuildDungeonRequest(JoinGuildDungeonRequest) returns(JoinGuildDungeonResponse);
+    // 离开副本
+    rpc leaveGuildDungeonRequest(LeaveGuildDungeonRequest) returns(LeaveGuildDungeonResponse);
+}
+
+message GuildRefreshPush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional int32 isIn = 3; //进入公会
+    optional int32 isOut = 4;//退出公会
+    optional int32 job = 5;
+    optional string jobName = 6;
+    optional string guildName = 7;
+    repeated ContributeTimesInfo timesList = 8; //捐献次数
+}
+
+message GuildInvitePush{
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    optional string playerId = 3; //邀请者ID
+    optional string playerName = 4; //邀请者姓名
+    optional string guildId = 5;
+    optional string guildName = 6;
+    optional int32 playerPro = 7; //邀请者职业
+    optional int32 guildLevel = 8; //公会等级
+}
+
+message OnDungeonEndPush {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    required int32 state = 3; // 1：通关，0：未通关
+    required int32 leftTime = 4;
+    repeated item.ItemDetail awardItem = 5;
+}
+
+message GuildDungeonOpenPush {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+}
+
+message GuildDungeonPassPush {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    required int32 dungeonCount = 3;
+}
+
+message GuildDungeonPlayerNumPush {
+
+    required int32 s2c_code = 1;
+    optional string s2c_msg= 2;
+    required int32 playerNum = 3;
+}
+
+service guildPush{
+    rpc guildRefreshPush(GuildRefreshPush) returns(Void);
+    //收到邀请推送
+    rpc guildInvitePush(GuildInvitePush) returns(Void);
+
+    rpc onDungeonEndPush(OnDungeonEndPush) returns(Void);
+
+    rpc guildDungeonOpenPush(GuildDungeonOpenPush) returns(Void);
+
+    rpc guildDungeonPassPush(GuildDungeonPassPush) returns(Void);
+
+    rpc guildDungeonPlayerNumPush(GuildDungeonPlayerNumPush) returns(Void);
+
+}

@@ -1,0 +1,668 @@
+//***************************************************************************
+//  作者= 卢松洁
+//  创建时间= 2015-08-27
+//  用途= 玩家处理器
+//***************************************************************************
+package pomelo.area;
+import 'common.proto';
+import 'player.proto';
+import 'item.proto';
+
+
+//进入场景请求
+message EnterSceneRequest{
+  optional string c2s_instanceId = 1;
+}
+
+//进入场景返回
+message EnterSceneResponse{
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+  optional string s2c_instanceId = 3;
+  optional int32 s2c_areaIndex = 4;
+}
+
+/*
+//获取角色信息通知
+message QueryRoleInfoNotify {
+  required string c2s_playerId = 1;
+  required int32 c2s_type = 2;
+}
+*/
+//战斗事件通知
+message BattleEventNotify{
+  required bytes c2s_data  = 1;
+}
+
+/*
+//复活帮助开始请求
+message ReviveHelpBeginRequest {
+  required string c2s_playerId = 1;
+}
+
+//复活帮助开始返回
+message ReviveHelpBeginResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+*/
+/*
+//复活帮助结束请求
+message ReviveHelpEndRequest {
+  required int32 c2s_type = 1;
+}
+
+//复活帮助结束返回
+message ReviveHelpEndResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+*/
+//拾取道具请求
+message PickItemRequest {
+  required string c2s_instanceId = 1;
+  required string c2s_itemId = 2;
+}
+
+//拾取道具返回
+message PickItemResponse {
+  required int32 s2c_code =  1;
+  optional string s2c_msg =  2;
+}
+
+//切换到具体场景的 xy 坐标
+message ChangeAreaXYRequest {
+  required int32 mapId = 1;
+  optional int32 posx = 2;
+  optional int32 posy = 3;
+  optional string instanceId = 4;
+}
+message ChangeAreaXYResponse {
+  required int32 s2c_code =  1;
+  optional string s2c_msg =  2;
+}
+
+//当玩家已经在目标任务路点时，点击任务寻路时触发 
+message ChangeAreaByTaskRequest {
+  required int32 mapId = 1;
+  required int32 taskId = 2;
+  required int32 posx = 3;
+  required int32 posy = 4;
+  optional int32 point = 5;
+}
+message ChangeAreaByTaskResponse {
+  required int32 s2c_code =  1;
+  optional string s2c_msg =  2;
+}
+
+//切换场景请求
+message ChangeAreaRequest {
+  required string c2s_pointId = 1;
+  required int32 c2s_type = 2;//0:普通进入，1：收到弹框点确认进副本
+}
+//切换场景返回
+message ChangeAreaResponse {
+  required int32 s2c_code =  1;
+  optional string s2c_msg =  2;
+  optional string s2c_enterTips = 3;
+}
+
+//切换场景请求
+message TransByAreaIdRequest {
+  required int32 c2s_areaId = 1;
+}
+
+//切换场景返回
+message TransByAreaIdResponse {
+  required int32 s2c_code =  1;
+  optional string s2c_msg =  2;
+}
+
+message TransByInstanceIdRequest {
+  required string c2s_instanceId = 1;
+}
+
+message TransByInstanceIdResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 离开场景请求
+message LeaveAreaRequest {
+}
+
+message LeaveAreaResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+//查询loadway请求
+message QueryLoadWayRequest {
+  required int32 c2s_areaId = 1;
+  required string c2s_pointId = 2;
+}
+
+//查询loadway返回
+message QueryLoadWayResponse {
+  required int32 s2c_code =  1;
+  optional string s2c_msg =  2;
+  optional string s2c_pointId =  3;
+}
+
+//最近接触请求
+message RecentContactsRequest {
+  repeated string c2s_ids = 1;
+}
+
+//最近接触详情
+message recentContactInfo {
+  required string id = 1;
+  required string name = 2;
+  required int32 level = 3;
+  required int32 pro = 4;
+  required int32 isFriend = 5;
+}
+//最近接触返回
+message RecentContactsResponse {
+  required int32 s2c_code =  1;
+  repeated recentContactInfo s2c_data = 2;
+  optional string s2c_msg = 3;
+}
+
+
+
+//日常活动奖励基础数据
+message RewardBasicData {
+  required int32 templateId =  1;
+  required int32 num =  2;
+  required int32 icon =  3;
+  required int32 quality =  4;
+}
+
+//日常活动奖励
+message DailyReward   {
+  required int32 id =  1;
+  repeated RewardBasicData rewards =  2;
+  required int32 score =  3;
+  required int32 isGet =  4;
+}
+
+//日常活动详情
+message DailyActivity{
+  required int32 id =  1;
+  required string name =  2;
+  required int32 score =  3;
+  required int32 scoreLimit =  4;
+  required string rule =  5;
+  required int32 target =  6;
+  required int32 level =  7;
+  required int32 sort =  8;
+};
+
+//日常活动详情列表
+message DailyActivities {
+  required int32 totalScore = 1;
+  repeated DailyActivity dayActivities =  2;
+  repeated DailyReward dayReward =  3;
+}
+
+//战斗事件推送
+message BattleEventPush {
+  required string s2c_name = 1;
+  required bytes s2c_data = 2;
+}
+
+//战斗场景切换推送
+message BattleClearPush {
+  required string s2c_name = 1;
+}
+
+//脚本剧情类型
+message SuperScriptType{
+  required int32 type = 1;
+  required int32 number = 2; // 0:不显示 1:显示不带数字的红点 2-n:显示数字
+}
+
+//脚本剧情推送
+message SuperScriptPush{
+  repeated SuperScriptType s2c_data = 2;
+}
+
+//切换地图推送
+message ChangeAreaPush  {
+   required int32 s2c_mapId = 2;
+   required int32 s2c_sceneId = 3;
+   required int32 s2c_sceneType = 4;
+   required int32 s2c_sceneUseAgent = 5; //能否吃药剂
+   required int32 s2c_changePkType = 6; //能否改变pk模式
+   required int32 s2c_rideMount = 7; //能否骑马
+   required string s2c_instanceId = 8; //场景实例id
+}
+
+//pk相关
+message ChangPkModelRequest{
+    required int32 c2s_model = 1;
+}
+message ChangPkModelRespone{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional int32 s2c_currentModel = 3;
+}
+
+// 复活相关
+// 发送坐标
+message ReliveSendPosRequest {
+};
+
+message ReliveSendPosResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+// 复活
+message ReliveRequest {
+    required int32 type = 1;	// 0：安全复活；1：立即复活
+    optional int32 autoPay = 2;	// 1：付费不再弹框
+}
+
+message ReliveResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+}
+
+message GetAreaLinesRequest {
+}
+
+message AreaLineData {
+   required string instanceId = 1;
+   required int32 state = 2;  // 0 空闲 1 繁忙 2爆满
+   required int32 index = 3;
+}
+
+message GetAreaLinesResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+   repeated AreaLineData s2c_data = 3;
+}
+
+
+message LookUpOtherPlayerRequest {
+    required string c2s_playerId = 1;
+    required int32 c2s_type = 2; // 1-人物属性 2-战力属性
+}
+
+message LookUpOtherPlayerResponse {
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    optional player.LookUpPlayer s2c_data = 3;
+}
+
+message AgreeRebirthRequest {
+
+}
+
+message AgreeRebirthResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message CDKRequest{
+    required string c2s_cdk = 1;
+    required int32  c2s_channel = 2;
+}
+
+message CDKResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message TransportRequest {
+    required int32 c2s_transportId = 1;
+}
+
+message TransportResponse {
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+
+message CustomConfigRequest{
+   required string c2s_key = 1;
+   required string c2s_value = 2;
+}
+
+message CustomConfigResponse{
+   required int32 s2c_code = 1;
+   optional string s2c_msg = 2;
+}
+/*
+message AgoraDynamicKeyRequest{
+    required string c2s_channelName = 1;
+    optional int32 c2s_uid = 2;
+}
+
+message AgoraDynamicKeyResponse{
+    required int32 s2c_code = 1;
+    optional string s2c_msg = 2;
+    required string s2c_key = 3;
+    required string s2c_channelName = 4;
+    optional int32 s2c_uid = 5;
+}
+*/
+message SimulateDropByTcRequest{
+	required string c2s_tcCode = 1;
+	required int32 c2s_tcCount = 2;
+	required int32 c2s_tcLevel = 3;
+}
+
+message SimulateDropByTcResponse{
+	required int32   s2c_code = 1;
+	optional string  s2c_msg = 2;
+	optional int32   s2c_runNum = 3;	//执行成功次数
+	optional int32   s2c_succPer = 4;	
+}
+/*
+message GotoProcessRequest{
+	required string s2c_id = 1;
+}
+
+message GotoProcessResponse{
+	required int32   s2c_code = 1;
+	optional string  s2c_msg = 2;
+}
+*/
+message GetPlayerPositionRequest{
+	required string s2c_playerId = 1;
+}
+
+message GetPlayerPositionResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional int32 s2c_areaId = 3;
+    optional int32 s2c_templateID = 4;
+    optional string s2c_instanceId = 5;
+	optional int32 s2c_targetX = 6;
+    optional int32 s2c_targetY = 7;
+}
+
+message UpgradeClassRequest{
+
+}
+
+message UpgradeClassResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+}
+
+message GetClassEventConditionRequest{
+}
+
+message GetClassEventConditionResponse{
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional int32 s2c_flag = 3; //1表示满足
+}
+
+message PayGiftStatePush{
+	
+}
+
+// 客户端首次资源加载好了
+message ClientReadyRequest {
+  
+}
+
+message ClientReadyResponse {
+  required int32 s2c_code = 1;
+  optional string s2c_msg = 2;
+}
+
+// 请求兑换属性信息请求
+message ExchangePropertyInfoRequest {}
+message ExchangePropertyInfoResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional int32 count 	= 3;//兑换次数
+}
+
+// 兑换属性请求
+message ExchangePropertyRequest {
+	required int32 type = 1; //兑换类型 1=经验兑换，2=修为兑换
+}
+message ExchangePropertyResponse {
+	required int32 s2c_code = 1;
+	optional string s2c_msg = 2;
+	optional int32 count 	= 3;//兑换次数
+}
+
+//角色处理器
+service playerHandler {
+    //获取角色坐标
+  rpc getPlayerPositionRequest(GetPlayerPositionRequest) returns (GetPlayerPositionResponse);
+
+    //进入场景请求
+  rpc transportRequest(TransportRequest) returns (TransportResponse);
+
+  //进入场景请求
+  rpc enterSceneRequest(EnterSceneRequest) returns (EnterSceneResponse);
+  
+  //查询loadway
+  rpc queryLoadWayRequest(QueryLoadWayRequest) returns(QueryLoadWayResponse);
+  
+  //查询角色信息通知
+  // rpc queryRoleInfoNotify(QueryRoleInfoNotify) returns(Void);
+
+  //开始复活帮助
+  // rpc reviveHelpBeginRequest(ReviveHelpBeginRequest) returns(ReviveHelpBeginResponse);
+ 
+  //结束复活帮助
+  // rpc reviveHelpEndRequest(ReviveHelpEndRequest) returns(ReviveHelpEndResponse);
+ 
+  //拾取道具
+  rpc pickItemRequest(PickItemRequest) returns(PickItemResponse);
+ 
+  //切换场景
+  rpc changeAreaRequest(ChangeAreaRequest) returns(ChangeAreaResponse);
+
+  rpc transByAreaIdRequest(TransByAreaIdRequest) returns(TransByAreaIdResponse);
+
+  //切换到指定的场景和坐标
+  rpc changeAreaXYRequest(ChangeAreaXYRequest) returns(ChangeAreaXYResponse);
+  
+  //当玩家已经在目标任务路点时，点击任务寻路时触发
+  rpc changeAreaByTaskRequest(ChangeAreaByTaskRequest) returns(ChangeAreaByTaskResponse);
+
+  //获取最近接触
+  rpc recentContactsRequest(RecentContactsRequest) returns(RecentContactsResponse);
+
+  //战斗事件通知
+  rpc battleEventNotify(BattleEventNotify) returns (Void);
+
+  // 请求改变pk模式
+  rpc ChangePkModelRequest(ChangPkModelRequest) returns (ChangPkModelRespone);
+
+  // 发送坐标
+  rpc reliveSendPosRequest(ReliveSendPosRequest) returns(ReliveSendPosResponse);
+
+  // 复活
+  rpc reliveRequest(ReliveRequest) returns(ReliveResponse);
+
+  // 场景分线
+  rpc getAreaLinesRequest(GetAreaLinesRequest) returns(GetAreaLinesResponse);
+
+  // 通过instanceId 切线
+  rpc transByInstanceIdRequest(TransByInstanceIdRequest) returns(TransByInstanceIdResponse);
+
+  //  查询其他玩家
+  rpc lookUpOtherPlayerRequest(LookUpOtherPlayerRequest) returns(LookUpOtherPlayerResponse);
+
+  // 接受复活
+  rpc agreeRebirthRequest(AgreeRebirthRequest) returns(AgreeRebirthResponse);
+
+  // cdk
+  rpc cdkRequest(CDKRequest) returns(CDKResponse);
+
+  // 保存客户端自定义数据
+  rpc setCustomConfigRequest(CustomConfigRequest) returns(CustomConfigResponse);
+
+  // 离开场景
+  rpc leaveAreaRequest(LeaveAreaRequest) returns(LeaveAreaResponse);
+
+  //获得动态key
+  // rpc getAgoraDynamicKeyRequest(AgoraDynamicKeyRequest) returns(AgoraDynamicKeyResponse);
+  
+  //掉落模拟器
+  rpc getSimulateDropByTcRequest(SimulateDropByTcRequest) returns(SimulateDropByTcResponse);
+  //界面跳转功能
+  // rpc gotoProcessRequest(GotoProcessRequest) returns(GotoProcessResponse);
+  //请求升级境界
+  rpc upgradeClassRequest(UpgradeClassRequest) returns(UpgradeClassResponse);
+  //请求升级境界的事件是否满足
+  rpc getClassEventConditionRequest(GetClassEventConditionRequest) returns(GetClassEventConditionResponse);
+  // 客户端资源加载完成，服务器开始推送协议
+  rpc clientReadyRequest(ClientReadyRequest) returns(ClientReadyResponse);
+
+    //发送GM命令
+    rpc sendGMCmdRequest (SendGMCmdRequest) returns (SendGMCmdResponse);
+	
+	rpc exchangePropertyInfoRequest(ExchangePropertyInfoRequest) returns (ExchangePropertyInfoResponse);
+	rpc exchangePropertyRequest(ExchangePropertyRequest) returns (ExchangePropertyResponse);
+}
+/*
+message Request {
+  required string id = 1;
+  required int32 type = 2;
+  required string fromPlayerId = 3;
+  required string fromPlayerName = 4;
+}
+*/
+message PlayerDynamicPush {
+  repeated PropertyStruct s2c_data = 2;
+}
+/*
+message PlayerNewRequestPush {
+  required int32 s2c_code = 1;
+  required Request s2c_data = 2;
+}
+*/
+message PlayerRelivePush {
+  required int32 type = 1;			// 1：复活；2：离开
+  required int32 btn = 2; 			// 0：不显示，1：显示按钮可点，2：显示按钮不可点
+  required int32 countDown = 3; 	// 倒计时
+  required int32 op = 4; 			// 0：强化项不可操作，1：强化项可操作
+  required int32 cbType = 5; 		// 0：关闭面板，显示可重新打开的按钮，1：发送复活，2：发送离开
+  optional int32 currCount = 6; 	// 立即复活剩余次数
+  optional int32 totalCount = 7; 	// 立即复活总次数
+  optional int32 cooltime = 8;   	// 复活冷却时间
+  optional string costStr = 9;   	// 立即复活消耗
+  optional int32 payConfirm = 10;   // 1：付费弹框确认
+  optional int32 btnSafe = 11;		// 1：显示安全复活按钮
+  optional int32 btnCity = 12;		// 1：显示回城复活按钮
+  optional int32 btnCurr = 13;		// 1：显示立即复活按钮
+}
+
+message PlayerSaverRebirthPush {
+  required string saverName = 2;
+}
+
+message SimulateDataPush{
+	repeated item.MiniItem s2c_items = 2;
+}
+
+message ClientConfigPush{
+    required string s2c_key = 1;
+    required string s2c_value = 2;
+}
+
+
+message KickPlayerPush {
+    required int32 s2c_reasonType = 2;  //1：切图超时强制踢人，2：服务器维护
+}
+
+message CommonProperty{
+  required string attrName = 1;
+  required int32 value = 2;
+  required int32 isFormat = 3;
+}
+
+message CommonPropertyPush{
+  required int32 s2c_type = 2;
+  repeated CommonProperty s2c_property = 3;
+}
+
+message SuitPropertyUpPush{
+	required int32 s2c_type = 2; // 1:主副手   2:  6件防具   3： 3件饰品
+	required string s2c_msg = 3;
+	repeated CommonProperty s2c_property = 4;
+}
+
+message BuffInfo{
+    optional int32 id = 1;          //属性id,
+    optional int32 value = 2;       //属性值
+    optional int32 isFormat = 3;    //是否是万分比
+    optional int32 expireTime = 4;  //到期时间戳秒
+}
+
+message BuffPropertyPush{
+    repeated BuffInfo buffList = 3; //buff列表
+}
+
+message PlayerBattleAttributePush{
+	repeated AttributeSimple datas = 2;
+}
+
+//发送GM命令请求
+message SendGMCmdRequest {
+  required string c2s_msg = 1;
+}
+
+//发送GM命令返回
+message SendGMCmdResponse {
+  required int32 s2c_code =  1;
+  optional string s2c_msg =  2;
+}
+
+//角色事件推送
+service playerPush{
+
+    // 配置更新
+    rpc clientConfigPush(ClientConfigPush) returns(Void);
+
+	//战斗事件推送
+	rpc battleEventPush(BattleEventPush) returns(Void);
+	
+	//战斗场景切换推送
+	rpc battleClearPush(BattleClearPush) returns(Void);
+	
+	//脚本事件推送
+	rpc onSuperScriptPush(SuperScriptPush) returns(Void);
+	
+	//切换场景事件推送
+	rpc changeAreaPush(ChangeAreaPush) returns(Void);	
+	
+	rpc playerDynamicPush(PlayerDynamicPush) returns(Void);
+	
+	// rpc playerNewRequestPush(PlayerNewRequestPush) returns(Void);
+
+	rpc playerRelivePush(PlayerRelivePush) returns(Void);
+
+    // 别人复活你的push
+	rpc playerSaverRebirthPush(PlayerSaverRebirthPush) returns(Void);
+	
+	//掉落模拟器
+	rpc simulateDropPush(SimulateDataPush) returns(Void);
+
+	rpc kickPlayerPush(KickPlayerPush) returns(Void);
+	
+	rpc suitPropertyUpPush(SuitPropertyUpPush) returns(Void);
+	
+	rpc commonPropertyPush(CommonPropertyPush) returns(Void);
+	//buff列表推送
+	rpc buffPropertyPush(BuffPropertyPush) returns(Void);
+	// 玩家战斗属性
+	rpc playerBattleAttributePush(PlayerBattleAttributePush) returns(Void);
+	// 首冲奖励状态推送
+	rpc payGiftStatePush(PayGiftStatePush) returns(Void);
+
+
+}
+
